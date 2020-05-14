@@ -450,14 +450,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_parte_1_selenium_ide">3.1. Parte 1: Selenium IDE</a></li>
 <li><a href="#_parte_2_selenium_webdriver_y_jenkins">3.2. Parte 2: Selenium WebDriver y Jenkins</a></li>
-<li><a href="#_exportar_a_junit">3.3. Exportar a JUnit</a></li>
-<li><a href="#_ejecutar_en_eclipse_con_firefox_y_chrome">3.4. Ejecutar en Eclipse con Firefox y Chrome</a></li>
-<li><a href="#_configurar_un_driver_headless">3.5. Configurar un driver <em>headless</em></a></li>
-<li><a href="#_ejecución_en_jenkins">3.6. Ejecución en Jenkins</a></li>
 </ul>
 </li>
-<li><a href="#_uso_en_maven">4. Uso en Maven</a></li>
-<li><a href="#_faq_y_resolución_de_problemas_thoubleshouting">5. FAQ y resolución de problemas (<em>thoubleshouting</em>)</a></li>
+<li><a href="#_faq_y_resolución_de_problemas_thoubleshouting">4. FAQ y resolución de problemas (<em>thoubleshouting</em>)</a></li>
 </ul>
 </div>
 </div>
@@ -649,7 +644,7 @@ Tests de aceptación con Selenium.
 <p>Registro de usuario (Caso correcto)</p>
 </li>
 <li>
-<p>Registro de usuario Casos incorrectos)</p>
+<p>Registro de usuario (Casos incorrectos)</p>
 </li>
 <li>
 <p>Login de usuario (Caso correcto)</p>
@@ -658,21 +653,54 @@ Tests de aceptación con Selenium.
 <p>Login de usuario (Casos incorrectos)</p>
 </li>
 <li>
-<p>Editar el perfil de usuario (caso correcto)</p>
+<p>Editar el perfil de usuario logueado (caso correcto)</p>
 </li>
 <li>
-<p>Editar el perfil de usuario (casos incorrectos)</p>
+<p>Editar el perfil de usuario logueado (casos incorrectos)</p>
 </li>
 <li>
-<p>Cambio de contraseña de usuario (Caso correcto)</p>
+<p>Cambio de contraseña de usuario logueado (Caso correcto)</p>
 </li>
 <li>
-<p>Cambio de contraseña de usuario (Casos incorrectos)</p>
+<p>Cambio de contraseña de usuario logueado (Casos incorrectos)</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p>Guardar los test cases en una test suite (formato .side).</p>
+</div>
+<div class="paragraph">
+<p>Puesto que para realizar una prueba exaustiva, cubriendo todos los posibles escenarios, el número de casos de prueba es elevado, la forma de trabajar es repartir las funcionalidades entre los miembros del equipo y así repartir el trabajo: Una persona que haya los tests de Registro de usuario + Editar perfil, y otra los de login de usuario + cambio de contraseña. Para equipos de 3 personas, una el registro, otra el login y otra la edicion de perfil y cambio de contraseña.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Truco para el test Registro de usuario (Caso correcto)</div>
+<div class="paragraph">
+<p>Para que el test de registro de usuario lo podamos ejecutar repetidamente sin que nos de el error de "usuario ya existe", tenemos que usar un email aleatorio en cada ejecución del test. Eso se consigue definiendo una variable en Selenium, llamado al comando <code>execute script</code>, escribiendo la función de JavaScript que genere ese email aleatorio, y guardándolo en una variable que luego usaremos en en paso que escribe el valor en el campo <em>email</em> del registro.</p>
+</div>
+<div class="paragraph">
+<p>El paso sería del test case de Selenium IDE es:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Command: <strong>execute script</strong></p>
+</li>
+<li>
+<p>Target: <code>return "ual-" + Math.floor(Math.random()*1500000)+"@ual.es"`</code></p>
+</li>
+<li>
+<p>Value: <code>emailramdon</code></p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="images/register-email-ramdon.png" alt="register email ramdon">
+</div>
+<div class="title">Fig. 10. Generación de un email aleatorio</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -696,44 +724,41 @@ Tests de aceptación con Selenium.
 </div>
 <div class="sect2">
 <h3 id="_parte_2_selenium_webdriver_y_jenkins">3.2. Parte 2: Selenium WebDriver y Jenkins</h3>
+<div class="sect3">
+<h4 id="_exportar_a_junit">3.2.1. Exportar a JUnit</h4>
 
 </div>
-<div class="sect2">
-<h3 id="_exportar_a_junit">3.3. Exportar a JUnit</h3>
+<div class="sect3">
+<h4 id="_ejecutar_en_eclipse_con_firefox_y_chrome">3.2.2. Ejecutar en Eclipse con Firefox y Chrome</h4>
 
 </div>
-<div class="sect2">
-<h3 id="_ejecutar_en_eclipse_con_firefox_y_chrome">3.4. Ejecutar en Eclipse con Firefox y Chrome</h3>
+<div class="sect3">
+<h4 id="_configurar_un_driver_headless">3.2.3. Configurar un driver <em>headless</em></h4>
 
 </div>
-<div class="sect2">
-<h3 id="_configurar_un_driver_headless">3.5. Configurar un driver <em>headless</em></h3>
+<div class="sect3">
+<h4 id="_ejecución_en_jenkins">3.2.4. Ejecución en Jenkins</h4>
 
 </div>
-<div class="sect2">
-<h3 id="_ejecución_en_jenkins">3.6. Ejecución en Jenkins</h3>
-
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_uso_en_maven">4. Uso en Maven</h2>
+<h2 id="_faq_y_resolución_de_problemas_thoubleshouting">4. FAQ y resolución de problemas (<em>thoubleshouting</em>)</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>If you&#8217;re using Maven, you will find more information <a href="https://www.selenium.dev/maven">here</a>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Mas información sobre <a href="https://www.selenium.dev/maven">Maven con Selenium</a>.</p>
+</li>
+</ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_faq_y_resolución_de_problemas_thoubleshouting">5. FAQ y resolución de problemas (<em>thoubleshouting</em>)</h2>
-<div class="sectionbody">
-
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-14 11:23:32 +0200
+Last updated 2020-05-14 13:18:44 +0200
 </div>
 </div>
 </body>

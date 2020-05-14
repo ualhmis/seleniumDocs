@@ -143,15 +143,32 @@ Os dejo aquí tres ejemplos de plantillas de aplicación web que implementan un 
 Crear en Selenium los test cases necesarios para probar, tanto escenarios correctos como escenarios de error, de las siguientes funcionalidades:
 
 - Registro de usuario (Caso correcto)
-- Registro de usuario Casos incorrectos)
+- Registro de usuario (Casos incorrectos)
 - Login de usuario (Caso correcto)
 - Login de usuario (Casos incorrectos)
-- Editar el perfil de usuario (caso correcto)
-- Editar el perfil de usuario (casos incorrectos)
-- Cambio de contraseña de usuario (Caso correcto)
-- Cambio de contraseña de usuario (Casos incorrectos)
+- Editar el perfil de usuario logueado (caso correcto)
+- Editar el perfil de usuario logueado (casos incorrectos)
+- Cambio de contraseña de usuario logueado (Caso correcto)
+- Cambio de contraseña de usuario logueado (Casos incorrectos)
 
 Guardar los test cases en una test suite (formato .side).
+
+Puesto que para realizar una prueba exaustiva, cubriendo todos los posibles escenarios, el número de casos de prueba es elevado, la forma de trabajar es repartir las funcionalidades entre los miembros del equipo y así repartir el trabajo: Una persona que haya los tests de Registro de usuario + Editar perfil, y otra los de login de usuario + cambio de contraseña. Para equipos de 3 personas, una el registro, otra el login y otra la edicion de perfil y cambio de contraseña.
+
+.Truco para el test Registro de usuario (Caso correcto)
+****
+Para que el test de registro de usuario lo podamos ejecutar repetidamente sin que nos de el error de "usuario ya existe", tenemos que usar un email aleatorio en cada ejecución del test. Eso se consigue definiendo una variable en Selenium, llamado al comando `execute script`, escribiendo la función de JavaScript que genere ese email aleatorio, y guardándolo en una variable que luego usaremos en en paso que escribe el valor en el campo _email_ del registro. 
+
+El paso sería del test case de Selenium IDE es: 
+
+- Command: *execute script*
+- Target: `return "ual-" + Math.floor(Math.random()*1500000)+"@ual.es"``
+- Value: `emailramdon`
+
+.Generación de un email aleatorio
+image::register-email-ramdon.png[role="thumb", align="center"]
+
+****
 
 ==== Desplegar la aplicación en Azure
 
@@ -167,23 +184,18 @@ Para ello simplemente tendrás que cambiar la URL base.
 
 === Parte 2: Selenium WebDriver y Jenkins
 
-=== Exportar a JUnit
+==== Exportar a JUnit
 
-=== Ejecutar en Eclipse con Firefox y Chrome
+==== Ejecutar en Eclipse con Firefox y Chrome
 
-=== Configurar un driver _headless_
+==== Configurar un driver _headless_
 
-=== Ejecución en Jenkins
-
-
+==== Ejecución en Jenkins
 
 
 
-
-== Uso en Maven
-
-If you're using Maven, you will find more information https://www.selenium.dev/maven[here].
 
 
 == FAQ y resolución de problemas (_thoubleshouting_)
 
+- Mas información sobre https://www.selenium.dev/maven[Maven con Selenium].
