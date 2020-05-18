@@ -36,12 +36,12 @@ Joaquín Cañadas <jjcanada@ual.es>
 
 [abstract]
 ////
-COLOCA A CONTINUACION EL RESUMEN
+COLOCA A CONTINUACIÓN EL RESUMEN
 ////
 Tests de aceptación con Selenium.
 
 ////
-COLOCA A CONTINUACION LOS OBJETIVOS
+COLOCA A CONTINUACIÓN LOS OBJETIVOS
 ////
 .Objetivos
 * 
@@ -134,7 +134,7 @@ Recuerda que es necesario crear casos de prueba para:
 
 Os dejo aquí tres ejemplos de plantillas de aplicación web que implementan un login y registro de usuarios. 
 
-. Elegid una de las plantillas. Si deseais usar alguna otra plantilla en otra tecnología, comentádmelo antes por si implementa la funcionalidad básica requerida.
+. Elegid una de las plantillas. Si deseáis usar alguna otra plantilla en otra tecnología, comentádmelo antes por si implementa la funcionalidad básica requerida.
 
 . En local, crear el proyecto basado en la plantilla. Probar que funciona.
 
@@ -153,7 +153,7 @@ Crear en Selenium los test cases necesarios para probar, tanto escenarios correc
 
 Guardar los test cases en una test suite (formato .side).
 
-Puesto que para realizar una prueba exaustiva, cubriendo todos los posibles escenarios, el número de casos de prueba es elevado, la forma de trabajar es repartir las funcionalidades entre los miembros del equipo y así repartir el trabajo: Una persona que haya los tests de Registro de usuario + Editar perfil, y otra los de login de usuario + cambio de contraseña. Para equipos de 3 personas, una el registro, otra el login y otra la edicion de perfil y cambio de contraseña.
+Puesto que para realizar una prueba exhaustiva, cubriendo todos los posibles escenarios, el número de casos de prueba es elevado, la forma de trabajar es repartir las funcionalidades entre los miembros del equipo y así repartir el trabajo: Una persona que haya los tests de Registro de usuario + Editar perfil, y otra los de login de usuario + cambio de contraseña. Para equipos de 3 personas, una el registro, otra el login y otra la edición de perfil y cambio de contraseña.
 
 .Truco para el test Registro de usuario (Caso correcto)
 ****
