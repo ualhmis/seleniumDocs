@@ -274,16 +274,15 @@ image::selenium-ide-change-selector-xpath.png[role="thumb", align="center"]
 	  driver = new ChromeDriver();
 ----
 
-Verás que su 
-
-
-
+Verás que se abre Chrome y se ejecuta el mismo test.
 
 ==== Configurar un driver _headless_
 
+****
+En desarrollo de aquí en adelante... Gracias por vuestra paciencia.
+****
+
 ==== Ejecución en Jenkins
-
-
 
 
 
