@@ -724,20 +724,180 @@ Tests de aceptación con Selenium.
 </div>
 <div class="sect2">
 <h3 id="_parte_2_selenium_webdriver_y_jenkins">3.2. Parte 2: Selenium WebDriver y Jenkins</h3>
-<div class="sidebarblock">
-<div class="content">
 <div class="paragraph">
-<p>En desarrollo de aquí en adelante&#8230;&#8203;</p>
-</div>
-</div>
+<p>WebDriver permite ejecutar los tests de Selenium como tests de JUnit, permitiendo así su ejecución en Eclipse y Jenkins.</p>
 </div>
 <div class="sect3">
 <h4 id="_exportar_a_junit">3.2.1. Exportar a JUnit</h4>
-
+<div class="paragraph">
+<p>Exporta a formato JUnit los tests grabados con Selenium IDE. Tendrás que hacerlo uno por uno, ya que por ahora Selenium IDE no permite exportarlos todos a la vez.</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="images/selenium-ide-export-test.png" alt="selenium ide export test">
+</div>
+<div class="title">Fig. 11. Exportar test case</div>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="images/selenium-ide-export-test-junit.png" alt="selenium ide export test junit">
+</div>
+<div class="title">Fig. 12. Exportar formato JUnit</div>
+</div>
+<div class="paragraph">
+<p>Guarda los archivos <code>.java</code> en una carpeta. A continuación los importaremos en Eclipse.</p>
+</div>
 </div>
 <div class="sect3">
-<h4 id="_ejecutar_en_eclipse_con_firefox_y_chrome">3.2.2. Ejecutar en Eclipse con Firefox y Chrome</h4>
+<h4 id="_cross_browser_testing_con_firefox_y_chrome_en_eclipse">3.2.2. Cross-browser testing con Firefox y Chrome en Eclipse</h4>
+<div class="paragraph">
+<p>Partiendo del repositorio <a href="https://github.com/ualhmis/seleniumWebDriverJUnit" class="bare">https://github.com/ualhmis/seleniumWebDriverJUnit</a> realizar los siguientes pasos:</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Los test de JUnit exportados por Selenium IDE están en formato JUnit 4. Para evitar más modificaciones de las necesarias, la dependencia en el pom del proyecto está configurada a JUnit 4.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Un miembro del equipo clona el repositorio (previamente forkeado). Siguiendo el método de trabajo en equipo, el otro miembro forkea el repositorio del compañero y propondrá cambios mediante pull request.</p>
+</li>
+<li>
+<p>Cada miembro del equipo crea una carpeta <code>drivers</code> en el proyecto en Eclipse. Y añade la carpeta al <code>.gitginore</code> para que el contenido no se guarde en el repositorio.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">.gitignore</div>
+<div class="content">
+<pre class="rouge highlight"><code>/bin/
+/target/
+/drivers/</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Es importante que los drivers específicos de los navegadores no se guarden en GitHub, ya que son archivos ejecutables (dependencias) que no deben versionarse. Cuando los necesites, tendrás que descargarlos.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>En es carpeta descarga los drivers de los navegadores Firefox y Chrome. Para ello:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Descarga y descomprime Firefox driver (Gecko Driver) de <a href="https://github.com/mozilla/geckodriver/releases" class="bare">https://github.com/mozilla/geckodriver/releases</a> eligiendo la versión adecuada para tu sistema.</p>
+</li>
+<li>
+<p>Descarga y descomprime Chrome driver de <a href="https://sites.google.com/a/chromium.org/chromedriver/downloads" class="bare">https://sites.google.com/a/chromium.org/chromedriver/downloads</a> eligiendo la versión del driver correspondiente a la versión de Chrome que tengas instalado en tu sistema.</p>
+</li>
+<li>
+<p>Con estos dos drivers es suficiente, pero puedes ver como descargar los drivers de otros navegadores aquí: <a href="https://www.selenium.dev/documentation/en/webdriver/driver_requirements/">Driver requirements</a>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="4">
+<li>
+<p>Crea un nuevo paquete en la carpeta test de nombre <code>org.ual.hmis.nombreEquipo</code> (sustituyendo <code>nombreEquipo</code> por el nombre de tu equipo). Ahí guarda los archivos <code>.java</code> exportados de Selenium IDE.</p>
+</li>
+<li>
+<p>A continuación se indican unas mínimas modificaciones, empezando por:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Añadir el paquete a cada archivo <code>.java</code></p>
+</li>
+<li>
+<p>En el método <code>setUp()</code>, añade justo al principio las sentencias para configurar la ruta a cada driver:</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java">  <span class="nd">@Before</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
 
+	<span class="nc">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"webdriver.gecko.driver"</span><span class="o">,</span> <span class="s">"drivers/geckodriver-v0.24.0-win64/geckodriver.exe"</span><span class="o">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+
+	<span class="nc">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"webdriver.chrome.driver"</span><span class="o">,</span> <span class="s">"drivers/chromedriver_win32/chromedriver.exe"</span><span class="o">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="o">...</span>
+  <span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Son rutas relativas en el proyecto, dentro de <code>drivers</code>. Usa la rutas adecuada en tu caso.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Idem</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="6">
+<li>
+<p>Ejecuta los tests como JUnit Test. Verás que se abre Firefox y ejecuta los test automáticamente.</p>
+</li>
+<li>
+<p>Si un test falla, revisa el código y los pasos incluidos. Puede haber pasos que sobren, o que al exportarlos a JUnit tengas que adaptarlos a Java. Un ejemplo será el código JavaScript que genera un número aleatorio en el email del registro de un nuevo usuario. También los fallos se pueden deber al selector que ha tomado Selenium IDE. El selector identifica el elemento dentro de la página web a partir del DOM. Ve a Selenium IDE y cambia el selector, en la propiedad <code>target</code>; es recomendable utilizar la opción que identifica el elemento por <code>xpath</code> y el texto que queremos seleccionar. Por ejemplo, en un comando <code>click</code>:</p>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="images/selenium-ide-change-selector-xpath.png" alt="selenium ide change selector xpath">
+</div>
+<div class="title">Fig. 13. Cambiar el selector de un elemento de la página</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="8">
+<li>
+<p>A continuación vamos a probar en otro navegador, haciendo así lo que se denomina <a href="https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Introduction"><em>cross-browser testing</a></em>. En los archivos <code>.java</code> cambia el driver a Chrome:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java">  <span class="nd">@Before</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+      <span class="o">...</span>
+      <span class="c1">// driver = new FirefoxDriver();</span>
+	  <span class="n">driver</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ChromeDriver</span><span class="o">();</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Verás que su</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_configurar_un_driver_headless">3.2.3. Configurar un driver <em>headless</em></h4>
@@ -765,8 +925,219 @@ Tests de aceptación con Selenium.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-18 09:56:31 +0200
+Last updated 2020-05-20 13:00:00 +0200
 </div>
 </div>
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge .cm {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cp {
+  color: #999999;
+  font-weight: bold;
+}
+pre.rouge .c1 {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cs {
+  color: #999999;
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cpf {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+pre.rouge .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+pre.rouge .ge {
+  color: #000000;
+  font-style: italic;
+}
+pre.rouge .gr {
+  color: #aa0000;
+}
+pre.rouge .gh {
+  color: #999999;
+}
+pre.rouge .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+pre.rouge .go {
+  color: #888888;
+}
+pre.rouge .gp {
+  color: #555555;
+}
+pre.rouge .gs {
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #aaaaaa;
+}
+pre.rouge .gt {
+  color: #aa0000;
+}
+pre.rouge .kc {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kd {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kn {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kp {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kr {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kt {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .k, pre.rouge .kv {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .mf {
+  color: #009999;
+}
+pre.rouge .mh {
+  color: #009999;
+}
+pre.rouge .il {
+  color: #009999;
+}
+pre.rouge .mi {
+  color: #009999;
+}
+pre.rouge .mo {
+  color: #009999;
+}
+pre.rouge .m, pre.rouge .mb, pre.rouge .mx {
+  color: #009999;
+}
+pre.rouge .sb {
+  color: #d14;
+}
+pre.rouge .sc {
+  color: #d14;
+}
+pre.rouge .sd {
+  color: #d14;
+}
+pre.rouge .s2 {
+  color: #d14;
+}
+pre.rouge .se {
+  color: #d14;
+}
+pre.rouge .sh {
+  color: #d14;
+}
+pre.rouge .si {
+  color: #d14;
+}
+pre.rouge .sx {
+  color: #d14;
+}
+pre.rouge .sr {
+  color: #009926;
+}
+pre.rouge .s1 {
+  color: #d14;
+}
+pre.rouge .ss {
+  color: #990073;
+}
+pre.rouge .s, pre.rouge .sa, pre.rouge .dl {
+  color: #d14;
+}
+pre.rouge .na {
+  color: #008080;
+}
+pre.rouge .bp {
+  color: #999999;
+}
+pre.rouge .nb {
+  color: #0086B3;
+}
+pre.rouge .nc {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .no {
+  color: #008080;
+}
+pre.rouge .nd {
+  color: #3c5d5d;
+  font-weight: bold;
+}
+pre.rouge .ni {
+  color: #800080;
+}
+pre.rouge .ne {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nl {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nn {
+  color: #555555;
+}
+pre.rouge .nt {
+  color: #000080;
+}
+pre.rouge .vc {
+  color: #008080;
+}
+pre.rouge .vg {
+  color: #008080;
+}
+pre.rouge .vi {
+  color: #008080;
+}
+pre.rouge .nv, pre.rouge .vm {
+  color: #008080;
+}
+pre.rouge .ow {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .o {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .w {
+  color: #bbbbbb;
+}
+pre.rouge {
+  background-color: #f8f8f8;
+}
+</style>
 </body>
 </html>
