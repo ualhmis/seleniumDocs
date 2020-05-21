@@ -446,13 +446,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#_introducción_a_selenium">1. Introducción a Selenium</a></li>
 <li><a href="#_selenium_ide">2. Selenium IDE</a></li>
-<li><a href="#_pasos_a_realizar">3. Pasos a realizar</a>
+<li><a href="#_parte_1_selenium_ide">3. Parte 1: Selenium IDE</a>
 <ul class="sectlevel2">
-<li><a href="#_parte_1_selenium_ide">3.1. Parte 1: Selenium IDE</a></li>
-<li><a href="#_parte_2_selenium_webdriver_y_jenkins">3.2. Parte 2: Selenium WebDriver y Jenkins</a></li>
+<li><a href="#_aplicación_web_login_y_registro_de_usuarios">3.1. Aplicación web login y registro de usuarios</a></li>
+<li><a href="#_creación_de_test_selenium">3.2. Creación de test Selenium</a></li>
+<li><a href="#_desplegar_la_aplicación_en_azure">3.3. Desplegar la aplicación en Azure</a></li>
+<li><a href="#_adaptar_los_test_a_la_url_de_despliegue">3.4. Adaptar los test a la URL de despliegue</a></li>
 </ul>
 </li>
-<li><a href="#_faq_y_resolución_de_problemas_thoubleshouting">4. FAQ y resolución de problemas (<em>thoubleshouting</em>)</a></li>
+<li><a href="#_parte_2_selenium_webdriver_y_jenkins">4. Parte 2: Selenium WebDriver y Jenkins</a>
+<ul class="sectlevel2">
+<li><a href="#_exportar_a_junit">4.1. Exportar a JUnit</a></li>
+<li><a href="#_cross_browser_testing_en_eclipse">4.2. Cross-browser testing en Eclipse</a></li>
+<li><a href="#_configurar_un_driver_headless">4.3. Configurar un driver <em>headless</em></a></li>
+<li><a href="#_ejecución_en_jenkins">4.4. Ejecución en Jenkins</a></li>
+</ul>
+</li>
+<li><a href="#_faq_y_resolución_de_problemas_thoubleshouting">5. FAQ y resolución de problemas (<em>thoubleshouting</em>)</a></li>
 </ul>
 </div>
 </div>
@@ -469,12 +479,22 @@ Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</
 Tests de aceptación con Selenium.
 </blockquote>
 </div>
-<div class="paragraph">
+<div class="ulist">
 <div class="title">Objetivos</div>
-<p>*
-*
-*
-*</p>
+<ul>
+<li>
+<p>Comenzar a crear tests de aceptación de aplicaciones web con Selenium IDE.</p>
+</li>
+<li>
+<p>Crear y desplegar una plantilla de aplicación web que implemente un Login y Registro de usuario.</p>
+</li>
+<li>
+<p>Exportar los test de Selenium IDE a Selenium Webdriver y ejecutar en Eclipse con distintos navegadores web (cross-browser testing).</p>
+</li>
+<li>
+<p>Ejecutar los test de Selenium en Jenkins utilizando el navegador en modo <em>headless</em>.</p>
+</li>
+</ul>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -559,7 +579,7 @@ Tests de aceptación con Selenium.
 <div class="title">Fig. 5. Selenium IDE grabando</div>
 </div>
 <div class="paragraph">
-<p>Durante tu interacción con la web que estés probando <strong>SIEMPRE es necesario ir añadiendo <em>asserts</em></strong> o verificaciones para comprobar que lo que muestra la aplicación corresponde con lo esperado.</p>
+<p>Durante tu interacción con la web que estés probando <strong>SIEMPRE es necesario</strong> ir añadiendo <strong><em>asserts</em></strong> o <strong>verificaciones</strong> para comprobar que lo que muestra la aplicación corresponde con lo esperado.</p>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
@@ -613,14 +633,33 @@ Tests de aceptación con Selenium.
 </div>
 </div>
 <div class="sect1">
-<h2 id="_pasos_a_realizar">3. Pasos a realizar</h2>
+<h2 id="_parte_1_selenium_ide">3. Parte 1: Selenium IDE</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_parte_1_selenium_ide">3.1. Parte 1: Selenium IDE</h3>
-<div class="sect3">
-<h4 id="_aplicación_web_login_y_registro_de_usuarios">3.1.1. Aplicación web login y registro de usuarios</h4>
+<h3 id="_aplicación_web_login_y_registro_de_usuarios">3.1. Aplicación web login y registro de usuarios</h3>
 <div class="paragraph">
-<p>Os dejo aquí tres ejemplos de plantillas de aplicación web que implementan un login y registro de usuarios.</p>
+<p>Os dejo aquí tres ejemplos de plantillas de aplicación web, en distintas tecnologías, que implementan un login y registro de usuarios.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Proyecto Login - Opciones</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://docs.microsoft.com/es-es/aspnet/core/tutorials/publish-to-azure-webapp-using-vs?view=aspnetcore-2.2">Creación de una app Login con Visual Studio 2017 y Azure</a>.
+<em>.Net Core + SQL Server + Azure</em></p>
+</li>
+<li>
+<p><a href="https://hellokoding.com/registration-and-login-example-with-spring-xml-configuration-maven-jsp-and-mysql/">Registration and Login with Spring MVC, Spring Security, Spring Data JPA, Hibernate, MySQL, JSP and Bootstrap</a>.
+<em>Java + MySql + Maven</em></p>
+</li>
+<li>
+<p><a href="https://sailsjs.com/get-started">Web App. Extensible project with auth, login, &amp; password recovery</a>.
+<em>Node JS + Sails JS framework</em></p>
+</li>
+</ol>
+</div>
+</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -633,8 +672,8 @@ Tests de aceptación con Selenium.
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_creación_de_test_selenium">3.1.2. Creación de test Selenium</h4>
+<div class="sect2">
+<h3 id="_creación_de_test_selenium">3.2. Creación de test Selenium</h3>
 <div class="paragraph">
 <p>Crear en Selenium los test cases necesarios para probar, tanto escenarios correctos como escenarios de error, de las siguientes funcionalidades:</p>
 </div>
@@ -667,10 +706,10 @@ Tests de aceptación con Selenium.
 </ul>
 </div>
 <div class="paragraph">
-<p>Guardar los test cases en una test suite (formato .side).</p>
+<p>Guardar los test cases en una test suite (formato <code>.side</code>).</p>
 </div>
 <div class="paragraph">
-<p>Puesto que para realizar una prueba exhaustiva, cubriendo todos los posibles escenarios, el número de casos de prueba es elevado, la forma de trabajar es repartir las funcionalidades entre los miembros del equipo y así repartir el trabajo: Una persona que haya los tests de Registro de usuario + Editar perfil, y otra los de login de usuario + cambio de contraseña. Para equipos de 3 personas, una el registro, otra el login y otra la edición de perfil y cambio de contraseña.</p>
+<p>Puesto que para realizar una prueba exhaustiva, cubriendo todos los posibles escenarios, el número de casos de prueba es elevado, la forma de trabajar es dividir las funcionalidades entre los miembros del equipo y así repartir el trabajo: Una persona que haga los tests de <strong>Registro de usuario + Editar perfil</strong>, y otra los de <strong>login de usuario + cambio de contraseña</strong>. Para equipos de 3 personas, una el registro, otra el login y otra la edición de perfil y cambio de contraseña.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -703,8 +742,8 @@ Tests de aceptación con Selenium.
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_desplegar_la_aplicación_en_azure">3.1.3. Desplegar la aplicación en Azure</h4>
+<div class="sect2">
+<h3 id="_desplegar_la_aplicación_en_azure">3.3. Desplegar la aplicación en Azure</h3>
 <div class="paragraph">
 <p>La aplicación que hemos probado localmente, debemos ponerla "en producción", es decir, desplegarla en Azure para que esté disponible por nuestros usuarios (ficticios).</p>
 </div>
@@ -712,23 +751,25 @@ Tests de aceptación con Selenium.
 <p>Dependiendo de la plantilla elegida, el despliegue será distinto. La plantilla de .Net explica el despliegue en Azure Web app. El resto se pueden desplegar en Web app, o bien en una máquina virtual.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_adaptar_los_test_a_la_url_de_despliegue">3.1.4. Adaptar los test a la URL de despliegue</h4>
+<div class="sect2">
+<h3 id="_adaptar_los_test_a_la_url_de_despliegue">3.4. Adaptar los test a la URL de despliegue</h3>
 <div class="paragraph">
-<p>Los test que hemos creado en el <em>*entorno de desarrollo*</em>, es decir, en nuestro equipo local, deben adaptarse para que funcionen en <em>*entorno de producción*</em> es decir, deben atacar a la aplicación desplegada.</p>
+<p>Los test que hemos creado en el <em>entorno de desarrollo</em>, es decir, en nuestro equipo local, deben adaptarse para que funcionen en <em>entorno de producción</em> es decir, deben atacar a la aplicación desplegada.</p>
 </div>
 <div class="paragraph">
 <p>Para ello simplemente tendrás que cambiar la URL base.</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_parte_2_selenium_webdriver_y_jenkins">3.2. Parte 2: Selenium WebDriver y Jenkins</h3>
-<div class="paragraph">
-<p>WebDriver permite ejecutar los tests de Selenium como tests de JUnit, permitiendo así su ejecución en Eclipse y Jenkins.</p>
 </div>
-<div class="sect3">
-<h4 id="_exportar_a_junit">3.2.1. Exportar a JUnit</h4>
+<div class="sect1">
+<h2 id="_parte_2_selenium_webdriver_y_jenkins">4. Parte 2: Selenium WebDriver y Jenkins</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Selenium WebDriver permite ejecutar los tests de Selenium como tests de JUnit, permitiendo así su ejecución en Eclipse y Jenkins.</p>
+</div>
+<div class="sect2">
+<h3 id="_exportar_a_junit">4.1. Exportar a JUnit</h3>
 <div class="paragraph">
 <p>Exporta a formato JUnit los tests grabados con Selenium IDE. Tendrás que hacerlo uno por uno, ya que por ahora Selenium IDE no permite exportarlos todos a la vez.</p>
 </div>
@@ -748,10 +789,13 @@ Tests de aceptación con Selenium.
 <p>Guarda los archivos <code>.java</code> en una carpeta. A continuación los importaremos en Eclipse.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_cross_browser_testing_con_firefox_y_chrome_en_eclipse">3.2.2. Cross-browser testing con Firefox y Chrome en Eclipse</h4>
+<div class="sect2">
+<h3 id="_cross_browser_testing_en_eclipse">4.2. Cross-browser testing en Eclipse</h3>
 <div class="paragraph">
-<p>Partiendo del repositorio <a href="https://github.com/ualhmis/seleniumWebDriverJUnit" class="bare">https://github.com/ualhmis/seleniumWebDriverJUnit</a> realizar los siguientes pasos:</p>
+<p><a href="https://developer.mozilla.org/es/docs/Learn/Herramientas_y_pruebas/Cross_browser_testing">Cross-browser testing</a> o prueba de navegadores cruzados es el proceso de probar aplicaciones y sitios web en los navegadores web más habituales que los usuarios utilizan en la actualidad. En esta sección, vamos a ejecutar los tests de Selenium en dos navegadores: Firefox y Chrome.</p>
+</div>
+<div class="paragraph">
+<p>Para ello utiliza como referencia el repositorio <a href="https://github.com/ualhmis/seleniumWebDriverJUnit" class="bare">https://github.com/ualhmis/seleniumWebDriverJUnit</a> que tiene ya configurado el <code>pom.xml</code> con las dependencias necesarias:</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -761,7 +805,7 @@ Tests de aceptación con Selenium.
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Los test de JUnit exportados por Selenium IDE están en formato JUnit 4. Para evitar más modificaciones de las necesarias, la dependencia en el pom del proyecto está configurada a JUnit 4.</p>
+<p>Los test de JUnit exportados por Selenium IDE están en formato JUnit 4. Para reutilizar al máximo y no tener que hacer demasiadas modificaciones, la dependencia en el <code>pom.xml</code> está configurada a <strong>JUnit 4</strong>.</p>
 </div>
 </td>
 </tr>
@@ -793,7 +837,7 @@ Tests de aceptación con Selenium.
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Es importante que los drivers específicos de los navegadores no se guarden en GitHub, ya que son archivos ejecutables (dependencias) que no deben versionarse. Cuando los necesites, tendrás que descargarlos.</p>
+<p>Es importante que los drivers específicos de los navegadores no se guarden en GitHub, ya que son archivos ejecutables (dependencias) específicos de la plataforma, que no deben versionarse. Cuando los necesites, tendrás que descargarlos.</p>
 </div>
 </td>
 </tr>
@@ -809,10 +853,10 @@ Tests de aceptación con Selenium.
 <p>Descarga y descomprime Firefox driver (Gecko Driver) de <a href="https://github.com/mozilla/geckodriver/releases" class="bare">https://github.com/mozilla/geckodriver/releases</a> eligiendo la versión adecuada para tu sistema.</p>
 </li>
 <li>
-<p>Descarga y descomprime Chrome driver de <a href="https://sites.google.com/a/chromium.org/chromedriver/downloads" class="bare">https://sites.google.com/a/chromium.org/chromedriver/downloads</a> eligiendo la versión del driver correspondiente a la versión de Chrome que tengas instalado en tu sistema.</p>
+<p>Descarga y descomprime Chrome driver de <a href="https://sites.google.com/a/chromium.org/chromedriver/downloads" class="bare">https://sites.google.com/a/chromium.org/chromedriver/downloads</a>  eligiendo la versión adecuada para tu sistema y la versión de Chrome que tengas instalado.</p>
 </li>
 <li>
-<p>Con estos dos drivers es suficiente, pero puedes ver como descargar los drivers de otros navegadores aquí: <a href="https://www.selenium.dev/documentation/en/webdriver/driver_requirements/">Driver requirements</a>.</p>
+<p>Con estos dos drivers es suficiente como prueba de concepto, pero puedes ver como descargar los drivers de otros navegadores aquí: <a href="https://www.selenium.dev/documentation/en/webdriver/driver_requirements/">Driver requirements</a>.</p>
 </li>
 </ol>
 </div>
@@ -822,10 +866,10 @@ Tests de aceptación con Selenium.
 <div class="olist arabic">
 <ol class="arabic" start="4">
 <li>
-<p>Crea un nuevo paquete en la carpeta test de nombre <code>org.ual.hmis.nombreEquipo</code> (sustituyendo <code>nombreEquipo</code> por el nombre de tu equipo). Ahí guarda los archivos <code>.java</code> exportados de Selenium IDE.</p>
+<p>Crea un nuevo paquete en la carpeta test de nombre <code>org.ual.hmis.nombreEquipo</code> (sustituyendo <code>nombreEquipo</code> por el nombre de tu equipo). Ahí guarda los archivos <code>.java</code> exportados de Selenium IDE. Si has forkeado el proyecto de referencia, elimina los paquetes que contienen tests de ejemplo.</p>
 </li>
 <li>
-<p>A continuación se indican unas mínimas modificaciones:</p>
+<p>A continuación se indican unas mínimas modificaciones a cada archivo fuente <code>.java</code>:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -843,10 +887,8 @@ Tests de aceptación con Selenium.
 <div class="content">
 <pre class="rouge highlight"><code data-lang="java">  <span class="nd">@Before</span>
   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
-
-	<span class="nc">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"webdriver.gecko.driver"</span><span class="o">,</span> <span class="s">"drivers/geckodriver.exe"</span><span class="o">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
-
-	<span class="nc">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"webdriver.chrome.driver"</span><span class="o">,</span> <span class="s">"drivers/chromedriver.exe"</span><span class="o">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="nc">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"webdriver.gecko.driver"</span><span class="o">,</span> <span class="s">"drivers/geckodriver.exe"</span><span class="o">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="nc">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"webdriver.chrome.driver"</span><span class="o">,</span> <span class="s">"drivers/chromedriver.exe"</span><span class="o">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
     <span class="o">...</span>
   <span class="o">}</span></code></pre>
 </div>
@@ -855,7 +897,7 @@ Tests de aceptación con Selenium.
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Son rutas relativas en el proyecto, dentro de <code>drivers</code>. Usa la ruta adecuada en tu caso.</td>
+<td>Son rutas relativas en el proyecto, dentro de <code>drivers</code> hemos descardado los drivers. Usa la ruta adecuada en tu caso.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -869,7 +911,7 @@ Tests de aceptación con Selenium.
 <p>Ejecuta los tests como JUnit Test. Verás que se abre Firefox y ejecuta los test automáticamente.</p>
 </li>
 <li>
-<p>Si un test falla, revisa el código y los pasos incluidos. Puede haber pasos que sobren, o que al exportarlos a JUnit tengas que adaptarlos a Java. Los fallos se pueden deber al selector que ha tomado automáticamente Selenium IDE. El <a href="https://www.browserstack.com/guide/locators-in-selenium">selector</a> identifica el elemento dentro de la página web sobre el que se ha interactuado, y para ello utiliza bien la referencia CSS o bien XPATH. Ve a Selenium IDE y cambia el selector, en la propiedad <code>target</code>; es recomendable utilizar la opción que identifica el elemento por <code>xpath</code> y el texto que queremos seleccionar. Por ejemplo, en un comando <code>click</code>:</p>
+<p>Si un test <strong>falla</strong>, revisa el código y los pasos incluidos. Puede haber pasos que sobren, o que al exportarlos a JUnit tengas que adaptarlos a Java. Los fallos se pueden deber al selector que ha tomado automáticamente Selenium IDE. El <a href="https://www.browserstack.com/guide/locators-in-selenium">selector</a> identifica el elemento dentro de la página web sobre el que se ha interactuado, y para ello utiliza bien la referencia CSS o bien XPATH. Ve a Selenium IDE y cambia el selector, en la propiedad <code>target</code>; es recomendable utilizar la opción que identifica el elemento <code>id</code> pero si no tiene <code>id</code> utiliza el identificador por <code>xpath</code> y el texto que queremos seleccionar. Por ejemplo, en un comando <code>click</code>:</p>
 </li>
 </ol>
 </div>
@@ -880,9 +922,10 @@ Tests de aceptación con Selenium.
 <div class="title">Fig. 13. Cambiar el selector de un elemento de la página</div>
 </div>
 <div class="paragraph">
-<p>También puede ser necesario añadir un tiempo de espera a que se cargue el formulario, antes del primer <code>sendKeys</code>, y también antes y después de <code>click()</code> en un botón de formulario.</p>
+<p>También puede ser necesario añadir un tiempo de espera en medio de cada acció para que de tiempo a que se cargue el formulario, la página, etc. Por ejemplo, antes del primer <code>sendKeys</code> que escribe un texto en un campo de formulario, y también antes y después de <code>click()</code> en un botón de formulario.</p>
 </div>
 <div class="listingblock">
+<div class="title">Añade una espera de 1 segundo (1000 mls)</div>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="java">	    <span class="k">try</span> <span class="o">{</span>
 	        <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
@@ -902,25 +945,30 @@ Tests de aceptación con Selenium.
 <div class="content">
 <pre class="rouge highlight"><code data-lang="java">  <span class="nd">@Before</span>
   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
-      <span class="o">...</span>
-      <span class="c1">// driver = new FirefoxDriver();</span>
-	  <span class="n">driver</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ChromeDriver</span><span class="o">();</span></code></pre>
+    <span class="o">...</span>
+    <span class="c1">// driver = new FirefoxDriver();</span>
+    <span class="n">driver</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ChromeDriver</span><span class="o">();</span>
+    <span class="o">...</span>
+  <span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Verás que se abre Chrome y se ejecuta el mismo test.</p>
+<p>Vuelve a ejecutar y verás que se abre Chrome y ejecuta el mismo test.</p>
 </div>
-<div class="paragraph">
-<p>Si un test se ejecuta correctamente en Firefox pero falla en Chrome:
-- comprueba el tamaño de la ventana, agrándala por si es el problema:</p>
-</div>
+<div class="olist arabic">
+<ol class="arabic" start="9">
+<li>
+<p>Si un test se ejecuta correctamente en Firefox pero falla en Chrome realiza las siguientes comprobaciones:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>comprueba el tamaño de la ventana, agrándala por si es el problema:</p>
 <div class="literalblock">
 <div class="content">
 <pre>driver.manage().window().setSize(new Dimension(1080, 824));</pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
+</li>
 <li>
 <p>modifica los selectores, en lugar de <code>cssSelector</code> utiliza <code>xpath</code></p>
 </li>
@@ -928,6 +976,9 @@ Tests de aceptación con Selenium.
 <p>Añade un tiempo de espera a que se cargue el formulario, antes del primer <code>sendKeys</code>, y también después de <code>click()</code> en un botón de formulario.</p>
 </li>
 </ul>
+</div>
+</li>
+</ol>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -939,40 +990,68 @@ Tests de aceptación con Selenium.
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_configurar_un_driver_headless">3.2.3. Configurar un driver <em>headless</em></h4>
+<div class="sect2">
+<h3 id="_configurar_un_driver_headless">4.3. Configurar un driver <em>headless</em></h3>
 <div class="paragraph">
-<p>El modo <em>headless</em> sirve para ejecutar los tests sin que se visualice la ventana del navegador. Esto hace que los tests se ejecuten más rápido y más eficientemente, especialmente en un entrono de Integración Continua como Jenkins.</p>
+<p>El modo <em>headless</em> sirve para ejecutar los tests sin que se visualice la ventana del navegador. Esto hace que los tests se ejecuten más rápido y más eficientemente, y es especialmente adecuado en un entorno de Integración Continua como Jenkins.</p>
 </div>
-<div class="sect4">
-<h5 id="_firefox_en_modo_headless">Firefox en modo <em>headless</em></h5>
+<div class="sect3">
+<h4 id="_firefox_en_modo_headless">4.3.1. Firefox en modo <em>headless</em></h4>
 <div class="paragraph">
-<p>En local, para ejecutar Firefox en modo <em>headless</em>:</p>
+<p>En local, para ejecutar Firefox en modo <em>headless</em> añade las siguientes sentencias:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="java">  <span class="nd">@Before</span>
   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
-      <span class="o">...</span>
-      <span class="nc">FirefoxOptions</span> <span class="n">firefoxOptions</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FirefoxOptions</span><span class="o">();</span>
-	  <span class="n">firefoxOptions</span><span class="o">.</span><span class="na">setHeadless</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-
-	  <span class="n">driver</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FirefoxDriver</span><span class="o">(</span><span class="n">firefoxOptions</span><span class="o">);</span>
-      <span class="o">...</span></code></pre>
+    <span class="o">...</span>
+    <span class="nc">FirefoxOptions</span> <span class="n">firefoxOptions</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FirefoxOptions</span><span class="o">();</span> <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="n">firefoxOptions</span><span class="o">.</span><span class="na">setHeadless</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="n">driver</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FirefoxDriver</span><span class="o">(</span><span class="n">firefoxOptions</span><span class="o">);</span>
+    <span class="o">...</span>
+  <span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Define un nuevo objeto de opciones</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Establece la opción <em>headless</em> a <code>true</code></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Además deberás añadir los imports necesarios (Eclipse te avisa de ello):</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>import org.openqa.selenium.firefox.FirefoxOptions;</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Además deberás añadir en los imports:</p>
+<p>Prueba a ejecutar los tests y verás que se ejecutan sin visualizar la ventana de Firefox.</p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p><code>import org.openqa.selenium.firefox.FirefoxOptions;</code></p>
+<p>Lanza los tests tanto con Eclipse como con Maven. Aseguraté de que se ejecutan correctamente con maven <code>test</code>.</p>
 </div>
-<div class="paragraph">
-<p>Prueba a ejecutar los tests y verás que se ejecutan sin visualizar la ventana de Firefox. Lanza los test tanto con  Eclipse como con Maven.</p>
+</td>
+</tr>
+</table>
 </div>
 </div>
-<div class="sect4">
-<h5 id="_chromedriver_en_modo_headless">ChromeDriver en modo <em>headless</em></h5>
+<div class="sect3">
+<h4 id="_chromedriver_en_modo_headless">4.3.2. ChromeDriver en modo <em>headless</em></h4>
 <div class="paragraph">
 <p>ChromeDriver funciona de manera similar a Geckodriver de Firefox, e implementa la especificación  <a href="https://www.w3.org/TR/webdriver/">W3C WebDriver</a>.</p>
 </div>
@@ -983,16 +1062,28 @@ Tests de aceptación con Selenium.
 <div class="content">
 <pre class="rouge highlight"><code data-lang="java">  <span class="nd">@Before</span>
   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
-      <span class="o">...</span>
-      <span class="nc">ChromeOptions</span> <span class="n">chromeOptions</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ChromeOptions</span><span class="o">();</span>
-      <span class="n">chromeOptions</span><span class="o">.</span><span class="na">setHeadless</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-
-	  <span class="n">driver</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ChromeDriver</span><span class="o">(</span><span class="n">chromeOptions</span><span class="o">);</span>
-      <span class="o">...</span></code></pre>
+    <span class="o">...</span>
+    <span class="nc">ChromeOptions</span> <span class="n">chromeOptions</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ChromeOptions</span><span class="o">();</span> <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="n">chromeOptions</span><span class="o">.</span><span class="na">setHeadless</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="n">driver</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ChromeDriver</span><span class="o">(</span><span class="n">chromeOptions</span><span class="o">);</span>
+    <span class="o">...</span>
+  <span class="o">}</span></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Define un nuevo objeto de opciones</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Establece la opción <em>headless</em> a <code>true</code></td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Además deberás añadir en los imports</p>
+<p>Además deberás añadir los imports:</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -1003,18 +1094,23 @@ Tests de aceptación con Selenium.
 <p>Durante la ejecución no se abrirá la ventana de Chrome y los tests se ejecutarán correctamente. Lanza los test tanto con Eclipse como con Maven.</p>
 </div>
 </div>
-<div class="sect4">
-<h5 id="_htmlunitdriver_modo_headless_nativo">HtmlUnitDriver: modo <em>headless</em> nativo</h5>
+<div class="sect3">
+<h4 id="_htmlunit_driver_modo_headless_nativo">4.3.3. HtmlUnit Driver: modo <em>headless</em> nativo</h4>
 <div class="paragraph">
-<p>En local, cambia el driver a <code>HtmlUnitDriver();</code></p>
+<p><a href="https://github.com/SeleniumHQ/selenium/wiki/HtmlUnitDriver">HtmlUnit Driver</a> es un driver <em>headless</em> para Selenium Webdriver. Se trata de una implementación en Java de Webdriver.</p>
+</div>
+<div class="paragraph">
+<p>En local, comenta los otros drivers y cambia el driver a <code>HtmlUnitDriver();</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="java">  <span class="nd">@Before</span>
   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
-      <span class="o">...</span>
-	  <span class="n">driver</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HtmlUnitDriver</span><span class="o">();</span>
-      <span class="o">...</span></code></pre>
+    <span class="o">...</span>
+    <span class="c1">// simple case - javascript support enabled</span>
+    <span class="n">driver</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HtmlUnitDriver</span><span class="o">(</span><span class="nc">BrowserVersion</span><span class="o">.</span><span class="na">FIREFOX_68</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>
+    <span class="o">...</span>
+  <span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1026,55 +1122,135 @@ Tests de aceptación con Selenium.
 </div>
 </div>
 <div class="paragraph">
-<p>HtmlUnitDriver da muchos problemas, sobre todo con JavaScript. Es la versión reducida de un navegador, por lo que no soporta gran parte de la funcionalidad del mismo, y la mayoría de tests que funcionan para FirefoxDriver y ChromeDriver fallan con HtmlUnitDriver. Si te fallan los test HtmlUnitDriver no te preocupes. El modo <em>headless</em> de FirefoxDriver y ChromeDirver nos ayudará a nuestro objetivo.</p>
+<p>HtmlUnit Driver da muchos problemas, sobre todo con JavaScript. Es la versión reducida de un navegador, por lo que no soporta gran parte de la funcionalidad del mismo, y la mayoría de tests que funcionan para FirefoxDriver y ChromeDriver fallan con HtmlUnitDriver. Si te fallan los test HtmlUnitDriver <strong>no te preocupes</strong>. El modo <em>headless</em> de FirefoxDriver y ChromeDriver nos ayudará a nuestro objetivo.</p>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_ejecución_en_jenkins">3.2.4. Ejecución en Jenkins</h4>
+<div class="sect2">
+<h3 id="_ejecución_en_jenkins">4.4. Ejecución en Jenkins</h3>
 <div class="paragraph">
-<p>Lo primero es descargar los drivers de los navegadores en la máquina de Jenkins.</p>
+<p>La ejecución de los tests de Selenium en Jenkins debe hacerse en modo <em>headless</em> ya que la maquina Jenkins no tiene una interfaz gráfica, más comúnmente conocida como X o X11 en Linux. A pesar de ello, tendremos que instalar un entorno de visualizacion simulado (<code>xvfb</code>). Veamos los pasos necesarios. Lo primero es descargar los drivers de los navegadores en la máquina de Jenkins.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>En la carpeta JENKINS_HOME (si no recuerdas cual es, puedes verla en <a href="http://mi-jenkins-url/systemInfo" class="bare">http://mi-jenkins-url/systemInfo</a>) crea una carpeta `selenium-drivers`y descarga ahí los drivers de los navegadores Firefox y Chrome para Ubuntu. Para ello, ejecuta estos comandos en la máquina Jenkins.</p>
+<p>En la carpeta JENKINS_HOME (si no recuerdas cual es, la predeterminada es <code>/var/lib/jenkins</code>, puedes verla en <a href="http://fake">http://<em>mi-jenkins-url</em>/systemInfo</a>) crea una carpeta <code>selenium-drivers</code> y descarga ahí los drivers de los navegadores Firefox y Chrome para Ubuntu. Para ello, ejecuta los siguientes comandos en la máquina Jenkins.</p>
 </li>
 </ol>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="bash"><span class="nb">cd
-</span><span class="nv">JENKINS_HOME</span><span class="o">=</span>tu/path/a/jenkins_home
+</span><span class="nv">JENKINS_HOME</span><span class="o">=</span>/var/lib/jenkins <i class="conum" data-value="1"></i><b>(1)</b>
 <span class="nb">echo</span> <span class="nv">$JENKINS_HOME</span>
-<span class="nb">mkdir</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="nb">mkdir</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers <i class="conum" data-value="2"></i><b>(2)</b>
 wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
-<span class="nb">tar</span> <span class="nt">-C</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <span class="nt">-xvf</span> geckodriver-v0.26.0-linux64.tar.gz
+<span class="nb">sudo tar</span> <span class="nt">-C</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <span class="nt">-xvf</span> geckodriver-v0.26.0-linux64.tar.gz <i class="conum" data-value="3"></i><b>(3)</b>
 wget https://chromedriver.storage.googleapis.com/83.0.4103.39/chromedriver_linux64.zip
-<span class="nb">sudo </span>apt-get intall unzip <span class="nt">-y</span>
-unzip chromedriver_linux64.zip <span class="nt">-d</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers/
-<span class="nb">ls</span> <span class="nt">-la</span>  <span class="nv">$JENKINS_HOME</span>/selenium-drivers/</code></pre>
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>unzip <span class="nt">-y</span>
+<span class="nb">sudo </span>unzip chromedriver_linux64.zip <span class="nt">-d</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <i class="conum" data-value="4"></i><b>(4)</b>
+<span class="nb">ls</span> <span class="nt">-la</span>  <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <i class="conum" data-value="5"></i><b>(5)</b>
+<span class="nb">sudo chown </span>jenkins:jenkins <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <i class="conum" data-value="6"></i><b>(6)</b>
+<span class="nb">sudo chown </span>jenkins:jenkins <span class="nv">$JENKINS_HOME</span>/selenium-drivers/<span class="k">*</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Asegúrate que tienes permisos suficientes. Si necesitas usar <code>sudo</code> deberás de cambiar los permisos y grupos de los archivos al usuario jenkins:jenkins.</td>
+<td>Declara la variable de entorno <code>JENKINS_HOME</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Crea la carpeta donde guardar los drivers de los navegadores. Asegúrate que tienes permisos suficientes. Si necesitas usar <code>sudo</code>, deberás de cambiar los permisos y grupos de los archivos al usuario <code>jenkins:jenkins</code> (ver paso 6).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Con <code>wget</code> descarga <code>geckodriver</code> para linux en la carpeta home, y con <code>tar -xvf</code> descomprime en la carpeta deseada.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Con <code>wget</code> descarga <code>chromedriver</code> para linux en la carpeta home, y con <code>unzip</code> descomprime en la carpeta deseada. Además has tenido que instalar <code>unzip</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Lista los archivos en la carpeta <code>selenium-drivers</code>. Comprueba que los permisos no son adecuados para que Jenkins pueda lanzar los ejecutables de los drivers.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Asigna el grupo <code>jenkins:jenkins</code> a la carpeta y los archivos. Como resultado los archivos deben tener los permisos correctos</td>
 </tr>
 </table>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="images/jenkins-installed-selenium-drivers.png" alt="jenkins installed selenium drivers">
+</div>
+<div class="title">Fig. 14. Permisos de los drivers</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic" start="2">
 <li>
-<p>Crea en Jenkins un nuevo proyecto pipeline. Incluye la fase (<em>stage</em>) con nombre <code>Firefox tests</code>, donde llames a maven:</p>
+<p>Instala <code>firefox</code> en tu máquina Jenkins. También deberás instalar <code>xvfb</code> que hace de <a href="http://elementalselenium.com/tips/38-headless">entorno de visualización simulado</a> para ejecutar los tests <em>headeless</em> de Selenium. Recuerda que la maquina Jenkins no tiene una interfaz gráfica, así que aunque firefox se va a ejecutar en modo <em>headless</em>, es necesario tener un entorno de visualización simulado, y esto lo proporciona <code>xvfb</code>.</p>
 <div class="literalblock">
 <div class="content">
-<pre>mvn test -Dwebdriver.gecko.driver=~/selenium-drivers/geckodriver</pre>
+<pre>sudo apt-get install -y  xvfb firefox</pre>
 </div>
 </div>
 </li>
 </ol>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>Crea en Jenkins un nuevo proyecto pipeline. Incluye la fase (<em>stage</em>) con nombre <code>Firefox tests</code>, donde llames a maven. Utiliza <code>xvfb-run</code> que se encarga de iniciar y parar <code>xvfb</code> por ti.</p>
+<div class="literalblock">
+<div class="content">
+<pre>xvfb-run mvn test -Dwebdriver.gecko.driver=${JENKINS_HOME}/selenium-drivers/geckodriver</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>El pipeline tendrá esta forma:</p>
+</div>
+<div class="listingblock">
+<div class="title">Jenkinsfile</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="groovy"><span class="n">pipeline</span> <span class="o">{</span>
+    <span class="n">agent</span> <span class="n">any</span>
+    <span class="n">environment</span> <span class="o">{</span>
+        <span class="n">DRIVERS_LOC</span> <span class="o">=</span> <span class="s2">"/var/lib/jenkins/selenium-drivers/"</span>
+    <span class="o">}</span>
+    <span class="n">tools</span> <span class="o">{</span>
+        <span class="c1">// Usa aquí el nombre de tu instalación de Maven en Jenkins Tools</span>
+        <span class="n">maven</span> <span class="s2">"Default maven"</span>
+    <span class="o">}</span>
+    <span class="n">stages</span> <span class="o">{</span>
+        <span class="n">stage</span><span class="o">(</span><span class="s1">'Git clone'</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">steps</span><span class="o">{</span>
+                <span class="c1">// Update the URL to your repo</span>
+                <span class="n">git</span> <span class="s1">'https://github.com/tu-usuario/tu-repo-selenium.git'</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="n">stage</span><span class="o">(</span><span class="s1">'Firefox tests'</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">steps</span> <span class="o">{</span>
+                <span class="c1">// Run Maven on xvfb environment display.</span>
+                <span class="c1">// Update the path/to/your/pom.xml as necessary</span>
+                <span class="n">sh</span> <span class="s2">"xvfb-run mvn -f path/to/pom.xml clean test -Dwebdriver.gecko.driver=${DRIVERS_LOC}/geckodriver"</span>
+            <span class="o">}</span>
+            <span class="n">post</span> <span class="o">{</span>
+                <span class="c1">// If Maven was able to run the tests, even if some of the test</span>
+                <span class="c1">// failed, record the test results</span>
+                <span class="n">success</span> <span class="o">{</span>
+                    <span class="n">junit</span> <span class="s1">'**/target/surefire-reports/TEST-*.xml'</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -1084,7 +1260,7 @@ unzip chromedriver_linux64.zip <span class="nt">-d</span> <span class="nv">$JENK
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Comprueba que en el código de los tests estás usando <code>FirefoxDriver</code>, y modo <em>headless</em></p>
+<p>Comprueba que en el código de los tests Selenium en JUnit estás usando <code>FirefoxDriver</code>, y modo <em>headless</em></p>
 </div>
 </td>
 </tr>
@@ -1095,23 +1271,50 @@ unzip chromedriver_linux64.zip <span class="nt">-d</span> <span class="nv">$JENK
 <li>
 <p>Publica la gráfica de los tests en un bloque <code>post</code> del pipeline.</p>
 </li>
+</ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="images/jenkins-webdriver-pipeline-firefox-ok.png" alt="jenkins webdriver pipeline firefox ok">
+</div>
+<div class="title">Fig. 15. Pipeline con la fase Firefox Test</div>
+</div>
+<div class="sect4">
+<h5 id="_a_partir_de_aquí_es_optativo">A partir de aquí es optativo</h5>
+<div class="olist arabic">
+<ol class="arabic" start="4">
 <li>
-<p>Crea una nueva fase donde llames a los tests con el driver de Chrome. Tendrás que modificar el driver en el código.</p>
+<p>Para probar la ejecución con Chrome, debes instalar Chrome en la máquina Jenkins. Para ello sigue los pasos: <a href="https://ubunlog.com/google-chrome-ubuntu-1804/">Instalar Google Chrome en Ubuntu 18.04 LTS desde la línea de comandos</a> (No instales al versión beta, tampoco podrás ejecutarlo, simplemente instalarlo). Después, crea una nueva fase donde llames a los tests con el driver de Chrome. Tendrás que modificar el driver en el código, y llamar a maven con el siguiente parámetro para Chrome Driver:</p>
 <div class="literalblock">
 <div class="content">
-<pre>mvn test -Dwebdriver.chrome.driver=~/selenium-drivers/chromedriver</pre>
+<pre>mvn test -Dwebdriver.chrome.driver=${DRIVERS_LOC}/chromedriver</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Instala firefox en tu máquina Jenkins</p>
-<div class="literalblock">
-<div class="content">
-<pre>sudo apt-get install -y firefox</pre>
-</div>
+<p>Habrás implementado dos alternativas de ejecución en Jenkins de los test de Selenium en modo <em>headless</em>.
+Sin embargo, el diseño de clases JUnit y uso de los distintos drivers tiene varias desventajas:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Para ejecutar con un navegador u otro tenemos que tocar el código fuente y modficar el driver "a mano"</p>
+</li>
+<li>
+<p>Esto implica que no se puede lanzar la ejecución en los dos navegadores en el mismo pipeline: o ejecutamos con Firefox o ejecutamos con Chrome.</p>
+</li>
+</ul>
 </div>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>Lo ideal es poder diseñar el pipeline para lanzar en paralelo la ejecución en estos dos, o cuantos  navegadores sean necesarios, tal y como se muestra en la siguiente imagen:</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="images/jenkins-blueocean-parallel-browser-testing.png" alt="jenkins blueocean parallel browser testing">
+</div>
+<div class="title">Fig. 16. Pipeline con ejecución de varios navegadores en paralelo</div>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -1121,17 +1324,17 @@ unzip chromedriver_linux64.zip <span class="nt">-d</span> <span class="nv">$JENK
 </td>
 <td class="content">
 <div class="paragraph">
-<p>EJERCICIO:</p>
+<p><strong>EJERCICIOS (Optativos)</strong></p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Rediseña las clases JUnit con los test de Selenium para poder lanzar los tests bien con Firefox o bien con en Chrome, sin tener que modificar el código fuente, es decir, sin tener que cambiar el driver "a mano". Dependiendo de tu diseño, tal vez puedas necesitar <a href="https://openclassrooms.com/en/courses/5661466-use-testing-in-java-to-achieve-quality-applications/6232331-label-your-tests-with-advanced-junit-annotations">categorías</a> de JUnit 4.</p>
 </li>
 <li>
-<p>Crea dos fases en el pipeline, una para Firefox y otra para Chrome, y configura el pipeline para que se ejecuten en paralelo, usando el bloque <code>parallel</code>.</p>
+<p>Crea dos fases en el pipeline, una para Firefox y otra para Chrome, y configura el pipeline para que se ej  ecuten en paralelo, usando el bloque <a href="https://www.jenkins.io/doc/book/pipeline/syntax/#parallel"><code>parallel</code></a>.</p>
 </li>
-</ul>
+</ol>
 </div>
 </td>
 </tr>
@@ -1142,7 +1345,7 @@ unzip chromedriver_linux64.zip <span class="nt">-d</span> <span class="nv">$JENK
 </div>
 </div>
 <div class="sect1">
-<h2 id="_faq_y_resolución_de_problemas_thoubleshouting">4. FAQ y resolución de problemas (<em>thoubleshouting</em>)</h2>
+<h2 id="_faq_y_resolución_de_problemas_thoubleshouting">5. FAQ y resolución de problemas (<em>thoubleshouting</em>)</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -1159,7 +1362,7 @@ unzip chromedriver_linux64.zip <span class="nt">-d</span> <span class="nv">$JENK
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-21 12:50:27 +0200
+Last updated 2020-05-21 21:47:59 +0200
 </div>
 </div>
 <style>
