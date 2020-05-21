@@ -260,6 +260,17 @@ Es importante que los drivers específicos de los navegadores no se guarden en G
 .Cambiar el selector de un elemento de la página
 image::selenium-ide-change-selector-xpath.png[role="thumb", align="center"]
 
+También puede ser necesario añadir un tiempo de espera a que se cargue el formulario, antes del primer `sendKeys`, y también antes y después de `click()` en un botón de formulario. 
+
+[source,java]
+----
+	    try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
+----
+
 [start=8]
 
 . A continuación vamos a probar en otro navegador, haciendo así lo que se denomina https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Introduction[_cross-browser testing]_. En los archivos `.java` cambia el driver a Chrome:
@@ -402,6 +413,9 @@ Comprueba que en el código de los tests estás usando `FirefoxDriver`, y modo _
 
      mvn test -Dwebdriver.chrome.driver=~/selenium-drivers/chromedriver
 
+. Instala firefox en tu máquina Jenkins
+    
+    sudo apt-get install -y firefox
 
 [IMPORTANT]
 ====

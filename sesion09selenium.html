@@ -879,6 +879,18 @@ Tests de aceptación con Selenium.
 </div>
 <div class="title">Fig. 13. Cambiar el selector de un elemento de la página</div>
 </div>
+<div class="paragraph">
+<p>También puede ser necesario añadir un tiempo de espera a que se cargue el formulario, antes del primer <code>sendKeys</code>, y también antes y después de <code>click()</code> en un botón de formulario.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java">	    <span class="k">try</span> <span class="o">{</span>
+	        <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+	      <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+	        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+	      <span class="o">}</span></code></pre>
+</div>
+</div>
 <div class="olist arabic">
 <ol class="arabic" start="8">
 <li>
@@ -1091,6 +1103,14 @@ unzip chromedriver_linux64.zip <span class="nt">-d</span> <span class="nv">$JENK
 </div>
 </div>
 </li>
+<li>
+<p>Instala firefox en tu máquina Jenkins</p>
+<div class="literalblock">
+<div class="content">
+<pre>sudo apt-get install -y firefox</pre>
+</div>
+</div>
+</li>
 </ol>
 </div>
 <div class="admonitionblock important">
@@ -1131,7 +1151,7 @@ unzip chromedriver_linux64.zip <span class="nt">-d</span> <span class="nv">$JENK
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-21 03:13:54 +0200
+Last updated 2020-05-21 12:23:16 +0200
 </div>
 </div>
 <style>
