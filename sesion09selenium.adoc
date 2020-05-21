@@ -63,7 +63,7 @@ https://www.selenium.dev/[Selenium] es un conjunto de herramientas para llevar a
 
 Selenium consta de varias herramientas. 
 
-- https://www.selenium.dev/selenium-ide/[*Selenium IDE*] es una extensión para https://addons.mozilla.org/es/firefox/addon/selenium-ide/[Firefox] y para https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd[Chrome] que registra nuestra actividad en el navegador durante un período determinado; esta actividad se traduce en una serie de comandos que podremos repetir cuantas veces queramos. Cuando sea conveniente, incluiremos *aserciones* para realizar comprobaciones de que lo que se muestra en la web es realmente lo esperado. Con Selenium IDE podemos _grabar_ casos de prueba o _test cases_, y agruparlos en juegos de prueba o _test suites_. *Selenium IDE* permite exportar los _test cases_ en forma de scripts en muy diversos lenguajes, como Python, Ruby, Java (JUnit), C#, NodeJS (JavaScrip), y algunos más, para ser usados en los entornos de prueba habituales usando el siguiente componente de Selenium, llamado *Selenium WebDriver*.
+- https://www.selenium.dev/selenium-ide/[*Selenium IDE*] es una extensión para https://addons.mozilla.org/es/firefox/addon/selenium-ide/[Firefox] y para https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd[Chrome] que registra nuestra actividad en el navegador durante un período determinado; esta actividad se traduce en una serie de https://www.selenium.dev/selenium-ide/docs/en/api/commands[comandos] que podremos repetir cuantas veces queramos. Cuando sea conveniente, incluiremos *aserciones* para realizar comprobaciones de que lo que se muestra en la web es realmente lo esperado. Con Selenium IDE podemos _grabar_ casos de prueba o _test cases_, y agruparlos en juegos de prueba o _test suites_. *Selenium IDE* permite exportar los _test cases_ en forma de scripts en muy diversos lenguajes, como Python, Ruby, Java (JUnit), C#, NodeJS (JavaScript), y algunos más, para ser usados en los entornos de prueba habituales usando el siguiente componente de Selenium, llamado *Selenium WebDriver*.
 
 -  https://www.selenium.dev/documentation/en/getting_started_with_webdriver/[*Selenium WebDriver*], implementa una API cliente lista para ser usada con tu entorno de testing favorito, que se ejecutará sobre un servidor que gestiona los principales navegadores que tengas instalados para realizar en ellos las pruebas. Es decir, podrás ejecutar las pruebas automáticamente desde tu IDE favorito, por ejemplo Eclipse, en todos los navegadores relevantes, de forma que no se te escape ningún detalle de tu aplicación. Para ello, necesitarás descargar del _driver_ del navegador sobre el que quieres ejecutar las pruebas (además de, por supuesto, tener instalado dicho navegador en tu sistema).
 
@@ -214,9 +214,9 @@ Los test de JUnit exportados por Selenium IDE están en formato JUnit 4. Para ev
 [source]
 ..gitignore
 ----
-/bin/
-/target/
-/drivers/
+**/bin
+**/target
+**/drivers
 ----
 
 
@@ -234,8 +234,8 @@ Es importante que los drivers específicos de los navegadores no se guarden en G
 [start=4]
 . Crea un nuevo paquete en la carpeta test de nombre `org.ual.hmis.nombreEquipo` (sustituyendo `nombreEquipo` por el nombre de tu equipo). Ahí guarda los archivos `.java` exportados de Selenium IDE. 
 
-. A continuación se indican unas mínimas modificaciones, empezando por: 
-.. Añadir el paquete a cada archivo `.java`
+. A continuación se indican unas mínimas modificaciones: 
+.. Añade el paquete a cada archivo `.java`
 .. En el método `setUp()`, añade justo al principio las sentencias para configurar la ruta a cada driver:
 
 [source,java]
@@ -243,23 +243,22 @@ Es importante que los drivers específicos de los navegadores no se guarden en G
   @Before
   public void setUp() throws Exception {
 
-	System.setProperty("webdriver.gecko.driver", "drivers/geckodriver-v0.24.0-win64/geckodriver.exe"); <1>
+	System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe"); <1>
 
-	System.setProperty("webdriver.chrome.driver", "drivers/chromedriver_win32/chromedriver.exe"); <2>
+	System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe"); <2>
     ...
   }
 ----
-<1> Son rutas relativas en el proyecto, dentro de `drivers`. Usa la rutas adecuada en tu caso.
+<1> Son rutas relativas en el proyecto, dentro de `drivers`. Usa la ruta adecuada en tu caso.
 <2> Idem 
 
 [start=6]
 . Ejecuta los tests como JUnit Test. Verás que se abre Firefox y ejecuta los test automáticamente. 
 
-. Si un test falla, revisa el código y los pasos incluidos. Puede haber pasos que sobren, o que al exportarlos a JUnit tengas que adaptarlos a Java. Un ejemplo será el código JavaScript que genera un número aleatorio en el email del registro de un nuevo usuario. También los fallos se pueden deber al selector que ha tomado Selenium IDE. El selector identifica el elemento dentro de la página web a partir del DOM. Ve a Selenium IDE y cambia el selector, en la propiedad `target`; es recomendable utilizar la opción que identifica el elemento por `xpath` y el texto que queremos seleccionar. Por ejemplo, en un comando `click`: 
+. Si un test falla, revisa el código y los pasos incluidos. Puede haber pasos que sobren, o que al exportarlos a JUnit tengas que adaptarlos a Java. Los fallos se pueden deber al selector que ha tomado automáticamente Selenium IDE. El https://www.browserstack.com/guide/locators-in-selenium[selector] identifica el elemento dentro de la página web sobre el que se ha interactuado, y para ello utiliza bien la referencia CSS o bien XPATH. Ve a Selenium IDE y cambia el selector, en la propiedad `target`; es recomendable utilizar la opción que identifica el elemento por `xpath` y el texto que queremos seleccionar. Por ejemplo, en un comando `click`: 
 
 .Cambiar el selector de un elemento de la página
 image::selenium-ide-change-selector-xpath.png[role="thumb", align="center"]
-
 
 [start=8]
 
@@ -276,16 +275,143 @@ image::selenium-ide-change-selector-xpath.png[role="thumb", align="center"]
 
 Verás que se abre Chrome y se ejecuta el mismo test.
 
+Si un test se ejecuta correctamente en Firefox pero falla en Chrome: 
+- comprueba el tamaño de la ventana, agrándala por si es el problema:
+
+    driver.manage().window().setSize(new Dimension(1080, 824));
+
+- modifica los selectores, en lugar de `cssSelector` utiliza `xpath`
+- Añade un tiempo de espera a que se cargue el formulario, antes del primer `sendKeys`, y también después de `click()` en un botón de formulario. 
+
+[source,java]
+----
+	    try {
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        e.printStackTrace();
+	      }
+----
+
+
 ==== Configurar un driver _headless_
 
-****
-En desarrollo de aquí en adelante... Gracias por vuestra paciencia.
-****
+El modo _headless_ sirve para ejecutar los tests sin que se visualice la ventana del navegador. Esto hace que los tests se ejecuten más rápido y más eficientemente, especialmente en un entrono de Integración Continua como Jenkins. 
+
+===== Firefox en modo _headless_
+
+En local, para ejecutar Firefox en modo _headless_: 
+
+[source,java]
+----
+  @Before
+  public void setUp() throws Exception {
+      ...
+      FirefoxOptions firefoxOptions = new FirefoxOptions();
+	  firefoxOptions.setHeadless(true);
+	    
+	  driver = new FirefoxDriver(firefoxOptions);
+      ...
+----
+
+Además deberás añadir en los imports: 
+
+`import org.openqa.selenium.firefox.FirefoxOptions;`
+
+Prueba a ejecutar los tests y verás que se ejecutan sin visualizar la ventana de Firefox. Lanza los test tanto con  Eclipse como con Maven.
+
+===== ChromeDriver en modo _headless_
+
+ChromeDriver funciona de manera similar a Geckodriver de Firefox, e implementa la especificación  https://www.w3.org/TR/webdriver/[W3C WebDriver]. 
+
+En local, para ejecutar Chrome en modo _headless_: 
+
+[source,java]
+----
+  @Before
+  public void setUp() throws Exception {
+      ...
+      ChromeOptions chromeOptions = new ChromeOptions();
+      chromeOptions.setHeadless(true);
+	    
+	  driver = new ChromeDriver(chromeOptions);
+      ...
+----
+
+Además deberás añadir en los imports
+
+    import org.openqa.selenium.chrome.ChromeOptions;
+
+Durante la ejecución no se abrirá la ventana de Chrome y los tests se ejecutarán correctamente. Lanza los test tanto con Eclipse como con Maven.
+
+
+===== HtmlUnitDriver: modo _headless_ nativo
+
+En local, cambia el driver a `HtmlUnitDriver();`
+
+[source,java]
+----
+  @Before
+  public void setUp() throws Exception {
+      ...
+	  driver = new HtmlUnitDriver();
+      ...
+----
+
+Debes importar la librería:
+
+    import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+
+HtmlUnitDriver da muchos problemas, sobre todo con JavaScript. Es la versión reducida de un navegador, por lo que no soporta gran parte de la funcionalidad del mismo, y la mayoría de tests que funcionan para FirefoxDriver y ChromeDriver fallan con HtmlUnitDriver. Si te fallan los test HtmlUnitDriver no te preocupes. El modo _headless_ de FirefoxDriver y ChromeDirver nos ayudará a nuestro objetivo. 
 
 ==== Ejecución en Jenkins
 
+Lo primero es descargar los drivers de los navegadores en la máquina de Jenkins. 
 
+. En la carpeta JENKINS_HOME (si no recuerdas cual es, puedes verla en http://mi-jenkins-url/systemInfo) crea una carpeta `selenium-drivers`y descarga ahí los drivers de los navegadores Firefox y Chrome para Ubuntu. Para ello, ejecuta estos comandos en la máquina Jenkins.
+
+[source,bash]
+----
+cd
+JENKINS_HOME=tu/path/a/jenkins_home
+echo $JENKINS_HOME
+mkdir $JENKINS_HOME/selenium-drivers <1>
+wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+tar -C $JENKINS_HOME/selenium-drivers/ -xvf geckodriver-v0.26.0-linux64.tar.gz 
+wget https://chromedriver.storage.googleapis.com/83.0.4103.39/chromedriver_linux64.zip
+sudo apt-get intall unzip -y
+unzip chromedriver_linux64.zip -d $JENKINS_HOME/selenium-drivers/
+ls -la  $JENKINS_HOME/selenium-drivers/
+----
+<1> Asegúrate que tienes permisos suficientes. Si necesitas usar `sudo` deberás de cambiar los permisos y grupos de los archivos al usuario jenkins:jenkins.
+
+[start=2]
+. Crea en Jenkins un nuevo proyecto pipeline. Incluye la fase (_stage_) con nombre `Firefox tests`, donde llames a maven: 
+
+    mvn test -Dwebdriver.gecko.driver=~/selenium-drivers/geckodriver 
+
+
+[WARNING]
+====
+Comprueba que en el código de los tests estás usando `FirefoxDriver`, y modo _headless_
+====
+
+[start=3]
+. Publica la gráfica de los tests en un bloque `post` del pipeline.
+
+. Crea una nueva fase donde llames a los tests con el driver de Chrome. Tendrás que modificar el driver en el código.
+
+     mvn test -Dwebdriver.chrome.driver=~/selenium-drivers/chromedriver
+
+
+[IMPORTANT]
+====
+EJERCICIO: 
+- Rediseña las clases JUnit con los test de Selenium para poder lanzar los tests bien con Firefox o bien con en Chrome, sin tener que modificar el código fuente, es decir, sin tener que cambiar el driver "a mano". Dependiendo de tu diseño, tal vez puedas necesitar https://openclassrooms.com/en/courses/5661466-use-testing-in-java-to-achieve-quality-applications/6232331-label-your-tests-with-advanced-junit-annotations[categorías] de JUnit 4. 
+- Crea dos fases en el pipeline, una para Firefox y otra para Chrome, y configura el pipeline para que se ejecuten en paralelo, usando el bloque `parallel`. 
+====
 
 == FAQ y resolución de problemas (_thoubleshouting_)
 
 - Mas información sobre https://www.selenium.dev/maven[Maven con Selenium].
+
+- https://www.browserstack.com/guide/selenium-with-java-for-automated-test[Buenas prácticas]: Selenium con Java
