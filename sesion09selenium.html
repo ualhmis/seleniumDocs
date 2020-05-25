@@ -463,6 +463,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#_faq_y_resolución_de_problemas_thoubleshouting">5. FAQ y resolución de problemas (<em>thoubleshouting</em>)</a></li>
+<li><a href="#_más_info">6. Más info</a></li>
 </ul>
 </div>
 </div>
@@ -1350,6 +1351,88 @@ Sin embargo, el diseño de clases JUnit y uso de los distintos drivers tiene var
 <div class="ulist">
 <ul>
 <li>
+<p><strong>Problema al actualizar un campo de texto que ya contiene un valor</strong>.
+Cuando un test de Selenium trata de actualizar el valor de un campo de texto que ya contiene un valor, por ejemplo al <em>modificar el email del perfil de usuario</em>, el test grabado con Selenium IDE simplemente captura los eventos que guardan el nuevo valor mediante un comando <code>type</code> y el nuevo valor se guarda en la propiedad <em>Value</em>.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="images/login-app-update-profile-ide-commands.png" alt="login app update profile ide commands">
+</div>
+<div class="title">Fig. 17. Comandos Selenium IDE para actualizar el email</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Nuevo valor de email</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>La siguiente imagen muestra la vista de la app web, antes de escribir el nuevo valor, muestra el valor antiguo.</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="images/login-app-update-profile.png" alt="login app update profile">
+</div>
+<div class="title">Fig. 18. Vista de la app web para actualizar el email (se muestra el valor antiguo)</div>
+</div>
+<div class="paragraph">
+<p>El problema se produce al exportar a JUnit el comando <code>type</code>, se traduce en una llamada al método <code>sendkeys("nuevoValor")</code>. Por ejemplo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java">  <span class="n">driver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">Id</span><span class="o">(</span><span class="s">"email-address"</span><span class="o">)).</span><span class="na">sendKeys</span><span class="o">(</span><span class="s">"ualkk000@ual.es"</span><span class="o">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y el método <code>sendkeys("nuevoValor")</code> <strong>no reemplaza</strong> el valor existente, sino que concatena el valor existente con el nuevo, algo asi: <code>ual-744547@ual.esualkk000@ual.es</code>
+Para solucionar este problema simplemente hay que llamar al método <code>clear()</code>, que limpia el contenido del campo de texto, y tras ello escribir el nuevo valor con <code>sendKeys(&#8230;&#8203;)</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java">  <span class="n">driver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">Id</span><span class="o">(</span><span class="s">"email-address"</span><span class="o">)).</span><span class="na">clear</span><span class="o">();</span> <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="n">driver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">Id</span><span class="o">(</span><span class="s">"email-address"</span><span class="o">)).</span><span class="na">sendKeys</span><span class="o">(</span><span class="s">"ualkk000@ual.es"</span><span class="o">);</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Añadir manualmente la llamada a <code>clear()</code> para limpiar el contenido del campo de texto.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>La llamada a <code>clear()</code> también será útil si se quiere probar el caso de dejar en blanco el campo <code>email</code>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Navegador headless queda ejecutándose en background</strong>.
+Cuando falla la ejecución de un test de Selenium WebDriver en modo headless, el navegador puede quedar ejecutándose en background, pudiendo consumir recursos del sistema innecesariamente.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="images/google-chrome-procesos-sin-morir.png" alt="google chrome procesos sin morir">
+</div>
+<div class="title">Fig. 19. Decenas de procesos sin morir del navegador en modo headless</div>
+</div>
+<div class="paragraph">
+<p>Es necesario revisar los procesos tanto en nuestra máquina local como en Jenkins y matarlos para evitar que queden ejecutándose consumiendo recursos.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_más_info">6. Más info</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
 <p>Mas información sobre <a href="https://www.selenium.dev/maven">Maven con Selenium</a>.</p>
 </li>
 <li>
@@ -1362,7 +1445,7 @@ Sin embargo, el diseño de clases JUnit y uso de los distintos drivers tiene var
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-21 21:47:59 +0200
+Last updated 2020-05-25 15:21:01 +0200
 </div>
 </div>
 <style>
