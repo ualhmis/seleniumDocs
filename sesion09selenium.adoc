@@ -526,6 +526,50 @@ image::jenkins-blueocean-parallel-browser-testing.png[role="thumb", align="cente
 
 == FAQ y resolución de problemas (_thoubleshouting_)
 
+- *Problema al actualizar un campo de texto que ya contiene un valor*. 
+Cuando un test de Selenium trata de actualizar el valor de un campo de texto que ya contiene un valor, por ejemplo al _modificar el email del perfil de usuario_, el test grabado con Selenium IDE simplemente captura los eventos que guardan el nuevo valor mediante un comando `type` y el nuevo valor se guarda en la propiedad _Value_. 
+
+.Comandos Selenium IDE para actualizar el email
+image::login-app-update-profile-ide-commands.png[role="thumb", align="center"]
+<1> Nuevo valor de email
+
+La siguiente imagen muestra la vista de la app web, antes de escribir el nuevo valor, muestra el valor antiguo.
+
+.Vista de la app web para actualizar el email (se muestra el valor antiguo)
+image::login-app-update-profile.png[role="thumb", align="center"]
+
+El problema se produce al exportar a JUnit el comando `type`, se traduce en una llamada al método `sendkeys("nuevoValor")`. Por ejemplo: 
+
+[source,java]
+----
+  driver.findElement(By.Id("email-address")).sendKeys("ualkk000@ual.es");
+----
+
+Y el método `sendkeys("nuevoValor")` *no reemplaza* el valor existente, sino que concatena el valor existente con el nuevo, algo asi: `ual-744547@\ual.esualkk000@ual.es`
+Para solucionar este problema simplemente hay que llamar al método `clear()`, que limpia el contenido del campo de texto, y tras ello escribir el nuevo valor con `sendKeys(...)`
+
+[source,java]
+----
+  driver.findElement(By.Id("email-address")).clear(); <1>
+  driver.findElement(By.Id("email-address")).sendKeys("ualkk000@ual.es");
+----
+<1> Añadir manualmente la llamada a `clear()` para limpiar el contenido del campo de texto.
+
+La llamada a `clear()` también será útil si se quiere probar el caso de dejar en blanco el campo `email`.
+
+- *Navegador headless queda ejecutándose en background*.
+Cuando falla la ejecución de un test de Selenium WebDriver en modo headless, el navegador puede quedar ejecutándose en background, pudiendo consumir recursos del sistema innecesariamente.
+
+.Decenas de procesos sin morir del navegador en modo headless
+image::google-chrome-procesos-sin-morir.png[role="thumb", align="center"]
+
+Es necesario revisar los procesos tanto en nuestra máquina local como en Jenkins y matarlos para evitar que queden ejecutándose consumiendo recursos.
+
+
+== Más info
+
 - Mas información sobre https://www.selenium.dev/maven[Maven con Selenium].
 
 - https://www.browserstack.com/guide/selenium-with-java-for-automated-test[Buenas prácticas]: Selenium con Java
+
+
