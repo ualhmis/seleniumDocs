@@ -492,6 +492,13 @@ pipeline {
 Comprueba que en el código de los tests Selenium en JUnit estás usando `FirefoxDriver`, y modo _headless_
 ====
 
+[WARNING]
+====
+Recuerda que en el código debes comentar las lineas donde se definen las property con las rutas de los drivers.
+
+    // System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
+====
+
 [start=3]
 . Publica la gráfica de los tests en un bloque `post` del pipeline.
 
