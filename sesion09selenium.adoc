@@ -259,7 +259,7 @@ Es importante que los drivers específicos de los navegadores no se guarden en G
     ...
   }
 ----
-<1> Son rutas relativas en el proyecto, dentro de `drivers` hemos descardado los drivers. Usa la ruta adecuada en tu caso.
+<1> Son rutas relativas en el proyecto, dentro de `drivers` hemos descargado los drivers. Usa la ruta adecuada en tu caso.
 <2> Idem 
 
 [start=6]
@@ -270,7 +270,7 @@ Es importante que los drivers específicos de los navegadores no se guarden en G
 .Cambiar el selector de un elemento de la página
 image::selenium-ide-change-selector-xpath.png[role="thumb", align="center"]
 
-También puede ser necesario añadir un tiempo de espera en medio de cada acció para que de tiempo a que se cargue el formulario, la página, etc. Por ejemplo, antes del primer `sendKeys` que escribe un texto en un campo de formulario, y también antes y después de `click()` en un botón de formulario. 
+También puede ser necesario añadir un tiempo de espera en medio de cada acción para que de tiempo a que se cargue el formulario, la página, etc. Por ejemplo, antes del primer `sendKeys` que escribe un texto en un campo de formulario, y también antes y después de `click()` en un botón de formulario. 
 
 .Añade una espera de 1 segundo (1000 mls)
 [source,java]
@@ -281,6 +281,11 @@ También puede ser necesario añadir un tiempo de espera en medio de cada acció
 	        e.printStackTrace();
 	      }
 ----
+
+[TIP]
+====
+Consulta en la sección FAQ el comando `waitForElementVisible`, una alternativa mejor a añadir segundos de espera fijos con `Time.sleep()`
+====
 
 [start=8]
 
@@ -405,7 +410,7 @@ HtmlUnit Driver da muchos problemas, sobre todo con JavaScript. Es la versión r
 
 === Ejecución en Jenkins
 
-La ejecución de los tests de Selenium en Jenkins debe hacerse en modo _headless_ ya que la maquina Jenkins no tiene una interfaz gráfica, más comúnmente conocida como X o X11 en Linux. A pesar de ello, tendremos que instalar un entorno de visualizacion simulado (`xvfb`). Veamos los pasos necesarios. Lo primero es descargar los drivers de los navegadores en la máquina de Jenkins. 
+La ejecución de los tests de Selenium en Jenkins debe hacerse en modo _headless_ ya que la maquina Jenkins no tiene una interfaz gráfica, más comúnmente conocida como X o X11 en Linux. A pesar de ello, tendremos que instalar un entorno de visualización simulado (`xvfb`). Veamos los pasos necesarios. Lo primero es descargar los drivers de los navegadores en la máquina de Jenkins. 
 
 . En la carpeta JENKINS_HOME (si no recuerdas cual es, la predeterminada es `/var/lib/jenkins`, puedes verla en http://fake[http://_mi-jenkins-url_/systemInfo]) crea una carpeta `selenium-drivers` y descarga ahí los drivers de los navegadores Firefox y Chrome para Ubuntu. Para ello, ejecuta los siguientes comandos en la máquina Jenkins.
 
@@ -514,7 +519,7 @@ image::jenkins-webdriver-pipeline-firefox-ok.png[role="thumb", align="center"]
 
 . Habrás implementado dos alternativas de ejecución en Jenkins de los test de Selenium en modo _headless_.
 Sin embargo, el diseño de clases JUnit y uso de los distintos drivers tiene varias desventajas: 
-- Para ejecutar con un navegador u otro tenemos que tocar el código fuente y modficar el driver "a mano"
+- Para ejecutar con un navegador u otro tenemos que tocar el código fuente y modificar el driver "a mano"
 - Esto implica que no se puede lanzar la ejecución en los dos navegadores en el mismo pipeline: o ejecutamos con Firefox o ejecutamos con Chrome. 
 
 Lo ideal es poder diseñar el pipeline para lanzar en paralelo la ejecución en estos dos, o cuantos  navegadores sean necesarios, tal y como se muestra en la siguiente imagen: 
@@ -528,7 +533,7 @@ image::jenkins-blueocean-parallel-browser-testing.png[role="thumb", align="cente
 
 . Rediseña las clases JUnit con los test de Selenium para poder lanzar los tests bien con Firefox o bien con en Chrome, sin tener que modificar el código fuente, es decir, sin tener que cambiar el driver "a mano". Dependiendo de tu diseño, tal vez puedas necesitar https://openclassrooms.com/en/courses/5661466-use-testing-in-java-to-achieve-quality-applications/6232331-label-your-tests-with-advanced-junit-annotations[categorías] de JUnit 4. 
 
-. Crea dos fases en el pipeline, una para Firefox y otra para Chrome, y configura el pipeline para que se ej  ecuten en paralelo, usando el bloque https://www.jenkins.io/doc/book/pipeline/syntax/#parallel[`parallel`]. 
+. Crea dos fases en el pipeline, una para Firefox y otra para Chrome, y configura el pipeline para que se ejecuten en paralelo, usando el bloque https://www.jenkins.io/doc/book/pipeline/syntax/#parallel[`parallel`]. 
 ====
 
 == FAQ y resolución de problemas (_thoubleshouting_)

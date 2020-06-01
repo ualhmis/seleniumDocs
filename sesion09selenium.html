@@ -898,7 +898,7 @@ Tests de aceptación con Selenium.
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Son rutas relativas en el proyecto, dentro de <code>drivers</code> hemos descardado los drivers. Usa la ruta adecuada en tu caso.</td>
+<td>Son rutas relativas en el proyecto, dentro de <code>drivers</code> hemos descargado los drivers. Usa la ruta adecuada en tu caso.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -923,7 +923,7 @@ Tests de aceptación con Selenium.
 <div class="title">Fig. 13. Cambiar el selector de un elemento de la página</div>
 </div>
 <div class="paragraph">
-<p>También puede ser necesario añadir un tiempo de espera en medio de cada acció para que de tiempo a que se cargue el formulario, la página, etc. Por ejemplo, antes del primer <code>sendKeys</code> que escribe un texto en un campo de formulario, y también antes y después de <code>click()</code> en un botón de formulario.</p>
+<p>También puede ser necesario añadir un tiempo de espera en medio de cada acción para que de tiempo a que se cargue el formulario, la página, etc. Por ejemplo, antes del primer <code>sendKeys</code> que escribe un texto en un campo de formulario, y también antes y después de <code>click()</code> en un botón de formulario.</p>
 </div>
 <div class="listingblock">
 <div class="title">Añade una espera de 1 segundo (1000 mls)</div>
@@ -934,6 +934,20 @@ Tests de aceptación con Selenium.
 	        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
 	      <span class="o">}</span></code></pre>
 </div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Consulta en la sección FAQ el comando <code>waitForElementVisible</code>, una alternativa mejor a añadir segundos de espera fijos con <code>Time.sleep()</code></p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="olist arabic">
 <ol class="arabic" start="8">
@@ -1130,7 +1144,7 @@ Tests de aceptación con Selenium.
 <div class="sect2">
 <h3 id="_ejecución_en_jenkins">4.4. Ejecución en Jenkins</h3>
 <div class="paragraph">
-<p>La ejecución de los tests de Selenium en Jenkins debe hacerse en modo <em>headless</em> ya que la maquina Jenkins no tiene una interfaz gráfica, más comúnmente conocida como X o X11 en Linux. A pesar de ello, tendremos que instalar un entorno de visualizacion simulado (<code>xvfb</code>). Veamos los pasos necesarios. Lo primero es descargar los drivers de los navegadores en la máquina de Jenkins.</p>
+<p>La ejecución de los tests de Selenium en Jenkins debe hacerse en modo <em>headless</em> ya que la maquina Jenkins no tiene una interfaz gráfica, más comúnmente conocida como X o X11 en Linux. A pesar de ello, tendremos que instalar un entorno de visualización simulado (<code>xvfb</code>). Veamos los pasos necesarios. Lo primero es descargar los drivers de los navegadores en la máquina de Jenkins.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1317,7 +1331,7 @@ Sin embargo, el diseño de clases JUnit y uso de los distintos drivers tiene var
 <div class="ulist">
 <ul>
 <li>
-<p>Para ejecutar con un navegador u otro tenemos que tocar el código fuente y modficar el driver "a mano"</p>
+<p>Para ejecutar con un navegador u otro tenemos que tocar el código fuente y modificar el driver "a mano"</p>
 </li>
 <li>
 <p>Esto implica que no se puede lanzar la ejecución en los dos navegadores en el mismo pipeline: o ejecutamos con Firefox o ejecutamos con Chrome.</p>
@@ -1352,7 +1366,7 @@ Sin embargo, el diseño de clases JUnit y uso de los distintos drivers tiene var
 <p>Rediseña las clases JUnit con los test de Selenium para poder lanzar los tests bien con Firefox o bien con en Chrome, sin tener que modificar el código fuente, es decir, sin tener que cambiar el driver "a mano". Dependiendo de tu diseño, tal vez puedas necesitar <a href="https://openclassrooms.com/en/courses/5661466-use-testing-in-java-to-achieve-quality-applications/6232331-label-your-tests-with-advanced-junit-annotations">categorías</a> de JUnit 4.</p>
 </li>
 <li>
-<p>Crea dos fases en el pipeline, una para Firefox y otra para Chrome, y configura el pipeline para que se ej  ecuten en paralelo, usando el bloque <a href="https://www.jenkins.io/doc/book/pipeline/syntax/#parallel"><code>parallel</code></a>.</p>
+<p>Crea dos fases en el pipeline, una para Firefox y otra para Chrome, y configura el pipeline para que se ejecuten en paralelo, usando el bloque <a href="https://www.jenkins.io/doc/book/pipeline/syntax/#parallel"><code>parallel</code></a>.</p>
 </li>
 </ol>
 </div>
@@ -1510,7 +1524,7 @@ En Selenium IDE existe el comando <a href="https://www.selenium.dev/selenium-ide
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-06-01 04:45:17 +0200
+Last updated 2020-06-01 04:52:54 +0200
 </div>
 </div>
 <style>
