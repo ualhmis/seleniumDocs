@@ -1444,6 +1444,52 @@ Cuando falla la ejecución de un test de Selenium WebDriver en modo headless, el
 <div class="paragraph">
 <p>Es necesario revisar los procesos tanto en nuestra máquina local como en Jenkins y matarlos para evitar que queden ejecutándose consumiendo recursos.</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternativa a meter segundos de espera con Time.sleep()</strong>.
+En Selenium IDE existe el comando <a href="https://www.selenium.dev/selenium-ide/docs/en/api/commands#wait-for-element-visible"><code>waitForElementVisible</code></a> que permite esperar hasta que un elemento esté visible. Aunque al grabar el test con Selenium IDE no es necesario añadir este comando, porque ya lo tiene implícito, cuando exportamos a WebDriver sí necesitamos meter las esperas. Por tanto <strong>es recomendable</strong> este comando en todos los pasos del test que veas que tarda en cargar la página.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="images/selenium-ide-waitForElementVisible.png" alt="selenium ide waitForElementVisible">
+</div>
+<div class="title">Fig. 20. Comando <code>waitForElementVisible</code></div>
+</div>
+<div class="paragraph">
+<p>En JUnit se convierte en:</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="images/selenium-webdriver-waitForElementVisible.png" alt="selenium webdriver waitForElementVisible">
+</div>
+<div class="title">Fig. 21. Código JUnit para <code>waitForElementVisible</code></div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java">  <span class="c1">// 9 | waitForElementVisible | xpath="//h2[contains(.,\'Ingeniería y Arquitectura\')]" | 30000</span>
+  <span class="o">{</span>
+	  <span class="nc">WebDriverWait</span> <span class="n">wait</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">WebDriverWait</span><span class="o">(</span><span class="n">driver</span><span class="o">,</span> <span class="mi">30</span><span class="o">);</span>
+    <span class="n">wait</span><span class="o">.</span><span class="na">until</span><span class="o">(</span><span class="nc">ExpectedConditions</span><span class="o">.</span><span class="na">visibilityOfElementLocated</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">xpath</span><span class="o">(</span><span class="s">"//h2[contains(.,\'Ingeniería y Arquitectura\')]"</span><span class="o">)));</span>
+  <span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Otros métodos como la configuración de esperas implícitas y explícitas (<code>implicitlyWait</code>) no solucionan el problema, y aunque aparezcan en la documentación de Selenium y en los ejemplos, no dan el resultado esperado. Por ejemplo el método <a href="https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/WebDriver.Timeouts.html#implicitlyWait-long-java.util.concurrent.TimeUnit-">implicitlyWait</a>:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se supone que establece la cantidad de tiempo qeu el driver debería esperar cuando busca un elemento si este no está presente inmediatamente. Sin embargo, no funciona como se espera y los errores no se solucionan.</p>
+</div>
+<div class="paragraph">
+<p>Así que la única forma es añadir manualmente tiempo de espera en cada paso que requiera tiempo de carga de los contenidos. Puesto que añadir un <code>sleep()</code> está desaconsejado, la mejor opción entonces es añadir comandos <code>waitForElementVisible</code>.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1464,7 +1510,7 @@ Cuando falla la ejecución de un test de Selenium WebDriver en modo headless, el
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-05-25 20:33:33 +0200
+Last updated 2020-06-01 04:45:17 +0200
 </div>
 </div>
 <style>
