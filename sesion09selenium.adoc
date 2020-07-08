@@ -142,11 +142,19 @@ Os dejo aquí tres ejemplos de plantillas de aplicación web, en distintas tecno
 
 . https://sailsjs.com/get-started[Web App. Extensible project with auth, login, & password recovery].
  _Node JS + Sails JS framework_
+
+ . https://github.com/heartcombo/devise/wiki/Example-applications[A list of example Rails applications that demonstrate how to use Devise, a flexible authentication solution for Rails]
+ _Ruby on Rais + Devise_
 ****
 
 . Elegid una de las plantillas. Si deseáis usar alguna otra plantilla en otra tecnología, comentádmelo antes por si implementa la funcionalidad básica requerida.
 
 . En local, crear el proyecto basado en la plantilla. Probar que funciona.
+
+[TIP]
+====
+https://hackernoon.com/your-node-js-authentication-tutorial-is-wrong-f1a3bf831a46[Algunos fallos típicos en los tutoriales de web de autenticación (login)]
+====
 
 === Creación de test Selenium
 
