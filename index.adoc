@@ -27,11 +27,11 @@ Nombre y título del trabajo
 ////
 = Actividad. Pruebas de aceptación con Selenium
 
-. link:selenium-ide-intro.html[Introduccion a Selenium]
+. link:docs/selenium-ide-intro.html[Introduccion a Selenium]
 
-. link:selenium-ide-ejercicios.html[Ejercicios Parte 1 - Proyecto Login]
+. link:docs/selenium-ide-ejercicios.html[Ejercicios Parte 1 - Proyecto Login]
 
 ////
- . link:selenium-webdriver.html[Selenium WebDriver]
- . link:selenium-jenkins.html[Selenium en Jenkins]
+ . link:docs/selenium-webdriver.html[Selenium WebDriver]
+ . link:docs/selenium-jenkins.html[Selenium en Jenkins]
 ////
