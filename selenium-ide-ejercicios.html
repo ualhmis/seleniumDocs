@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
 <meta name="keywords" content="Selenium end-to-end testing">
-<title>Actividad. Pruebas de aceptación con Selenium</title>
+<title>Pruebas de aceptación con Selenium</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,29 +438,216 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="book">
+<body class="book toc2 toc-right">
 <div id="header">
-<h1>Actividad. Pruebas de aceptación con Selenium</h1>
+<h1>Pruebas de aceptación con Selenium</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Tabla de contenidos</div>
+<ul class="sectlevel1">
+<li><a href="#_ejercicios_parte_1_selenium_ide">1. Ejercicios Parte 1: Selenium IDE</a>
+<ul class="sectlevel2">
+<li><a href="#_test_de_la_web_del_equipo">1.1. Test de la web del equipo</a></li>
+<li><a href="#_aplicación_web_login_y_registro_de_usuarios">1.2. Aplicación web login y registro de usuarios</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Herramientas y Métodos en Ingeniería del Software
+Version 2.0, Marzo-2021.
+Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</p>
+</div>
+<div class="quoteblock abstract">
+<blockquote>
+Ejercicios de tests de aceptación con Selenium.
+</blockquote>
+</div>
+<div class="ulist">
+<div class="title">Objetivos</div>
+<ul>
+<li>
+<p>Comenzar a crear tests de aceptación de aplicaciones web con Selenium IDE.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Realización y entrega</div>
+<div class="paragraph">
+<p>La realización de estas actividades se realizará <strong>en equipo</strong>. La entrega será mediante el envío de un informe y el acceso al profesor a los repositorios y servicios configurados, para la revisión y evaluación de los mismos.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ejercicios_parte_1_selenium_ide">1. Ejercicios Parte 1: Selenium IDE</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_test_de_la_web_del_equipo">1.1. Test de la web del equipo</h3>
+<div class="paragraph">
+<p>Realiza con Selenium IDE los tests de la web del equipo de la sesión 04 que verifiquen que la web incorpora todos los elementos que se pedían que se incluyeran en la misma.</p>
+</div>
+<div class="paragraph">
+<p>Como siempre, crea un repositorio (privado) en GitHub para guardar los archivos creados. Se trata de una actividad en equipo, así que aplica el método de colaboración fork + pull request. Comparte el repositorio con el profesor para que pueda tener acceso al mismo.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_aplicación_web_login_y_registro_de_usuarios">1.2. Aplicación web login y registro de usuarios</h3>
+<div class="sect3">
+<h4 id="_elige_una_plantilla">1.2.1. Elige una plantilla</h4>
+<div class="paragraph">
+<p>Os dejo aquí tres ejemplos de plantillas de aplicación web, en distintas tecnologías, que implementan un login y registro de usuarios.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Proyecto Login - Opciones</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a href="selenium-ide-intro.html">Introduccion a Selenium</a></p>
+<p><a href="https://docs.microsoft.com/es-es/aspnet/core/tutorials/publish-to-azure-webapp-using-vs?view=aspnetcore-2.2">Creación de una app Login con Visual Studio 2017 y Azure</a>.
+<em>.Net Core + SQL Server + Azure</em></p>
 </li>
 <li>
-<p><a href="selenium-ide-ejercicios.html">Ejercicios Parte 1 - Proyecto Login</a></p>
+<p><a href="https://hellokoding.com/registration-and-login-example-with-spring-xml-configuration-maven-jsp-and-mysql/">Registration and Login with Spring MVC, Spring Security, Spring Data JPA, Hibernate, MySQL, JSP and Bootstrap</a>.
+<em>Java + MySql + Maven</em></p>
+</li>
+<li>
+<p><a href="https://sailsjs.com/get-started">Web App. Extensible project with auth, login, &amp; password recovery</a>.
+<em>Node JS + Sails JS framework</em></p>
+</li>
+<li>
+<p><a href="https://github.com/heartcombo/devise/wiki/Example-applications">A list of example Rails applications that demonstrate how to use Devise, a flexible authentication solution for Rails</a>
+<em>Ruby on Rais + Devise</em></p>
 </li>
 </ol>
+</div>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Elegid una de las plantillas. Si lo deseas puedes usar alguna otra plantilla en otra tecnología, así que tomad una decisión en equipo y comentádmelo antes para validar que implemente la funcionalidad básica requerida.</p>
+</li>
+<li>
+<p>En local, crear el proyecto basado en la plantilla. Probar que funciona.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><a href="https://hackernoon.com/your-node-js-authentication-tutorial-is-wrong-f1a3bf831a46">Algunos fallos típicos en los tutoriales de web de autenticación (login)</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_creación_de_test_selenium">1.2.2. Creación de test Selenium</h4>
+<div class="paragraph">
+<p>Crear en Selenium los test cases necesarios para probar, tanto escenarios correctos como escenarios de error, de las siguientes funcionalidades:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Registro de usuario (Caso correcto)</p>
+</li>
+<li>
+<p>Registro de usuario (Casos incorrectos)</p>
+</li>
+<li>
+<p>Login de usuario (Caso correcto)</p>
+</li>
+<li>
+<p>Login de usuario (Casos incorrectos)</p>
+</li>
+<li>
+<p>Editar el perfil de usuario logueado (caso correcto)</p>
+</li>
+<li>
+<p>Editar el perfil de usuario logueado (casos incorrectos)</p>
+</li>
+<li>
+<p>Cambio de contraseña de usuario logueado (Caso correcto)</p>
+</li>
+<li>
+<p>Cambio de contraseña de usuario logueado (Casos incorrectos)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Guardar los test cases en una test suite (formato <code>.side</code>).</p>
+</div>
+<div class="paragraph">
+<p>Puesto que para realizar una prueba exhaustiva, cubriendo todos los posibles escenarios, el número de casos de prueba es elevado, la forma de trabajar es dividir las funcionalidades entre los miembros del equipo y así repartir el trabajo: Una persona que haga los tests de <strong>Registro de usuario + Editar perfil</strong>, y otra los de <strong>login de usuario + cambio de contraseña</strong>. Para equipos de 3 personas, una el registro, otra el login y otra la edición de perfil y cambio de contraseña.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Truco para el test Registro de usuario (Caso correcto)</div>
+<div class="paragraph">
+<p>Para que el test de registro de usuario lo podamos ejecutar repetidamente sin que nos de el error de "usuario ya existe", tenemos que usar un email aleatorio en cada ejecución del test. Eso se consigue definiendo una variable en Selenium, llamado al comando <code>execute script</code>, escribiendo la función de JavaScript que genere ese email aleatorio, y guardándolo en una variable que luego usaremos en en paso que escribe el valor en el campo <em>email</em> del registro.</p>
+</div>
+<div class="paragraph">
+<p>El paso sería del test case de Selenium IDE es:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Command: <strong>execute script</strong></p>
+</li>
+<li>
+<p>Target: <code>return "ual-" + Math.floor(Math.random()*1500000)+"@ual.es"`</code></p>
+</li>
+<li>
+<p>Value: <code>emailramdon</code></p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="images/register-email-ramdon.png" alt="register email ramdon">
+</div>
+<div class="title">Fig. 1. Generación de un email aleatorio</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_desplegar_la_aplicación_en_azure">1.2.3. Desplegar la aplicación en Azure</h4>
+<div class="paragraph">
+<p>La aplicación que hemos probado localmente, debemos ponerla "en producción", es decir, desplegarla en Azure para que esté disponible por nuestros usuarios (ficticios).</p>
+</div>
+<div class="paragraph">
+<p>Dependiendo de la plantilla elegida, el despliegue será distinto. La plantilla de .Net explica el despliegue en Azure Web app. El resto se pueden desplegar en Web app, o bien en una máquina virtual.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_adaptar_los_test_a_la_url_de_despliegue">1.2.4. Adaptar los test a la URL de despliegue</h4>
+<div class="paragraph">
+<p>Los test que hemos creado en el <em>entorno de desarrollo</em>, es decir, en nuestro equipo local, deben adaptarse para que funcionen en <em>entorno de producción</em> es decir, deben atacar a la aplicación desplegada.</p>
+</div>
+<div class="paragraph">
+<p>Para ello simplemente tendrás que cambiar la URL base.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-18 15:08:35 +0100
+Last updated 2021-03-18 14:56:16 +0100
 </div>
 </div>
 </body>

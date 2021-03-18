@@ -25,6 +25,13 @@ Codificación, idioma, tabla de contenidos, tipo de documento
 ////
 Nombre y título del trabajo
 ////
-= Actividad 9. Pruebas de aceptación con Selenium
+= Actividad. Pruebas de aceptación con Selenium
 
-link:sesion09selenium.html[Guión de la actividad]
+. link:selenium-ide-intro.html[Introduccion a Selenium]
+
+. link:selenium-ide-ejercicios.html[Ejercicios Parte 1 - Proyecto Login]
+
+////
+ . link:selenium-webdriver.html[Selenium WebDriver]
+ . link:selenium-jenkins.html[Selenium en Jenkins]
+////

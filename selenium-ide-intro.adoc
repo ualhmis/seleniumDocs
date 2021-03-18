@@ -1,0 +1,125 @@
+////
+Codificación, idioma, tabla de contenidos, tipo de documento
+////
+:encoding: utf-8
+:lang: es
+:toc: right
+:toc-title: Tabla de contenidos
+:keywords: Selenium end-to-end testing
+:doctype: book
+:icons: font
+
+////
+/// activar btn:
+////
+:experimental:
+
+:source-highlighter: rouge
+:rouge-linenums-mode: inline
+
+// :highlightjsdir: ./highlight
+
+:figure-caption: Fig.
+:imagesdir: images
+
+////
+Nombre y título del trabajo
+////
+= Pruebas de aceptación con Selenium
+
+Version 2.0, Marzo-2021.
+Joaquín Cañadas <jjcanada@ual.es>
+
+// Entrar en modo no numerado de apartados
+:numbered!: 
+
+[abstract]
+////
+COLOCA A CONTINUACIÓN EL RESUMEN
+////
+Breve introducción a los tests de aceptación de aplicaciones web con Selenium.
+
+////
+COLOCA A CONTINUACIÓN LOS OBJETIVOS
+////
+.Objetivos
+* Comenzar a crear tests de aceptación de aplicaciones web con Selenium IDE.
+* Crear y desplegar una plantilla de aplicación web que implemente un Login y Registro de usuario.
+* Exportar los test de Selenium IDE a Selenium Webdriver y ejecutar en Eclipse con distintos navegadores web (cross-browser testing). 
+* Ejecutar los test de Selenium en Jenkins utilizando el navegador en modo _headless_.
+
+
+// Entrar en modo numerado de apartados
+:numbered:
+
+
+== Introducción a Selenium
+https://www.selenium.dev/[Selenium] es un conjunto de herramientas para llevar a cabo pruebas automatizadas de aplicaciones web.
+
+Selenium consta de varias herramientas. 
+
+- https://www.selenium.dev/selenium-ide/[*Selenium IDE*] es una extensión para https://addons.mozilla.org/es/firefox/addon/selenium-ide/[Firefox] y para https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd[Chrome] que registra nuestra actividad en el navegador durante un período determinado; esta actividad se traduce en una serie de https://www.selenium.dev/selenium-ide/docs/en/api/commands[comandos] que podremos repetir cuantas veces queramos. Cuando sea conveniente, incluiremos *aserciones* para realizar comprobaciones de que lo que se muestra en la web es realmente lo esperado. Con Selenium IDE podemos _grabar_ casos de prueba o _test cases_, y agruparlos en juegos de prueba o _test suites_. *Selenium IDE* permite exportar los _test cases_ en forma de scripts en muy diversos lenguajes, como Python, Ruby, Java (JUnit), C#, NodeJS (JavaScript), y algunos más, para ser usados en los entornos de prueba habituales usando el siguiente componente de Selenium, llamado *Selenium WebDriver*.
+
+-  https://www.selenium.dev/documentation/en/getting_started_with_webdriver/[*Selenium WebDriver*], implementa una API cliente lista para ser usada con tu entorno de testing favorito, que se ejecutará sobre un servidor que gestiona los principales navegadores que tengas instalados para realizar en ellos las pruebas. Es decir, podrás ejecutar las pruebas automáticamente desde tu IDE favorito, por ejemplo Eclipse, en todos los navegadores relevantes, de forma que no se te escape ningún detalle de tu aplicación. Para ello, necesitarás descargar del _driver_ del navegador sobre el que quieres ejecutar las pruebas (además de, por supuesto, tener instalado dicho navegador en tu sistema).
+
+- Un tercer componentes es https://www.selenium.dev/documentation/en/grid/[*Selenium Grid*], que permite ejecutar varias instancias del WebDriver de forma paralela, en distintas máquinas con distintas plataformas o sistemas operativos, gestionándolas centralizadamente, lo que acelerará drásticamente los tiempos de prueba.
+
+== Selenium IDE
+
+Instala en tu equipo Selenium IDE en https://addons.mozilla.org/es/firefox/addon/selenium-ide/[Firefox] o https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd[Chrome]. Tras ello, aparecerá el icono en tu navegador.
+
+.Icono de Selenium IDE en el navegador
+image::selenium-ide-icon.png[role="thumb", align="center"]
+
+Al hacer clic sobre el icono, se abrirá Selenium IDE. Empieza por crear un nuevo proyecto:
+
+.Selenium IDE inicio
+image::selenium-ide-open-1.png[role="thumb", align="center"]
+
+Escribe un nombre al nuevo proyecto de pruebas:
+
+.Selenium IDE inicio
+image::selenium-ide-open-new-project.png[role="thumb", align="center"]
+
+Introduce la URL base a probar:
+
+.Selenium IDE URL base
+image::selenium-ide-open-url-base.png[role="thumb", align="center"]
+
+Directamente empieza a grabar las acciones que vayas realizando sobre el navegador:
+
+.Selenium IDE grabando
+image::selenium-ide-start-recording.png[role="thumb", align="center"]
+
+Durante tu interacción con la web que estés probando *SIEMPRE es necesario* ir añadiendo *_asserts_* o *verificaciones* para comprobar que lo que muestra la aplicación corresponde con lo esperado.
+
+.Selenium IDE assert text
+image::selenium-ide-assert-text.png[role="thumb", align="center"]
+
+En la ventana de Selenium IDE, puedes ver que se van grabando en los comandos de Selenium los pasos realizados sobre el navegador (clics, entradas de texto, asserts, etc). 
+
+.Selenium IDE pasos guardados
+image::selenium-ide-saved-steps.png[role="thumb", align="center"]
+
+Finaliza la grabación del test en el botón de detener, y dale un nombre al test case creado:
+
+.Selenium IDE guardar test case
+image::selenium-ide-stop-test-name.png[role="thumb", align="center"]
+
+
+A continuación, dale al _play_ para volver a ejecutar el test: 
+
+.Selenium IDE detener grabación
+image::selenium-ide-play-test.png[role="thumb", align="center"]
+
+Siguiendo estos sencillos pasos, puedes grabar tantos casos de prueba como sean necesarios para ejercitar tu aplicación web y verificar que todos escenarios de los casos de uso funcionan correctamente. 
+
+Recuerda que es necesario crear casos de prueba para: 
+
+- Los *escenarios correctos*, en los que la aplicación realiza el caso de uso correctamente, tal y como se espera. 
+
+- Los *escenarios de error o incorrectos*, donde el funcionamiento del caso de uso no es el caso correcto, bien porque los datos introducidos no son adecuados, o faltan, o por cualquier otro motivo. La aplicación en ese caso debería mostrar un mensaje de error de algún tipo y comportarse de manera estable, es decir, que se queda en un estado aceptable y _"no peta"_ en esos escenarios incorrectos.
+
+Puedes organizar los tests en test suites. 
+
+Por último, guarda los test en un archivo `.side`, que está basado en formato JSON.
