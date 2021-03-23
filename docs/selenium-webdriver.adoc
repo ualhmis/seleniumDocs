@@ -43,7 +43,7 @@ COLOCA A CONTINUACIÓN LOS OBJETIVOS
 ////
 .Objetivos
 * Exportar los test de Selenium IDE a Selenium Webdriver y ejecutar en Eclipse con distintos navegadores web (cross-browser testing). 
-* Ejecutar los test de Selenium en Jenkins utilizando el navegador en modo _headless_.
+* Ejecutar los test de Selenium utilizando el navegador en modo _headless_.
 
 .Realización y entrega
 ****
@@ -54,11 +54,11 @@ La realización de estas actividades se realizará en equipo. La entrega será m
 :numbered:
 
 
-== Parte 2: Selenium WebDriver y Jenkins
+== Selenium WebDriver
 
-Selenium WebDriver permite ejecutar los tests de Selenium como tests de JUnit, permitiendo así su ejecución en Eclipse y Jenkins. 
+Selenium WebDriver permite ejecutar los tests de Selenium como tests de JUnit, ofreciendo así la forma de ser ejecutados en Eclipse y Jenkins. 
 
-=== Exportar a JUnit
+=== Exportar de Selenium IDE a JUnit
 
 Exporta a formato JUnit los tests grabados con Selenium IDE. Si has organizado tus tests en test suites, podrás exportar cada test suite a una clase .java en donde cada test case será un método de test de la clase. Si no, tendrás que hacerlo cada test case uno por uno, ya que por ahora Selenium IDE no permite exportarlos todos a la vez. 
 
@@ -68,13 +68,62 @@ image::selenium-ide-export-test.png[role="thumb", align="center"]
 .Exportar formato JUnit
 image::selenium-ide-export-test-junit.png[role="thumb", align="center"]
 
-Guarda los archivos `.java` en una carpeta. A continuación los importaremos en Eclipse.
+Al exportar, marca las dos opciones que permiten que se guarde como comentarios el comando de Selenium IDE que da origen a cada instrucción de WebDriver. Guarda los archivos `.java` en una carpeta. A continuación los importaremos en Eclipse.
 
-=== Cross-browser testing en Eclipse
+=== Creación del proyecto en Eclipse
 
-https://developer.mozilla.org/es/docs/Learn/Herramientas_y_pruebas/Cross_browser_testing[Cross-browser testing] o prueba de navegadores cruzados es el proceso de probar aplicaciones y sitios web en los navegadores web más habituales que los usuarios utilizan en la actualidad. En esta sección, vamos a ejecutar los tests de Selenium en dos navegadores: Firefox y Chrome. 
+En el momento de escribir este documento, Selenium IDE exporta los tests en formato JUnit 4. Veamos a continuación los pasos necesarios para su ejecución.
 
-Para ello utiliza como referencia el repositorio https://github.com/ualhmis/seleniumWebDriverJUnit que tiene ya configurado el `pom.xml` con las dependencias necesarias: 
+En Eclipse, crea un nuevo proyecto Java. Crea la carpeta fuente `test`. Crea un nuevo paquete en la carpeta test de nombre `org.ual.hmis.nombreEquipo` (sustituyendo `nombreEquipo` por el nombre de tu equipo). Ahí guarda los archivos `.java` exportados de Selenium IDE. 
+
+Verás que aparecen muchos errores de compilación porque aun no hemos añadido las librerías necesarias de JUnit 4 y Selenium Webdriver. Para hacerlo, vamos a apoyarnos en Maven. A continuación, convierte el proyecto en un proyecto Maven: Sobre el nombre del proyecto, botón derecho, Configure > Convert to Maven project
+
+.Convertir proyecto a Maven
+image::eclipse-convert-to-maven-project.png[role="thumb", align="center"]
+
+Deja las opciones predeterminadas. Al mavenizar el proyecto se crea el archivo `pom.xml` que va a contener toda la configuración necesaria para la construcción automatizada del proyecto, así como las dependencias (librarías) necesarias. Para añadir las dependencias a JUnit 4 y a Selenium Webdriver, edita el archivo `pom.xml` seleccionando la pestaña para ver el código fuente xml.
+
+.Editar el `pom.xml`
+image::eclipse-edit-pom.png[role="thumb", align="center"]
+
+A continuación, añade las siguientes 4 dependencias en un nuevo bloque con la etiqueta `<dependencies>`, tras el bloque `<build>...</build>`:
+
+[source,xml]
+----
+  ...
+  </build>
+  <dependencies>
+  	<dependency> <1>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>4.13.1</version>
+  	</dependency>
+  	<dependency> <2>
+  		<groupId>org.seleniumhq.selenium</groupId>
+  		<artifactId>selenium-java</artifactId>
+  		<version>3.141.59</version>
+  	</dependency>
+  	<dependency> <3>
+  		<groupId>org.seleniumhq.selenium</groupId>
+  		<artifactId>selenium-firefox-driver</artifactId>
+  		<version>3.141.59</version>
+  	</dependency>
+  	<dependency> <4>
+  		<groupId>org.seleniumhq.selenium</groupId>
+  		<artifactId>selenium-chrome-driver</artifactId>
+  		<version>3.141.59</version>
+  	</dependency>
+  </dependencies>
+</project>
+----
+<1> JUnit 4. 
+<2> Selenium-Java, librería básica de Selenium Webdriver.
+<3> Selenium Firefox Driver, librería con el driver de Firefox para poder ejecutar los tests en este navegador.
+<4> Selenium Chrome Driver,  librería con el driver de Chrome para poder ejecutar los tests en este navegador. 
+
+Una vez guardados los cambios, los errores de compilación en tu clase `.java` con los test exportados de Selenium deberían desaparecer.
+
+En caso de dudas, utiliza como referencia el repositorio https://github.com/ualhmis/seleniumWebDriverJUnit que tiene ya configurado el `pom.xml` con las dependencias necesarias. 
 
 [IMPORTANT]
 ====
@@ -83,9 +132,11 @@ Los test de JUnit exportados por Selenium IDE están en formato JUnit 4. Para re
 En el repositorio puedes encontrar la rama *JUnit 5* donde se han adaptado los tests y las dependencias a JUnit 5.
 ====
 
-. Un miembro del equipo clona el repositorio (previamente forkeado). Siguiendo el método de trabajo en equipo, el otro miembro forkea el repositorio del compañero y propondrá cambios mediante pull request.
+== Cross-browser testing en Eclipse
 
-. Cada miembro del equipo crea una carpeta `drivers` en el proyecto en Eclipse. Y añade la carpeta al `.gitginore` para que el contenido no se guarde en el repositorio.
+https://developer.mozilla.org/es/docs/Learn/Herramientas_y_pruebas/Cross_browser_testing[Cross-browser testing] o prueba de navegadores cruzados es el proceso de probar aplicaciones y sitios web en los navegadores web más habituales que los usuarios utilizan en la actualidad. En esta sección, vamos a ejecutar los tests de Selenium en dos navegadores: Firefox y Chrome. 
+
+. Crea una carpeta `drivers` en el proyecto en Eclipse. Y añade la carpeta al `.gitginore` para que el contenido no se guarde en el repositorio.
 
 [source]
 ..gitignore
@@ -98,19 +149,19 @@ En el repositorio puedes encontrar la rama *JUnit 5* donde se han adaptado los t
 
 [WARNING]
 ====
-Es importante que los drivers específicos de los navegadores no se guarden en GitHub, ya que son archivos ejecutables (dependencias) específicos de la plataforma, que no deben versionarse. Cuando los necesites, tendrás que descargarlos. 
+Es importante que los drivers específicos de los navegadores no se guarden en el repositorio, ya que son archivos ejecutables (dependencias) específicos de la plataforma, que no deben versionarse. Cuando los necesites, tendrás que descargarlos. 
 ====
 
-[start=3]
-. En es carpeta descarga los drivers de los navegadores Firefox y Chrome. Para ello: 
+[start=2]
+. En esa carpeta descarga los drivers de los navegadores Firefox y Chrome. Para ello: 
 .. Descarga y descomprime Firefox driver (Gecko Driver) de https://github.com/mozilla/geckodriver/releases eligiendo la versión adecuada para tu sistema.
 .. Descarga y descomprime Chrome driver de https://sites.google.com/a/chromium.org/chromedriver/downloads  eligiendo la versión adecuada para tu sistema y la versión de Chrome que tengas instalado.
-.. Con estos dos drivers es suficiente como prueba de concepto, pero puedes ver como descargar los drivers de otros navegadores aquí: https://www.selenium.dev/documentation/en/webdriver/driver_requirements/[Driver requirements].
+.. Con estos dos drivers es suficiente como prueba de concepto, pero puedes ver como descargar los drivers de otros navegadores aquí: https://www.selenium.dev/documentation/en/webdriver/driver_requirements/#quick-reference[Driver requirements].
 
-[start=4]
-. Crea un nuevo paquete en la carpeta test de nombre `org.ual.hmis.nombreEquipo` (sustituyendo `nombreEquipo` por el nombre de tu equipo). Ahí guarda los archivos `.java` exportados de Selenium IDE. Si has forkeado el proyecto de referencia, elimina los paquetes que contienen tests de ejemplo.
+[start=3]
+. De la sección anterior, deberás tener el un paquete en la carpeta test de nombre `org.ual.hmis.nombreEquipo` (sustituyendo `nombreEquipo` por el nombre de tu equipo), y ahí estarán  archivos `.java` exportados de Selenium IDE. Si has forkeado el proyecto de referencia, elimina los paquetes que contienen tests de ejemplo.
 
-. A continuación se indican unas mínimas modificaciones a cada archivo fuente `.java`: 
+. A continuación se indican unas mínimas modificaciones que hay que realizar a cada archivo fuente `.java` exportado de Selenium IDE: 
 .. Añade el paquete a cada archivo `.java`
 .. En el método `setUp()`, añade justo al principio las sentencias para configurar la ruta a cada driver:
 
@@ -126,37 +177,8 @@ Es importante que los drivers específicos de los navegadores no se guarden en G
 <1> Son rutas relativas en el proyecto, dentro de `drivers` hemos descargado los drivers. Usa la ruta adecuada en tu caso.
 <2> Idem 
 
-[start=6]
-. Ejecuta los tests como JUnit Test. Verás que se abre Firefox y ejecuta los test automáticamente. 
-
-. Si un test *falla*, revisa el código y los pasos incluidos. Puede haber pasos que sobren, o que al exportarlos a JUnit tengas que adaptarlos a Java. Los fallos se pueden deber al selector que ha tomado automáticamente Selenium IDE. El https://www.browserstack.com/guide/locators-in-selenium[selector] identifica el elemento dentro de la página web sobre el que se ha interactuado, y para ello utiliza bien la referencia CSS o bien XPATH. Ve a Selenium IDE y cambia el selector, en la propiedad `target`; es recomendable utilizar la opción que identifica el elemento `id` pero si no tiene `id` utiliza el identificador por `xpath` y el texto que queremos seleccionar. Por ejemplo, en un comando `click`: 
-
-.Cambiar el selector de un elemento de la página
-image::selenium-ide-change-selector-xpath.png[role="thumb", align="center"]
-
-[TIP]
-====
-* Más información sobre los tipos de selectores (_locators_) en Selenium IDE: https://www.guru99.com/locators-in-selenium-ide.html[Locators in Selenium IDE: CSS Selector, DOM, XPath, Link Text, ID ]
-====
-
-También puede ser necesario añadir un tiempo de espera en medio de cada acción para que de tiempo a que se cargue el formulario, la página, etc. Por ejemplo, antes del primer `sendKeys` que escribe un texto en un campo de formulario, y también antes y después de `click()` en un botón de formulario. 
-
-.Añade una espera de 1 segundo (1000 mls)
-[source,java]
-----
-	    try {
-	        Thread.sleep(1000);
-	      } catch (InterruptedException e) {
-	        e.printStackTrace();
-	      }
-----
-
-[TIP]
-====
-Consulta en la sección FAQ el comando `waitForElementVisible`, una alternativa mejor a añadir segundos de espera fijos con `Time.sleep()`
-====
-
-[start=8]
+[start=5]
+. Ejecuta los tests como JUnit Test. Verás que automáticamente se abre Firefox y ejecuta los test. 
 
 . A continuación vamos a probar en otro navegador, haciendo así lo que se denomina https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Introduction[_cross-browser testing]_. En los archivos `.java` cambia el driver a Chrome:
 
@@ -172,18 +194,76 @@ Consulta en la sección FAQ el comando `waitForElementVisible`, una alternativa 
   }
 ----
 
-Vuelve a ejecutar y verás que se abre Chrome y ejecuta el mismo test.
+[start=7]
+. Vuelve a ejecutar y verás que se abre Chrome y ejecuta el mismo test.
 
-[start=9]
-. Si un test se ejecuta correctamente en Firefox pero falla en Chrome realiza las siguientes comprobaciones:
+. Por último, a continuación se muestra el código con una propuesta de diseño mejorado para el método setup(), en el que se define una variable `int browser` para elegir el navegador, y un booleano `headless` que permite establecer el modo headless (que se describe más adelante en este documento): 
 
-- comprueba el tamaño de la ventana, agrándala por si es el problema:
+[source,java]
+----
+  @Before
+  public void setUp() {
+    // Browser selector 
+    int browser= 0; // 0: firefox, 1: chrome,...
+    Boolean headless = false;
 
-    driver.manage().window().setSize(new Dimension(1080, 824));
+    switch (browser) {
+    case 0:  // firefox
+    	// Firefox 
+    	// Descargar geckodriver de https://github.com/mozilla/geckodriver/releases
+    	// Descomprimir el archivo geckodriver.exe en la carpeta drivers
 
-- modifica los selectores, en lugar de `cssSelector` utiliza `xpath`
-- Añade un tiempo de espera a que se cargue el formulario, antes del primer `sendKeys`, y también después de `click()` en un botón de formulario. 
+    	System.setProperty("webdriver.gecko.driver",  "drivers/geckodriver.exe");
+    	FirefoxOptions firefoxOptions = new FirefoxOptions();
+    	if (headless) firefoxOptions.setHeadless(headless);
+    	driver = new FirefoxDriver(firefoxOptions);
 
+    	break;
+    case 1: // chrome
+    	// Chrome
+    	// Descargar Chromedriver de https://chromedriver.chromium.org/downloads
+    	// Descomprimir el archivo chromedriver.exe en la carpeta drivers
+
+    	System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
+    	ChromeOptions chromeOptions = new ChromeOptions();
+    	if (headless) chromeOptions.setHeadless(headless);
+    	chromeOptions.addArguments("window-size=1920,1080");
+    	driver = new ChromeDriver(chromeOptions);
+
+    	break;
+
+    default:
+    	fail("Please select a browser");
+    	break;
+    }
+    js = (JavascriptExecutor) driver;
+    vars = new HashMap<String, Object>();
+  }
+----
+
+== Corrigiendo errores habituales
+
+Si un test *falla* al ejecutarlo con Webdriver, revisa el código y los pasos incluidos en el mismo. Puede haber pasos que sobren, ya que muchas veces Selenium IDE recoge acciones sobre el navegador que no son realmente necesarias, o tal vez haya pasos que que al exportarlos a JUnit tengas que adaptarlos a Java. A continuación se indican soluciones a los motivos de error más habituales: 
+
+=== Selectores
+Uno de los principales motivos de fallo se debe al selector Selenium IDE que ha tomado automáticamente. El https://www.browserstack.com/guide/locators-in-selenium[selector] identifica el elemento dentro de la página web sobre el que se ha interactuado, y para ello utiliza bien la referencia por ID, NAME, CSS o XPATH. Ve a Selenium IDE y cambia el selector, en la propiedad `target`; es recomendable utilizar la opción que identifica el elemento `id` pero si no es posible porque el elemento de la página web sobre el que se desea interactuar no tiene `id`, utiliza el identificador por `xpath` y el texto que queremos seleccionar. Por ejemplo, en un comando `click`: 
+
+.Cambiar el selector de un elemento de la página
+image::selenium-ide-change-selector-xpath.png[role="thumb", align="center"]
+
+[TIP]
+====
+* Más información sobre los tipos de selectores (_locators_) en Selenium IDE: https://www.guru99.com/locators-in-selenium-ide.html[Locators in Selenium IDE: CSS Selector, DOM, XPath, Link Text, ID], y como https://www.selenium.dev/documentation/en/webdriver/locating_elements/[seleccionar elementos en Webdriver]
+====
+
+=== Esperas
+En numerosas ocasiones cuando se le indica al navegador que navegue a una página y a continuación se intenta encontrar un elemento en esa página, se obtiene un error indicando que no existe tal elemento. Esto es debido al tiempo necesario para que se cargue el contenido de la página, que ha sido superior al tiempo esperado por Selenium para ejecutar la acción. Es por ello que se hace necesario añadir un tiempo de espera en medio de determinadas acciones para permitir que se cargue el contenido del formulario, la página, etc. Por ejemplo, antes del primer `sendKeys` que escribe un texto en un campo de formulario, y también antes y después de `click()` en un botón de formulario. 
+
+Selenium tiene varias estrategias de https://www.selenium.dev/documentation/es/webdriver/waits/[espera], principalmente esperas explícitas y esperas implícitas. Podemos añadir esperas explícitas de dos formas para que el código detenga la ejecución del programa, o congelar el hilo, hasta que la condición que le pases se resuelva: 
+
+- añadiendo un tiempo fijo (no recomendado)
+
+.Añade una espera de tiempo fijo de 1 segundo (1000 mls)
 [source,java]
 ----
 	    try {
@@ -193,12 +273,72 @@ Vuelve a ejecutar y verás que se abre Chrome y ejecuta el mismo test.
 	      }
 ----
 
+- *Alternativa a meter segundos de espera con Time.sleep()*. 
+En Selenium IDE existe el comando https://www.selenium.dev/selenium-ide/docs/en/api/commands#wait-for-element-visible[`waitForElementVisible`] que permite esperar hasta que un elemento esté visible. Aunque al grabar el test con Selenium IDE no es necesario añadir este comando, porque ya lo tiene implícito, cuando exportamos a WebDriver sí necesitamos meter las esperas. Por tanto *es recomendable* este comando en todos los pasos del test que veas que tarda en cargar la página.
 
-=== Configurar un driver _headless_
+.Comando `waitForElementVisible`
+image::selenium-ide-waitForElementVisible.png[role="thumb", align="center"]
+
+En JUnit se convierte en: 
+
+.Código JUnit para `waitForElementVisible`
+image::selenium-webdriver-waitForElementVisible.png[role="thumb", align="center"]
+
+[source,java]
+----
+// 9 | waitForElementVisible | xpath="//h2[contains(.,\'Ingeniería y Arquitectura\')]" | 30000 
+{
+  WebDriverWait wait = new WebDriverWait(driver, 30); 
+  wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(.,\'Ingeniería y Arquitectura\')]")));
+}
+----
+
+En caso de que siga sin funcionar, sustituye el método `visibilityOfElementLocated` por otro de la misma clase ExpectedConditions`, por ejemplo `elementToBeClickable` (RECOMENDADO!): 
+
+[source,java]
+----
+// 9 | waitForElementVisible | xpath="//h2[contains(.,\'Ingeniería y Arquitectura\')]" | 30000 
+{
+  WebDriverWait wait = new WebDriverWait(driver, 30); 
+  wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h2[contains(.,\'Ingeniería y Arquitectura\')]")));
+}
+----
+
+Otro método de espera es la espera implícita, que aparece en la documentación de Selenium y en los ejemplos, sin embargo no dan el resultado esperado. Por ejemplo el método https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/WebDriver.Timeouts.html#implicitlyWait-long-java.util.concurrent.TimeUnit-[implicitlyWait]: 
+
+    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
+Se supone que establece la cantidad de tiempo que el driver debería esperar cuando busca un elemento si este no está presente inmediatamente. Sin embargo, no funciona como se espera y los errores no se solucionan.
+
+Así que la única forma es añadir manualmente esperas explícitas en cada paso que requiera tiempo de carga de los contenidos. Puesto que añadir un `sleep()` está desaconsejado, la mejor opción entonces es añadir comandos `waitForElementVisible` y su equivalente en Webdriver `wait.until(ExpectedConditions.elementToBeClickable...)`.
+
+
+[TIP]
+====
+Consulta en la sección FAQ el comando `waitForElementVisible`, una alternativa recomendada a añadir segundos de espera fijos con `Time.sleep()`
+====
+
+
+=== Otras comprobaciones
+
+Si un test se ejecuta correctamente en Firefox pero falla en Chrome realiza las siguientes comprobaciones:
+
+- comprueba el tamaño de la ventana, agrándala por si es el problema:
+
+    driver.manage().window().setSize(new Dimension(1080, 824));
+
+- modifica los selectores, en lugar de `cssSelector` utiliza `xpath`
+
+- Añade un tiempo de espera a que se cargue el formulario, antes del primer `sendKeys`, y también después de `click()` en un botón de formulario. 
+
+- Revisa el idioma predeterminado en la configuración de cada navegador. Puede que uno navegador lo tengas configurado en español y otro en inglés, y por tanto los textos se visualicen en diferentes idiomas.
+
+
+== Configurar un driver _headless_
 
 El modo _headless_ sirve para ejecutar los tests sin que se visualice la ventana del navegador. Esto hace que los tests se ejecuten más rápido y más eficientemente, y es especialmente adecuado en un entorno de Integración Continua como Jenkins. 
 
-==== Firefox en modo _headless_
+=== Firefox en modo _headless_
 
 En local, para ejecutar Firefox en modo _headless_ añade las siguientes sentencias: 
 
@@ -227,7 +367,7 @@ Prueba a ejecutar los tests y verás que se ejecutan sin visualizar la ventana d
 Lanza los tests tanto con Eclipse como con Maven. Aseguraté de que se ejecutan correctamente con maven `test`.
 ====
 
-==== ChromeDriver en modo _headless_
+=== ChromeDriver en modo _headless_
 
 ChromeDriver funciona de manera similar a Geckodriver de Firefox, e implementa la especificación  https://www.w3.org/TR/webdriver/[W3C WebDriver]. 
 
@@ -254,9 +394,9 @@ Además deberás añadir los imports:
 Durante la ejecución no se abrirá la ventana de Chrome y los tests se ejecutarán correctamente. Lanza los test tanto con Eclipse como con Maven.
 
 
-==== HtmlUnit Driver: modo _headless_ nativo
+=== HtmlUnit Driver: modo _headless_ nativo
 
-https://github.com/SeleniumHQ/selenium/wiki/HtmlUnitDriver[HtmlUnit Driver] es un driver _headless_ para Selenium Webdriver. Se trata de una implementación en Java de Webdriver. 
+https://github.com/SeleniumHQ/selenium/wiki/HtmlUnitDriver[HtmlUnit Driver] es un driver _headless_ nativo para Selenium Webdriver. Se trata de una implementación en Java de Webdriver. 
 
 En local, comenta los otros drivers y cambia el driver a `HtmlUnitDriver();`
 

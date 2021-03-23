@@ -91,7 +91,7 @@ Directamente empieza a grabar las acciones que vayas realizando sobre el navegad
 .Selenium IDE grabando
 image::selenium-ide-start-recording.png[role="thumb", align="center"]
 
-Durante tu interacción con la web que estés probando *SIEMPRE es necesario* ir añadiendo *_asserts_* o *verificaciones* para comprobar que lo que muestra la aplicación corresponde con lo esperado.
+Durante tu interacción con la web que estés probando *SIEMPRE es necesario* ir añadiendo *_asserts_* o *verificaciones* para comprobar que lo que muestra la aplicación corresponde con lo esperado. Para ello utiliza el https://www.selenium.dev/documentation/en/legacy_docs/selenium_ide/#adding-verifications-and-asserts-with-the-context-menu[menú contextual] para añadir verificaciones y/o asserts.
 
 .Selenium IDE assert text
 image::selenium-ide-assert-text.png[role="thumb", align="center"]

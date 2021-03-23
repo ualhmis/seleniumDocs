@@ -31,7 +31,8 @@ Nombre y título del trabajo
 
 . link:docs/selenium-ide-ejercicios.html[Ejercicios Parte 1 - Proyecto Login]
 
-////
  . link:docs/selenium-webdriver.html[Selenium WebDriver]
+
+////
  . link:docs/selenium-jenkins.html[Selenium en Jenkins]
 ////
