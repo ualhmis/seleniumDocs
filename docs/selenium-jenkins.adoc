@@ -192,6 +192,8 @@ image::jenkins-blueocean-parallel-browser-testing.png[role="thumb", align="cente
 
 == Más info
 
+- https://github.com/shailendravaichalkar/Selenium-Maven-Template
+
 - Mas información sobre https://www.selenium.dev/maven[Maven con Selenium].
 
 - https://www.browserstack.com/guide/selenium-with-java-for-automated-test[Buenas prácticas]: Selenium con Java
