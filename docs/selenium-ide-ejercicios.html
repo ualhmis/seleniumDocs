@@ -673,16 +673,16 @@ Ejercicios de tests de aceptación con Selenium.
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<p>En aquellos formularios en los que se debe introducir una dirección de email, y el campo está definido como tal en HTML5 mediante <code>&lt;input type="email" &#8230;&#8203;&gt;</code> el valor introducido se valida en el navegador, de manera que cuando el valor introducido no es un email válido, muestra un pop-up con el texto <em>"Introduzca una dirección de correo."</em></p>
+<p>En aquellos formularios en los que se debe introducir una dirección de email y el campo está definido como tal en HTML5 mediante <code>&lt;input type="email" &#8230;&#8203;&gt;</code>, el valor introducido se valida en el navegador de manera que cuando el valor introducido no es un email válido muestra un pop-up con el texto <em>"Introduzca una dirección de correo."</em> Este tipo de pop-ups no se pueden capturar con el menú contextual de Selenium IDE (botón derecho sobre el texto a validar), por lo que debemos usar un método alternativo.</p>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
-<img src="images/selenium-ide-email-incorrecto.png" alt="selenium ide email incorrecto">
+<img src="images/selenium-ide-email-incorrecto.png" alt="selenium ide email incorrecto" width="70%">
 </div>
-<div class="title">Fig. 2. Pop-up de HMTM5: email incorrecto</div>
+<div class="title">Fig. 2. Pop-up de validación en HTML5: email incorrecto</div>
 </div>
 <div class="paragraph">
-<p>En los casos de prueba que correspondan a escenarios con email incorrecto, se debera validar que tras introducir una dirección de email no válida se muestra el mensaje esperado  <em>"Introduzca una dirección de correo."</em>. Para ello, debemos usar el comando <code>execute script</code> de Selenium IDE, para que guarde el valor del atributo <code>validationMessage</code> del campo tipo email en una variable, y a continuación comprobamos el valor almacenado en esa variable. El resultado sería tal que así:</p>
+<p>Para ello, tras hacer click sobre el botón de <em>enviar</em>, debemos usar el comando <code>execute script</code> de Selenium IDE para que guarde el valor del atributo <code>validationMessage</code> del campo tipo email en una variable, y a continuación comprobamos el valor almacenado en esa variable. El resultado sería tal que así:</p>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
@@ -719,6 +719,15 @@ Ejercicios de tests de aceptación con Selenium.
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>Esta solución también se puede aplicar a otros campos de HTML5 que también crean este tipo de <em>pop-ups</em> para la validación, por ejemplo los campos de fecha definidos como <code>&lt;input type="date" &#8230;&#8203;&gt;</code></p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="https://mdn.mozillademos.org/files/14913/date-picker-chrome-error-message.png" alt="date picker chrome error message">
+</div>
+<div class="title">Fig. 4. Pop-up de validación en HTML5: fecha incorrecta</div>
+</div>
 </div>
 </div>
 </div>
@@ -747,7 +756,7 @@ Ejercicios de tests de aceptación con Selenium.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-29 15:27:21 +0200
+Last updated 2021-03-29 15:42:02 +0200
 </div>
 </div>
 </body>

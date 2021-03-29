@@ -140,12 +140,12 @@ image::register-email-ramdon.png[role="thumb", align="center"]
 ****
 === Implementación del test de email incorrecto 
 ****
-En aquellos formularios en los que se debe introducir una dirección de email, y el campo está definido como tal en HTML5 mediante `<input type="email" ...>` el valor introducido se valida en el navegador, de manera que cuando el valor introducido no es un email válido, muestra un pop-up con el texto _"Introduzca una dirección de correo."_ 
+En aquellos formularios en los que se debe introducir una dirección de email y el campo está definido como tal en HTML5 mediante `<input type="email" ...>`, el valor introducido se valida en el navegador de manera que cuando el valor introducido no es un email válido muestra un pop-up con el texto _"Introduzca una dirección de correo."_ Este tipo de pop-ups no se pueden capturar con el menú contextual de Selenium IDE (botón derecho sobre el texto a validar), por lo que debemos usar un método alternativo.
 
-.Pop-up de HMTM5: email incorrecto
-image::selenium-ide-email-incorrecto.png[role="thumb", align="center"]
+.Pop-up de validación en HTML5: email incorrecto
+image::selenium-ide-email-incorrecto.png[role="thumb", align="center", width=70%]
 
-En los casos de prueba que correspondan a escenarios con email incorrecto, se debera validar que tras introducir una dirección de email no válida se muestra el mensaje esperado  _"Introduzca una dirección de correo."_. Para ello, debemos usar el comando `execute script` de Selenium IDE, para que guarde el valor del atributo `validationMessage` del campo tipo email en una variable, y a continuación comprobamos el valor almacenado en esa variable. El resultado sería tal que así:
+Para ello, tras hacer click sobre el botón de _enviar_, debemos usar el comando `execute script` de Selenium IDE para que guarde el valor del atributo `validationMessage` del campo tipo email en una variable, y a continuación comprobamos el valor almacenado en esa variable. El resultado sería tal que así:
 
 .Comandos en Selenium IDE para validar el mensaje de email incorrecto.
 image::selenium-ide-email-incorrecto-commands.png[role="thumb", align="center"]
@@ -156,6 +156,12 @@ image::selenium-ide-email-incorrecto-commands.png[role="thumb", align="center"]
 - Value: `message`. 
 <2> Muestra la variable `message` en el log de Selenium IDE.
 <3> Validación de que el valor de `message` es el esperado.
+
+Esta solución también se puede aplicar a otros campos de HTML5 que también crean este tipo de _pop-ups_ para la validación, por ejemplo los campos de fecha definidos como `<input type="date" ...>`
+
+.Pop-up de validación en HTML5: fecha incorrecta
+image::https://mdn.mozillademos.org/files/14913/date-picker-chrome-error-message.png[role="thumb", align="center"]
+
 ****
 == Desplegar la aplicación en Azure
 
