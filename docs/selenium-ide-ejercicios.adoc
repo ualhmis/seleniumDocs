@@ -100,9 +100,11 @@ https://hackernoon.com/your-node-js-authentication-tutorial-is-wrong-f1a3bf831a4
 
 === Usa tu propio proyecto
 Como alternativa, si ya has desarrollado o estás desarrollando un proyecto similar en alguna tecnología que conozcas, y que implemente: 
+
 - un login de usuario,
 - un registro de usuario, y 
 - una modificación del perfil del usuario logueado 
+
 puedes usarlo en lugar de alguna de las plantillas propuestas. Pero asegúrate de que tu proyecto es funcional, es decir, implementa las 3 características indicadas y estas funcionan, ya que el objetivo es  probarlas. Y además tu proyecto debe implementar los casos de error mediante los mensajes de validación oportunos. Si tu proyecto no es funcional, o no implementa esas 3 características o los casos de error, entonces mejor usa una plantilla de las propuestas. 
 
 == Creación de los tests Selenium
