@@ -25,7 +25,7 @@ Codificación, idioma, tabla de contenidos, tipo de documento
 ////
 Nombre y título del trabajo
 ////
-= Pruebas de aceptación con Selenium
+= Pruebas de aceptación con Selenium. Ejercicios Parte 1: Selenium IDE
 
 Herramientas y Métodos en Ingeniería del Software
 Version 2.0, Marzo-2021.
@@ -56,18 +56,18 @@ La realización de estas actividades se realizará *en equipo*. La entrega será
 
 
 
-== Ejercicios Parte 1: Selenium IDE
+// == Ejercicios Parte 1: Selenium IDE
 
-=== Test de la web del equipo
+== Test de la web del equipo
 
 Realiza con Selenium IDE los tests de la web del equipo de la sesión 04 que verifiquen que la web incorpora todos los elementos que se pedían que se incluyeran en la misma. 
 
 Como siempre, crea un repositorio (privado) en GitHub para guardar los archivos creados. Se trata de una actividad en equipo, así que aplica el método de colaboración fork + pull request. Comparte el repositorio con el profesor para que pueda tener acceso al mismo.
 
 
-=== Aplicación web login y registro de usuarios
+== Aplicación web login y registro de usuarios
 
-==== Elige una plantilla 
+== Elige una plantilla 
 
 Os dejo aquí tres ejemplos de plantillas de aplicación web, en distintas tecnologías, que implementan un login y registro de usuarios. 
 
@@ -95,7 +95,7 @@ Os dejo aquí tres ejemplos de plantillas de aplicación web, en distintas tecno
 https://hackernoon.com/your-node-js-authentication-tutorial-is-wrong-f1a3bf831a46[Algunos fallos típicos en los tutoriales de web de autenticación (login)]
 ====
 
-==== Creación de test Selenium
+== Creación de los tests Selenium
 
 Crear en Selenium los test cases necesarios para probar, tanto escenarios correctos como escenarios de error, de las siguientes funcionalidades:
 
@@ -112,7 +112,7 @@ Guardar los test cases en una test suite (formato `.side`).
 
 Puesto que para realizar una prueba exhaustiva, cubriendo todos los posibles escenarios, el número de casos de prueba es elevado, la forma de trabajar es dividir las funcionalidades entre los miembros del equipo y así repartir el trabajo: Una persona que haga los tests de *Registro de usuario + Editar perfil*, y otra los de *login de usuario + cambio de contraseña*. Para equipos de 3 personas, una el registro, otra el login y otra la edición de perfil y cambio de contraseña.
 
-.Truco para el test Registro de usuario (Caso correcto)
+=== Implementación del test Registro de usuario (Caso correcto)
 ****
 Para que el test de registro de usuario lo podamos ejecutar repetidamente sin que nos de el error de "usuario ya existe", tenemos que usar un email aleatorio en cada ejecución del test. Eso se consigue definiendo una variable en Selenium, llamado al comando `execute script`, escribiendo la función de JavaScript que genere ese email aleatorio, y guardándolo en una variable que luego usaremos en en paso que escribe el valor en el campo _email_ del registro. 
 
@@ -126,14 +126,32 @@ El paso sería del test case de Selenium IDE es:
 image::register-email-ramdon.png[role="thumb", align="center"]
 
 ****
+=== Implementación del test de email incorrecto 
+****
+En aquellos formularios en los que se debe introducir una dirección de email, y el campo está definido como tal en HTML5 mediante `<input type="email" ...>` el valor introducido se valida en el navegador, de manera que cuando el valor introducido no es un email válido, muestra un pop-up con el texto _"Introduzca una dirección de correo."_ 
 
-==== Desplegar la aplicación en Azure
+.Pop-up de HMTM5: email incorrecto
+image::selenium-ide-email-incorrecto.png[role="thumb", align="center"]
+
+En los casos de prueba que correspondan a escenarios con email incorrecto, se debera validar que tras introducir una dirección de email no válida se muestra el mensaje esperado  _"Introduzca una dirección de correo."_. Para ello, debemos usar el comando `execute script` de Selenium IDE, para que guarde el valor del atributo `validationMessage` del campo tipo email en una variable, y a continuación comprobamos el valor almacenado en esa variable. El resultado sería tal que así:
+
+.Comandos en Selenium IDE para validar el mensaje de email incorrecto.
+image::selenium-ide-email-incorrecto-commands.png[role="thumb", align="center"]
+
+<1> Guarda el contenido del atributo `validationMessage` del campo con id `email-address` en la variable `message`: 
+- Command: *execute script*
+- Target: `return document.getElementById("email-address").validationMessage`
+- Value: `message`. 
+<2> Muestra la variable `message` en el log de Selenium IDE.
+<3> Validación de que el valor de `message` es el esperado.
+****
+== Desplegar la aplicación en Azure
 
 La aplicación que hemos probado localmente, debemos ponerla "en producción", es decir, desplegarla en Azure para que esté disponible por nuestros usuarios (ficticios).
 
 Dependiendo de la plantilla elegida, el despliegue será distinto. La plantilla de .Net explica el despliegue en Azure Web app. El resto se pueden desplegar en Web app, o bien en una máquina virtual. 
 
-==== Adaptar los test a la URL de despliegue
+=== Adaptar los test a la URL de despliegue
 
 Los test que hemos creado en el _entorno de desarrollo_, es decir, en nuestro equipo local, deben adaptarse para que funcionen en _entorno de producción_ es decir, deben atacar a la aplicación desplegada. 
 

@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
 <meta name="keywords" content="Selenium end-to-end testing">
-<title>Pruebas de aceptación con Selenium</title>
+<title>Pruebas de aceptación con Selenium. Ejercicios Parte 1: Selenium IDE</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -440,14 +440,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-right">
 <div id="header">
-<h1>Pruebas de aceptación con Selenium</h1>
+<h1>Pruebas de aceptación con Selenium. Ejercicios Parte 1: Selenium IDE</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Tabla de contenidos</div>
 <ul class="sectlevel1">
-<li><a href="#_ejercicios_parte_1_selenium_ide">1. Ejercicios Parte 1: Selenium IDE</a>
+<li><a href="#_test_de_la_web_del_equipo">1. Test de la web del equipo</a></li>
+<li><a href="#_aplicación_web_login_y_registro_de_usuarios">2. Aplicación web login y registro de usuarios</a></li>
+<li><a href="#_elige_una_plantilla">3. Elige una plantilla</a></li>
+<li><a href="#_creación_de_los_tests_selenium">4. Creación de los tests Selenium</a>
 <ul class="sectlevel2">
-<li><a href="#_test_de_la_web_del_equipo">1.1. Test de la web del equipo</a></li>
-<li><a href="#_aplicación_web_login_y_registro_de_usuarios">1.2. Aplicación web login y registro de usuarios</a></li>
+<li><a href="#_implementación_del_test_registro_de_usuario_caso_correcto">4.1. Implementación del test Registro de usuario (Caso correcto)</a></li>
+<li><a href="#_implementación_del_test_de_email_incorrecto">4.2. Implementación del test de email incorrecto</a></li>
+</ul>
+</li>
+<li><a href="#_desplegar_la_aplicación_en_azure">5. Desplegar la aplicación en Azure</a>
+<ul class="sectlevel2">
+<li><a href="#_adaptar_los_test_a_la_url_de_despliegue">5.1. Adaptar los test a la URL de despliegue</a></li>
 </ul>
 </li>
 </ul>
@@ -485,10 +493,8 @@ Ejercicios de tests de aceptación con Selenium.
 </div>
 </div>
 <div class="sect1">
-<h2 id="_ejercicios_parte_1_selenium_ide">1. Ejercicios Parte 1: Selenium IDE</h2>
+<h2 id="_test_de_la_web_del_equipo">1. Test de la web del equipo</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_test_de_la_web_del_equipo">1.1. Test de la web del equipo</h3>
 <div class="paragraph">
 <p>Realiza con Selenium IDE los tests de la web del equipo de la sesión 04 que verifiquen que la web incorpora todos los elementos que se pedían que se incluyeran en la misma.</p>
 </div>
@@ -496,10 +502,16 @@ Ejercicios de tests de aceptación con Selenium.
 <p>Como siempre, crea un repositorio (privado) en GitHub para guardar los archivos creados. Se trata de una actividad en equipo, así que aplica el método de colaboración fork + pull request. Comparte el repositorio con el profesor para que pueda tener acceso al mismo.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_aplicación_web_login_y_registro_de_usuarios">1.2. Aplicación web login y registro de usuarios</h3>
-<div class="sect3">
-<h4 id="_elige_una_plantilla">1.2.1. Elige una plantilla</h4>
+</div>
+<div class="sect1">
+<h2 id="_aplicación_web_login_y_registro_de_usuarios">2. Aplicación web login y registro de usuarios</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_elige_una_plantilla">3. Elige una plantilla</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Os dejo aquí tres ejemplos de plantillas de aplicación web, en distintas tecnologías, que implementan un login y registro de usuarios.</p>
 </div>
@@ -553,8 +565,10 @@ Ejercicios de tests de aceptación con Selenium.
 </table>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_creación_de_test_selenium">1.2.2. Creación de test Selenium</h4>
+</div>
+<div class="sect1">
+<h2 id="_creación_de_los_tests_selenium">4. Creación de los tests Selenium</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Crear en Selenium los test cases necesarios para probar, tanto escenarios correctos como escenarios de error, de las siguientes funcionalidades:</p>
 </div>
@@ -592,9 +606,10 @@ Ejercicios de tests de aceptación con Selenium.
 <div class="paragraph">
 <p>Puesto que para realizar una prueba exhaustiva, cubriendo todos los posibles escenarios, el número de casos de prueba es elevado, la forma de trabajar es dividir las funcionalidades entre los miembros del equipo y así repartir el trabajo: Una persona que haga los tests de <strong>Registro de usuario + Editar perfil</strong>, y otra los de <strong>login de usuario + cambio de contraseña</strong>. Para equipos de 3 personas, una el registro, otra el login y otra la edición de perfil y cambio de contraseña.</p>
 </div>
+<div class="sect2">
+<h3 id="_implementación_del_test_registro_de_usuario_caso_correcto">4.1. Implementación del test Registro de usuario (Caso correcto)</h3>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Truco para el test Registro de usuario (Caso correcto)</div>
 <div class="paragraph">
 <p>Para que el test de registro de usuario lo podamos ejecutar repetidamente sin que nos de el error de "usuario ya existe", tenemos que usar un email aleatorio en cada ejecución del test. Eso se consigue definiendo una variable en Selenium, llamado al comando <code>execute script</code>, escribiendo la función de JavaScript que genere ese email aleatorio, y guardándolo en una variable que luego usaremos en en paso que escribe el valor en el campo <em>email</em> del registro.</p>
 </div>
@@ -623,17 +638,73 @@ Ejercicios de tests de aceptación con Selenium.
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_desplegar_la_aplicación_en_azure">1.2.3. Desplegar la aplicación en Azure</h4>
+<div class="sect2">
+<h3 id="_implementación_del_test_de_email_incorrecto">4.2. Implementación del test de email incorrecto</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>En aquellos formularios en los que se debe introducir una dirección de email, y el campo está definido como tal en HTML5 mediante <code>&lt;input type="email" &#8230;&#8203;&gt;</code> el valor introducido se valida en el navegador, de manera que cuando el valor introducido no es un email válido, muestra un pop-up con el texto <em>"Introduzca una dirección de correo."</em></p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="images/selenium-ide-email-incorrecto.png" alt="selenium ide email incorrecto">
+</div>
+<div class="title">Fig. 2. Pop-up de HMTM5: email incorrecto</div>
+</div>
+<div class="paragraph">
+<p>En los casos de prueba que correspondan a escenarios con email incorrecto, se debera validar que tras introducir una dirección de email no válida se muestra el mensaje esperado  <em>"Introduzca una dirección de correo."</em>. Para ello, debemos usar el comando <code>execute script</code> de Selenium IDE, para que guarde el valor del atributo <code>validationMessage</code> del campo tipo email en una variable, y a continuación comprobamos el valor almacenado en esa variable. El resultado sería tal que así:</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="images/selenium-ide-email-incorrecto-commands.png" alt="selenium ide email incorrecto commands">
+</div>
+<div class="title">Fig. 3. Comandos en Selenium IDE para validar el mensaje de email incorrecto.</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Guarda el contenido del atributo <code>validationMessage</code> del campo con id <code>email-address</code> en la variable <code>message</code>:
+<div class="ulist">
+<ul>
+<li>
+<p>Command: <strong>execute script</strong></p>
+</li>
+<li>
+<p>Target: <code>return document.getElementById("email-address").validationMessage</code></p>
+</li>
+<li>
+<p>Value: <code>message</code>.</p>
+</li>
+</ul>
+</div></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Muestra la variable <code>message</code> en el log de Selenium IDE.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Validación de que el valor de <code>message</code> es el esperado.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_desplegar_la_aplicación_en_azure">5. Desplegar la aplicación en Azure</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>La aplicación que hemos probado localmente, debemos ponerla "en producción", es decir, desplegarla en Azure para que esté disponible por nuestros usuarios (ficticios).</p>
 </div>
 <div class="paragraph">
 <p>Dependiendo de la plantilla elegida, el despliegue será distinto. La plantilla de .Net explica el despliegue en Azure Web app. El resto se pueden desplegar en Web app, o bien en una máquina virtual.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_adaptar_los_test_a_la_url_de_despliegue">1.2.4. Adaptar los test a la URL de despliegue</h4>
+<div class="sect2">
+<h3 id="_adaptar_los_test_a_la_url_de_despliegue">5.1. Adaptar los test a la URL de despliegue</h3>
 <div class="paragraph">
 <p>Los test que hemos creado en el <em>entorno de desarrollo</em>, es decir, en nuestro equipo local, deben adaptarse para que funcionen en <em>entorno de producción</em> es decir, deben atacar a la aplicación desplegada.</p>
 </div>
@@ -644,10 +715,9 @@ Ejercicios de tests de aceptación con Selenium.
 </div>
 </div>
 </div>
-</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-18 14:56:16 +0100
+Last updated 2021-03-29 15:11:15 +0200
 </div>
 </div>
 </body>
