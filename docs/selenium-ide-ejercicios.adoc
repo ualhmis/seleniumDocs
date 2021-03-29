@@ -67,7 +67,10 @@ Como siempre, crea un repositorio (privado) en GitHub para guardar los archivos 
 
 == Aplicación web login y registro de usuarios
 
-== Elige una plantilla 
+Desde ahora hasta el final de la asignatura vamos a desarrollar un proyecto web sobre el que aplicar las herramientas y métodos que vamos introduciendo durante el curso. El proyecto tendrá un login y registro de usuario, así que vamos a comenzar por implementar esta funcionalidad. Tenemos dos alternativas: elegir una plantilla de proyecto que ya implemente la funcionalidad deseada, o bien hacerlo nosotros mismos.
+
+
+=== Elige una plantilla 
 
 Os dejo aquí tres ejemplos de plantillas de aplicación web, en distintas tecnologías, que implementan un login y registro de usuarios. 
 
@@ -95,10 +98,17 @@ Os dejo aquí tres ejemplos de plantillas de aplicación web, en distintas tecno
 https://hackernoon.com/your-node-js-authentication-tutorial-is-wrong-f1a3bf831a46[Algunos fallos típicos en los tutoriales de web de autenticación (login)]
 ====
 
+=== Usa tu propio proyecto
+Como alternativa, si ya has desarrollado o estás desarrollando un proyecto similar en alguna tecnología que conozcas, y que implemente: 
+- un login de usuario,
+- un registro de usuario, y 
+- una modificación del perfil del usuario logueado 
+puedes usarlo en lugar de alguna de las plantillas propuestas. Pero asegúrate de que tu proyecto es funcional, es decir, implementa las 3 características indicadas y estas funcionan, ya que el objetivo es  probarlas. Y además tu proyecto debe implementar los casos de error mediante los mensajes de validación oportunos. Si tu proyecto no es funcional, o no implementa esas 3 características o los casos de error, entonces mejor usa una plantilla de las propuestas. 
+
 == Creación de los tests Selenium
 
 Crear en Selenium los test cases necesarios para probar, tanto escenarios correctos como escenarios de error, de las siguientes funcionalidades:
-
+****
 - Registro de usuario (Caso correcto)
 - Registro de usuario (Casos incorrectos)
 - Login de usuario (Caso correcto)
@@ -107,7 +117,7 @@ Crear en Selenium los test cases necesarios para probar, tanto escenarios correc
 - Editar el perfil de usuario logueado (casos incorrectos)
 - Cambio de contraseña de usuario logueado (Caso correcto)
 - Cambio de contraseña de usuario logueado (Casos incorrectos)
-
+****
 Guardar los test cases en una test suite (formato `.side`).
 
 Puesto que para realizar una prueba exhaustiva, cubriendo todos los posibles escenarios, el número de casos de prueba es elevado, la forma de trabajar es dividir las funcionalidades entre los miembros del equipo y así repartir el trabajo: Una persona que haga los tests de *Registro de usuario + Editar perfil*, y otra los de *login de usuario + cambio de contraseña*. Para equipos de 3 personas, una el registro, otra el login y otra la edición de perfil y cambio de contraseña.
