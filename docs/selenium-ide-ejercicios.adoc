@@ -157,12 +157,46 @@ image::selenium-ide-email-incorrecto-commands.png[role="thumb", align="center"]
 <2> Muestra la variable `message` en el log de Selenium IDE.
 <3> Validación de que el valor de `message` es el esperado.
 
-Esta solución también se puede aplicar a otros campos de HTML5 que también crean este tipo de _pop-ups_ para la validación, por ejemplo los campos de fecha definidos como `<input type="date" ...>`
+El comando `execute script` permite acceder a los elementos y propiedades del https://www.w3schools.com/jsref/dom_obj_document.asp[DOM] del documento HTML, y llamar a los métodos del mismo, en concreto en el ejemplo llama a https://www.w3schools.com/jsref/met_document_getelementbyid.asp[getElementById("fieldId")]. 
+
+En caso de que el elemento no se pueda identificar por su `id`, como alternativa se usar el método  https://www.w3schools.com/jsref/met_document_getelementsbyclassname.asp[getElementsByName("fieldName")], pero ten en cuenta que `getElementsByName` devuelve una colección de objetos https://www.w3schools.com/jsref/dom_obj_htmlcollection.asp[HTMLCollection] en lugar de un único objeto, por lo que si queremos acceder al primer elemento de la colección simplemente tenemos que añadir la posición entre corchetes: `getElementsByName("fieldName")[0]`. 
+
+Otras alternativas son https://www.w3schools.com/jsref/met_document_getelementsbyclassname.asp[getElementsByClassName()], y https://www.w3schools.com/jsref/met_document_getelementsbytagname.asp[getElementsByTagName()].
+
+Esta solución también se puede aplicar a otros campos de HTML5 que también crean este tipo de _pop-ups_ para la validación, por ejemplo los campos que se establecen como requeridos, o con una longitud mínima y máxima, definidos por ejemplo así:  `<input type="password" required minlength="6" maxlength="10"/>`
+
+.Pop-up de validación en HTML5: contraseña requerida
+image::selenium-ide-contraseña-requerida.png[role="thumb", align="center", width=70%]
+
+.Comandos en Selenium IDE para validar contraseña vacía.
+image::selenium-ide-contraseña-requerida-assert.png[role="thumb", align="center"]
+
+.Pop-up de validación en HTML5: contraseña demasiado corta
+image::selenium-ide-contraseña-incorrecta.png[role="thumb", align="center", width=70%]
+
+Otro ejemplo son los campos de fecha definidos como `<input type="date" ...>`
 
 .Pop-up de validación en HTML5: fecha incorrecta
 image::https://mdn.mozillademos.org/files/14913/date-picker-chrome-error-message.png[role="thumb", align="center"]
 
 ****
+
+[NOTE]
+====
+Los mensajes de validación son distintos en cada navegador, tenlo en cuenta a la hora de definir el `assert`. También hay que considerar el idioma en el que esté configurado el navegador. 
+
+.Validación de email incorrecto en Firefox y Chrome
+|===
+
+a| image::https://blog.mozilla.org/firefox/files/2017/12/firefox-logo-600x619.png[role="thumb", align="center", width=10%]  a| image::https://www.google.com/chrome/static/images/chrome-logo.svg[role="thumb", align="center", width=60%]
+
+a| image::selenium-ide-email-incorrecto-firefox.png[role="thumb", align="center"] a| image::selenium-ide-email-incorrecto-chrome.png[role="thumb", align="center"]
+
+|===
+
+
+====
+
 == Desplegar la aplicación en Azure
 
 La aplicación que hemos probado localmente, debemos ponerla "en producción", es decir, desplegarla en Azure para que esté disponible por nuestros usuarios (ficticios).
