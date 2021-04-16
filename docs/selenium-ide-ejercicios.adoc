@@ -183,14 +183,17 @@ image::https://mdn.mozillademos.org/files/14913/date-picker-chrome-error-message
 
 [NOTE]
 ====
-Los mensajes de validación son distintos en cada navegador, tenlo en cuenta a la hora de definir el `assert`. También hay que considerar el idioma en el que esté configurado el navegador. 
+Los mensajes de validación son distintos en cada navegador (https://hg.mozilla.org/l10n-central/es-ES/file/default/dom/chrome/dom/dom.properties[Firefox], https://chromium.googlesource.com/chromium/src/+/a0e2753f75c926313e183b912584a7f15790825d/content/app/strings/translations/content_strings_es.xtb[Chrome]), tenlo en cuenta a la hora de definir el `assert`. También hay que considerar el idioma en el que esté configurado el navegador (En Firefox,  en su https://hg.mozilla.org/l10n-central[repostorio] selecciona el idioma deseado y busca el archivo `dom/chrome/dom/dom.properties`, y en https://chromium.googlesource.com/chromium/src/+/a0e2753f75c926313e183b912584a7f15790825d/content/app/strings/translations/[Chrome]). 
 
 .Validación de email incorrecto en Firefox y Chrome
+[cols="^,^", valign=top, grid=none, stripes=even]
 |===
 
-a| image::https://blog.mozilla.org/firefox/files/2017/12/firefox-logo-600x619.png[role="thumb", align="center", width=10%]  a| image::https://www.google.com/chrome/static/images/chrome-logo.svg[role="thumb", align="center", width=60%]
+| image:https://blog.mozilla.org/firefox/files/2017/12/firefox-logo-600x619.png[width=10%]  
+| image:https://www.google.com/chrome/static/images/chrome-logo.svg[width=11%]
 
-a| image::selenium-ide-email-incorrecto-firefox.png[role="thumb", align="center"] a| image::selenium-ide-email-incorrecto-chrome.png[role="thumb", align="center"]
+| image:selenium-ide-email-incorrecto-firefox.png[role="thumb"] 
+| image:selenium-ide-email-incorrecto-chrome.png[role="thumb"]
 
 |===
 

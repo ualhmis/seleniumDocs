@@ -768,9 +768,9 @@ Ejercicios de tests de aceptación con Selenium.
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Los mensajes de validación son distintos en cada navegador, tenlo en cuenta a la hora de definir el <code>assert</code>. También hay que considerar el idioma en el que esté configurado el navegador.</p>
+<p>Los mensajes de validación son distintos en cada navegador (<a href="https://hg.mozilla.org/l10n-central/es-ES/file/default/dom/chrome/dom/dom.properties">Firefox</a>, <a href="https://chromium.googlesource.com/chromium/src//a0e2753f75c926313e183b912584a7f15790825d/content/app/strings/translations/content_strings_es.xtb[Chrome]), tenlo en cuenta a la hora de definir el `assert`. También hay que considerar el idioma en el que esté configurado el navegador (En Firefox,  en su https://hg.mozilla.org/l10n-central[repostorio] selecciona el idioma deseado y busca el archivo `dom/chrome/dom/dom.properties`, y en https://chromium.googlesource.com/chromium/src//a0e2753f75c926313e183b912584a7f15790825d/content/app/strings/translations/">Chrome</a>).</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
+<table class="tableblock frame-all grid-none stripes-even stretch">
 <caption class="title">Table 1. Validación de email incorrecto en Firefox y Chrome</caption>
 <colgroup>
 <col style="width: 50%;">
@@ -778,28 +778,12 @@ Ejercicios de tests de aceptación con Selenium.
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="imageblock text-center thumb">
-<div class="content">
-<img src="https://blog.mozilla.org/firefox/files/2017/12/firefox-logo-600x619.png" alt="firefox logo 600x619" width="10%">
-</div>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="imageblock text-center thumb">
-<div class="content">
-<img src="https://www.google.com/chrome/static/images/chrome-logo.svg" alt="chrome logo" width="60%">
-</div>
-</div></div></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="image"><img src="https://blog.mozilla.org/firefox/files/2017/12/firefox-logo-600x619.png" alt="firefox logo 600x619" width="10%"></span></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="image"><img src="https://www.google.com/chrome/static/images/chrome-logo.svg" alt="chrome logo" width="11%"></span></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="imageblock text-center thumb">
-<div class="content">
-<img src="images/selenium-ide-email-incorrecto-firefox.png" alt="selenium ide email incorrecto firefox">
-</div>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="imageblock text-center thumb">
-<div class="content">
-<img src="images/selenium-ide-email-incorrecto-chrome.png" alt="selenium ide email incorrecto chrome">
-</div>
-</div></div></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="image thumb"><img src="images/selenium-ide-email-incorrecto-firefox.png" alt="selenium ide email incorrecto firefox"></span></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="image thumb"><img src="images/selenium-ide-email-incorrecto-chrome.png" alt="selenium ide email incorrecto chrome"></span></p></td>
 </tr>
 </tbody>
 </table>
@@ -833,7 +817,7 @@ Ejercicios de tests de aceptación con Selenium.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-05 14:18:19 +0200
+Last updated 2021-04-06 13:29:26 +0200
 </div>
 </div>
 </body>
