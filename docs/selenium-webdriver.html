@@ -1165,6 +1165,17 @@ Para solucionar este problema simplemente hay que llamar al método <code>clear(
 <div class="paragraph">
 <p>La llamada a <code>clear()</code> también será útil si se quiere probar el caso de dejar en blanco el campo <code>email</code>.</p>
 </div>
+<div class="paragraph">
+<p>En el caso de que <code>clear()</code> no funcione, podemos probar la siguiente combinación de teclas, bien en una llamada o bien en dos:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="n">driver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">Id</span><span class="o">(</span><span class="s">"email-address"</span><span class="o">)).</span><span class="na">sendKeys</span><span class="o">(</span><span class="nc">Keys</span><span class="o">.</span><span class="na">chord</span><span class="o">(</span><span class="nc">Keys</span><span class="o">.</span><span class="na">CONTROL</span><span class="o">,</span><span class="s">"a"</span><span class="o">,</span> <span class="nc">Keys</span><span class="o">.</span><span class="na">DELETE</span><span class="o">));</span>
+
+<span class="n">driver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">Id</span><span class="o">(</span><span class="s">"email-address"</span><span class="o">)).</span><span class="na">sendKeys</span><span class="o">(</span><span class="nc">Keys</span><span class="o">.</span><span class="na">chord</span><span class="o">(</span><span class="nc">Keys</span><span class="o">.</span><span class="na">CONTROL</span><span class="o">,</span><span class="s">"a"</span><span class="o">));</span>
+<span class="n">driver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">Id</span><span class="o">(</span><span class="s">"email-address"</span><span class="o">)).</span><span class="na">sendKeys</span><span class="o">(</span><span class="nc">Keys</span><span class="o">.</span><span class="na">chord</span><span class="o">(</span><span class="nc">Keys</span><span class="o">.</span><span class="na">DELETE</span><span class="o">));</span></code></pre>
+</div>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1205,7 +1216,7 @@ Cuando falla la ejecución de un test de Selenium WebDriver en modo headless, el
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-23 20:55:03 +0100
+Last updated 2021-04-29 11:45:09 +0200
 </div>
 </div>
 <style>

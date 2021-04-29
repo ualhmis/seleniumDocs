@@ -33,6 +33,4 @@ Nombre y título del trabajo
 
  . link:docs/selenium-webdriver.html[Selenium WebDriver]
 
-////
  . link:docs/selenium-jenkins.html[Selenium en Jenkins]
-////

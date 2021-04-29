@@ -451,6 +451,15 @@ Para solucionar este problema simplemente hay que llamar al método `clear()`, q
 
 La llamada a `clear()` también será útil si se quiere probar el caso de dejar en blanco el campo `email`.
 
+En el caso de que `clear()` no funcione, podemos probar la siguiente combinación de teclas, bien en una llamada o bien en dos: 
+[source,java]
+----
+driver.findElement(By.Id("email-address")).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+
+driver.findElement(By.Id("email-address")).sendKeys(Keys.chord(Keys.CONTROL,"a"));
+driver.findElement(By.Id("email-address")).sendKeys(Keys.chord(Keys.DELETE));
+----
+
 - *Navegador headless queda ejecutándose en background*.
 Cuando falla la ejecución de un test de Selenium WebDriver en modo headless, el navegador puede quedar ejecutándose en background, pudiendo consumir recursos del sistema innecesariamente.
 

@@ -459,19 +459,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="paragraph">
 <p>Herramientas y Métodos en Ingeniería del Software
-Version 1.2, Marzo-2021.
+Version 1.2, Abril-2021.
 Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</p>
 </div>
 <div class="quoteblock abstract">
 <blockquote>
-Tests de aceptación con Selenium.
+Tests de Selenium JUnit WebDriver en Jenkins.
 </blockquote>
 </div>
 <div class="ulist">
 <div class="title">Objetivos</div>
 <ul>
 <li>
-<p>Ejecutar los test de Selenium en Jenkins utilizando el navegador en modo <em>headless</em>.</p>
+<p>Ejecutar los test de Selenium JUnit Webdriver en Jenkins utilizando el navegador en modo <em>headless</em>.</p>
 </li>
 </ul>
 </div>
@@ -489,7 +489,7 @@ Tests de aceptación con Selenium.
 <h2 id="_selenium_webdriver_y_jenkins">1. Selenium WebDriver y Jenkins</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Selenium WebDriver permite ejecutar los tests de Selenium como tests de JUnit, permitiendo así su ejecución en Eclipse y Jenkins.</p>
+<p><a href="selenium-webdriver.html">Selenium WebDriver</a> permite ejecutar los tests de Selenium como tests de JUnit, permitiendo así su ejecución en Eclipse y Jenkins.</p>
 </div>
 <div class="paragraph">
 <p>La ejecución de los tests de Selenium en Jenkins debe hacerse en modo <em>headless</em> ya que la máquina Jenkins no tiene instalada una interfaz gráfica, más comúnmente conocida como X o X11 en Linux. A pesar de ello, podremos hacerlo instalando un entorno de visualización simulado (<code>xvfb</code>). Veamos los pasos necesarios. Lo primero es descargar los drivers de los navegadores en la máquina de Jenkins.</p>
@@ -509,9 +509,9 @@ Tests de aceptación con Selenium.
 </span><span class="nv">JENKINS_HOME</span><span class="o">=</span>/var/lib/jenkins <i class="conum" data-value="1"></i><b>(1)</b>
 <span class="nb">echo</span> <span class="nv">$JENKINS_HOME</span>
 <span class="nb">mkdir</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers <i class="conum" data-value="2"></i><b>(2)</b>
-wget https://github.com/mozilla/geckodriver/releases/download/v0.29.0/geckodriver-v0.29.0-linux64.tar.gz
-<span class="nb">sudo tar</span> <span class="nt">-C</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <span class="nt">-xvf</span> geckodriver-v0.29.0-linux64.tar.gz <i class="conum" data-value="3"></i><b>(3)</b>
-wget https://chromedriver.storage.googleapis.com/89.0.4389.23/chromedriver_linux64.zip <i class="conum" data-value="4"></i><b>(4)</b>
+wget https://github.com/mozilla/geckodriver/releases/download/v0.29.1/geckodriver-v0.29.1-linux64.tar.gz
+<span class="nb">sudo tar</span> <span class="nt">-C</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <span class="nt">-xvf</span> geckodriver-v0.29.1-linux64.tar.gz <i class="conum" data-value="3"></i><b>(3)</b>
+wget https://chromedriver.storage.googleapis.com/90.0.4430.24/chromedriver_linux64.zip <i class="conum" data-value="4"></i><b>(4)</b>
 <span class="nb">sudo </span>apt-get <span class="nb">install </span>unzip <span class="nt">-y</span>
 <span class="nb">sudo </span>unzip chromedriver_linux64.zip <span class="nt">-d</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <i class="conum" data-value="5"></i><b>(5)</b>
 <span class="nb">ls</span> <span class="nt">-la</span>  <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <i class="conum" data-value="6"></i><b>(6)</b>
@@ -675,7 +675,7 @@ wget https://chromedriver.storage.googleapis.com/89.0.4389.23/chromedriver_linux
 <div class="olist arabic">
 <ol class="arabic" start="4">
 <li>
-<p>Para probar la ejecución con Chrome, debes instalar Chrome en la máquina Jenkins. Para ello sigue los pasos: <a href="https://ubunlog.com/google-chrome-ubuntu-1804/">Instalar Google Chrome en Ubuntu 18.04 LTS desde la línea de comandos</a> (No instales al versión beta, tampoco podrás ejecutarlo, simplemente instalarlo). Después, crea una nueva fase donde llames a los tests con el driver de Chrome. Tendrás que modificar el driver en el código, y llamar a maven con el siguiente parámetro para Chrome Driver:</p>
+<p>Para probar la ejecución con Chrome, debes instalar Chrome en la máquina Jenkins. Para ello sigue los pasos: <a href="https://ubunlog.com/google-chrome-ubuntu-1804/#Instalar_Google_Chrome_en_Ubuntu_1804_LTS_desde_la_linea_de_comandos">Instalar Google Chrome en Ubuntu 18.04 LTS desde la línea de comandos</a> (No instales al versión beta, tampoco podrás ejecutarlo, simplemente instalarlo). Después, crea una nueva fase donde llames a los tests con el driver de Chrome. Tendrás que modificar el driver en el código, y llamar a maven con el siguiente parámetro para Chrome Driver:</p>
 <div class="literalblock">
 <div class="content">
 <pre>mvn test -Dwebdriver.chrome.driver=${DRIVERS_LOC}/chromedriver</pre>
@@ -720,10 +720,10 @@ Sin embargo, el diseño de clases JUnit y uso de los distintos drivers tiene var
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Rediseña las clases JUnit con los test de Selenium para poder lanzar los tests bien con Firefox o bien con en Chrome, sin tener que modificar el código fuente, es decir, sin tener que cambiar el driver "a mano". Dependiendo de tu diseño, tal vez puedas necesitar <a href="https://openclassrooms.com/en/courses/5661466-use-testing-in-java-to-achieve-quality-applications/6232331-label-your-tests-with-advanced-junit-annotations">categorías</a> de JUnit 4.</p>
+<p>Rediseña las clases JUnit con los test de Selenium para poder lanzar los tests bien con Firefox o bien con en Chrome, sin tener que modificar el código fuente, es decir, sin tener que cambiar el driver "a mano". Para ello revisa el ejemplo <a href="https://github.com/ualhmis/seleniumWebDriverJUnit/tree/junit5/seleniumHMIS21">seleniumHMIS21</a> en su rama master (JUnit 4), y en la rama junit5.</p>
 </li>
 <li>
-<p>Crea dos fases en el pipeline, una para Firefox y otra para Chrome, y configura el pipeline para que se ejecuten en paralelo, usando el bloque <a href="https://www.jenkins.io/doc/book/pipeline/syntax/#parallel"><code>parallel</code></a>.</p>
+<p>Crea dos fases en el pipeline, una para Firefox y otra para Chrome, y configura el pipeline para que se ejecuten en paralelo, usando el bloque <a href="https://www.jenkins.io/blog/2017/09/25/declarative-1/"><code>parallel</code></a> (Más info: <a href="https://www.jenkins.io/doc/book/pipeline/syntax/#parallel">Jenkins Pipeline Syntax</a>)</p>
 </li>
 </ol>
 </div>
@@ -756,7 +756,7 @@ Sin embargo, el diseño de clases JUnit y uso de los distintos drivers tiene var
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-23 21:58:12 +0100
+Last updated 2021-04-29 13:04:40 +0200
 </div>
 </div>
 <style>
