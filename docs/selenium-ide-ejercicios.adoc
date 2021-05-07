@@ -183,7 +183,7 @@ image::https://mdn.mozillademos.org/files/14913/date-picker-chrome-error-message
 
 [NOTE]
 ====
-Los mensajes de validación son distintos en cada navegador (https://hg.mozilla.org/l10n-central/es-ES/file/default/dom/chrome/dom/dom.properties[Firefox], https://chromium.googlesource.com/chromium/src/+/a0e2753f75c926313e183b912584a7f15790825d/content/app/strings/translations/content_strings_es.xtb[Chrome]), tenlo en cuenta a la hora de definir el `assert`. También hay que considerar el idioma en el que esté configurado el navegador (En Firefox,  en su https://hg.mozilla.org/l10n-central[repostorio] selecciona el idioma deseado y busca el archivo `dom/chrome/dom/dom.properties`, y en https://chromium.googlesource.com/chromium/src/+/a0e2753f75c926313e183b912584a7f15790825d/content/app/strings/translations/[Chrome]). 
+Los mensajes de validación son distintos en cada navegador (https://hg.mozilla.org/l10n-central/es-ES/file/default/dom/chrome/dom/dom.properties[Firefox], https://chromium.googlesource.com/chromium/src/\+/a0e2753f75c926313e183b912584a7f15790825d/content/app/strings/translations/content_strings_es.xtb[Chrome]), tenlo en cuenta a la hora de definir el `assert`. También hay que considerar el idioma en el que esté configurado el navegador (En Firefox,  en su https://hg.mozilla.org/l10n-central[repostorio] selecciona el idioma deseado y busca el archivo `dom/chrome/dom/dom.properties`, y en https://chromium.googlesource.com/chromium/src/+/a0e2753f75c926313e183b912584a7f15790825d/content/app/strings/translations/[Chrome] lo encontrarás en el archivo del idioma, en español https://chromium.googlesource.com/chromium/src/\+/a0e2753f75c926313e183b912584a7f15790825d/content/app/strings/translations/content_strings_es.xtb[content_strings_es.xtb]). 
 
 .Validación de email incorrecto en Firefox y Chrome
 [cols="^,^", valign=top, grid=none, stripes=even]
@@ -199,6 +199,27 @@ Los mensajes de validación son distintos en cada navegador (https://hg.mozilla.
 
 
 ====
+
+=== Control de flujo en Selenium IDE 
+****
+
+Como acabamos de ver en el punto anterior, puede ser necesario que en función del navegador que estemos usando o el idioma en el que esté configurado el navegador, nuestro assert deba validar un mensaje de texto u otro.
+
+Selenium IDE permite añadir sentencias de https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow[control de flujo] como https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow#conditional-branching[*condicionales*] y https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow#looping`[*bucles*]`. 
+
+El siguiente ejemplo usa de la propiedad `navigator.userAgent` que incluye información del navegador que se está utilizando en la ejecución del test.
+
+.Uso de condicional para distinguir entre navegadores
+image::selenium-ide-conditional-navigators.png[role="thumb", align="center", width=70%]
+
+De igual forma, la propiedad `navigator.language` puede ayudarnos a identificar el idioma del navegador: `es_ES` para español, `en_GB` para inglés.
+
+
+
+
+
+
+****
 
 == Desplegar la aplicación en Azure
 
