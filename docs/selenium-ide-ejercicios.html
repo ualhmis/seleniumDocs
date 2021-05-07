@@ -455,6 +455,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_implementación_del_test_registro_de_usuario_caso_correcto">3.1. Implementación del test Registro de usuario (Caso correcto)</a></li>
 <li><a href="#_implementación_del_test_de_email_incorrecto">3.2. Implementación del test de email incorrecto</a></li>
+<li><a href="#_control_de_flujo_en_selenium_ide">3.3. Control de flujo en Selenium IDE</a></li>
 </ul>
 </li>
 <li><a href="#_desplegar_la_aplicación_en_azure">4. Desplegar la aplicación en Azure</a>
@@ -792,6 +793,31 @@ Ejercicios de tests de aceptación con Selenium.
 </table>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_control_de_flujo_en_selenium_ide">3.3. Control de flujo en Selenium IDE</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Como acabamos de ver en el punto anterior, puede ser necesario que en función del navegador que estemos usando o del idioma en que esté configurado dicho navegador, nuestro <code>assert</code> deba validar un mensaje u otro.</p>
+</div>
+<div class="paragraph">
+<p>Selenium IDE permite añadir sentencias de <a href="https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow">control de flujo</a> como <a href="https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow#conditional-branching"><strong>condicionales</strong></a> y <a href="https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow#looping"><strong>bucles</strong></a>.</p>
+</div>
+<div class="paragraph">
+<p>El siguiente ejemplo usa de la propiedad <code>navigator.userAgent</code> que incluye información del navegador que se está utilizando en la ejecución del test.</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="images/selenium-ide-conditional-navigators.png" alt="selenium ide conditional navigators" width="100%">
+</div>
+<div class="title">Fig. 8. Uso de condicional para distinguir entre navegadores</div>
+</div>
+<div class="paragraph">
+<p>De igual forma, la propiedad <code>navigator.language</code> puede ayudarnos a identificar el idioma del navegador: <code>es_ES</code> para español, <code>en_GB</code> para inglés.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -817,7 +843,7 @@ Ejercicios de tests de aceptación con Selenium.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-07 09:42:10 +0200
+Last updated 2021-05-07 10:01:28 +0200
 </div>
 </div>
 </body>
