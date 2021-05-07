@@ -207,12 +207,26 @@ Como acabamos de ver en el punto anterior, puede ser necesario que en función d
 
 Selenium IDE permite añadir sentencias de https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow[control de flujo] como https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow#conditional-branching[*condicionales*] y https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow#looping[*bucles*]. 
 
-El siguiente ejemplo usa de la propiedad `navigator.userAgent` que incluye información del navegador que se está utilizando en la ejecución del test.
+El siguiente https://github.com/ualjjcanada/selenium-ide-samples[ejemplo] usa de la propiedad `navigator.userAgent` que incluye información del navegador que se está utilizando en la ejecución del test.
+
+[source]
+----
+execute script | return navigator.userAgent  |  valor_navigatoruserAgent
+if             | ${navigatoruserAgent}.includes("Firefox")
+assert         | message | Ajústese al formato solicitado: 8 character password.
+end            |
+if             | ${navigatoruserAgent}.includes("Chrome")
+assert         | message | Utiliza un formato que coincida con el solicitado
+end            |
+
+
+----
 
 .Uso de condicional para distinguir entre navegadores
 image::selenium-ide-conditional-navigators.png[role="thumb", align="center", width=100%]
 
 De igual forma, la propiedad `navigator.language` puede ayudarnos a identificar el idioma del navegador: `es_ES` para español, `en_GB` para inglés.
+
 
 
 
