@@ -1,26 +1,3 @@
-////
-Codificación, idioma, tabla de contenidos, tipo de documento
-////
-:encoding: utf-8
-:lang: es
-:toc: right
-:toc-title: Tabla de contenidos
-:keywords: Selenium end-to-end testing
-:doctype: book
-:icons: font
-
-////
-/// activar btn:
-////
-:experimental:
-
-:source-highlighter: rouge
-:rouge-linenums-mode: inline
-
-// :highlightjsdir: ./highlight
-
-:figure-caption: Fig.
-:imagesdir: images
 
 ////
 Nombre y título del trabajo
@@ -28,7 +5,6 @@ Nombre y título del trabajo
 = Pruebas de aceptación con Selenium. Ejercicios Parte 1: Selenium IDE
 
 Herramientas y Métodos en Ingeniería del Software
-Version 2.0, Marzo-2021.
 Joaquín Cañadas <jjcanada@ual.es>
 
 // Entrar en modo no numerado de apartados
@@ -65,68 +41,60 @@ Realiza con Selenium IDE los tests de la web del equipo de la sesión 04 que ver
 Como siempre, crea un repositorio (privado) en GitHub para guardar los archivos creados. Se trata de una actividad en equipo, así que aplica el método de colaboración fork + pull request. Comparte el repositorio con el profesor para que pueda tener acceso al mismo.
 
 
-== Aplicación web login y registro de usuarios
+== Aplicación web con base de datos
 
-Desde ahora hasta el final de la asignatura vamos a desarrollar un proyecto web sobre el que aplicar las herramientas y métodos que vamos introduciendo durante el curso. El proyecto tendrá un login y registro de usuario, así que vamos a comenzar por implementar esta funcionalidad. Tenemos dos alternativas: elegir una plantilla de proyecto que ya implemente la funcionalidad deseada, o bien hacerlo nosotros mismos.
+Desde ahora hasta el final de la asignatura vamos a iniciar un proyecto de equipo consistente en el desarrollo de una aplicación  web dinámica (con base de datos) sobre el que aplicar las herramientas y métodos que vamos introduciendo durante el curso. El proyecto tendrá diversa funcionalidad, como las operaciones CRUD (Create, Read, Update, Delete) sobre una o varias entidades, un login y registro de usuarios, etc., así que vamos a comenzar por implementar esta funcionalidad. Tenemos dos alternativas: elegir una plantilla de proyecto que ya implemente la funcionalidad deseada, o bien hacerlo nosotros mismos.
 
 
 === Elige una plantilla 
 
-Os dejo aquí tres ejemplos de plantillas de aplicación web, en distintas tecnologías, que implementan un login y registro de usuarios. 
+Os dejo aquí en enlace a la documentación oficial de https://docs.microsoft.com/es-es/azure/app-service/[Azure Web apps] varios ejemplos de plantillas de *aplicación web con base de datos*, en distintas tecnologías, que básicamente implementan una aplicación que permite crear tareas, listarlas, modificarlas y eliminarlas. Podrás encontralas en el menú _Tutoriales_ / _Aplicación con base de datos_.
 
-.Proyecto Login - Opciones
+.Tutoriales de Aplicación Web con base de datos
+image::azure-tutoriales-basededatos.png[role="thumb", align="center"]
+
+.Proyecto TO-DO - Opciones
 ****
-. https://docs.microsoft.com/es-es/aspnet/core/tutorials/publish-to-azure-webapp-using-vs?view=aspnetcore-2.2[Creación de una app Login con Visual Studio 2017 y Azure].
- _.Net Core + SQL Server + Azure_
+Elige la tecnología que prefieras, os animo a elegir una que tengáis curiosidad por aprender. Seguramente seguirás usando esa tecnología para el proyecto hasta el final de la asignatura, así que tomad la decisión en equipo. En cualquier caso, si más adelante quieres cambiar de tecnología para alguna de las siguientes prácticas, no habrá problema. 
 
-. https://hellokoding.com/registration-and-login-example-with-spring-xml-configuration-maven-jsp-and-mysql/[Registration and Login with Spring MVC, Spring Security, Spring Data JPA, Hibernate, MySQL, JSP and Bootstrap].
- _Java + MySql + Maven_
+Como alternativa, si lo deseas, puedes usar alguna otra plantilla que conozcas que no esté entre los tutoriales de Azure, incluso en otra tecnología (por ejemplo, Go). En ese caso, comentádmelo antes para validar que implemente la funcionalidad básica requerida (CRUD).
 
-. https://sailsjs.com/get-started[Web App. Extensible project with auth, login, & password recovery].
- _Node JS + Sails JS framework_
-
- . https://github.com/heartcombo/devise/wiki/Example-applications[A list of example Rails applications that demonstrate how to use Devise, a flexible authentication solution for Rails]
- _Ruby on Rais + Devise_
 ****
 
-. Elegid una de las plantillas. Si lo deseas puedes usar alguna otra plantilla en otra tecnología, así que tomad una decisión en equipo y comentádmelo antes para validar que implemente la funcionalidad básica requerida.
+Sique las instrucciones del tutorial teniendo en cuenta lo siguiente: 
+    - En local, crea el proyecto basado en la plantilla. Probar que funciona en local.
+    - Comprueba el gasto que vas a realizar con la creación de la Web App y la base de datos del tutorial que elija. El consumo de la Web App dependerá del tipo de SKU que crea tutorial. Los pasos para crear una web app gratuita (SKU Free) están buen detallados en el apartado https://docs.microsoft.com/es-es/azure/app-service/tutorial-dotnetcore-sqldb-app?tabs=azure-portal%2Cvisualstudio-deploy%2Cdeploy-instructions-azure-portal%2Cazure-portal-logs%2Cazure-portal-resources#2---create-the-app-service[2. Creación de la instancia de App Service] del tutorial de DotNet Core, así que consultalos si es necesario. 
 
-. En local, crear el proyecto basado en la plantilla. Probar que funciona.
-
-[TIP]
-====
-https://hackernoon.com/your-node-js-authentication-tutorial-is-wrong-f1a3bf831a46[Algunos fallos típicos en los tutoriales de web de autenticación (login)]
-====
 
 === Usa tu propio proyecto
 Como alternativa, si ya has desarrollado o estás desarrollando un proyecto similar en alguna tecnología que conozcas, y que implemente: 
 
-- un login de usuario,
-- un registro de usuario, y 
-- una modificación del perfil del usuario logueado 
+- la funcionalidad de listado, creación, modificación y eliminación (CRUD) sobre al menos una determinada entidad (por ejemplo: tareas, usuarios, eventos, etc.)
 
-puedes usarlo en lugar de alguna de las plantillas propuestas. Pero asegúrate de que tu proyecto es funcional, es decir, implementa las 3 características indicadas y estas funcionan, ya que el objetivo es  probarlas. Y además tu proyecto debe implementar los casos de error mediante los mensajes de validación oportunos. Si tu proyecto no es funcional, o no implementa esas 3 características o los casos de error, entonces mejor usa una plantilla de las propuestas. 
+Pero asegúrate de que tu proyecto es *funcional*, es decir, implementa las características indicadas y estas funcionan, ya que el objetivo es probarlas con Selenium. Y además tu proyecto debe implementar los casos de error mediante los mensajes de validación oportunos. Si tu proyecto no es funcional, o no implementa esas características o los casos de error, entonces mejor usa una plantilla de las propuestas. 
 
 == Creación de los tests Selenium
 
 Crear en Selenium los test cases necesarios para probar, tanto escenarios correctos como escenarios de error, de las siguientes funcionalidades:
 ****
-- Registro de usuario (Caso correcto)
-- Registro de usuario (Casos incorrectos)
-- Login de usuario (Caso correcto)
-- Login de usuario (Casos incorrectos)
-- Editar el perfil de usuario logueado (caso correcto)
-- Editar el perfil de usuario logueado (casos incorrectos)
-- Cambio de contraseña de usuario logueado (Caso correcto)
-- Cambio de contraseña de usuario logueado (Casos incorrectos)
+- Listado de tareas (Caso correcto)
+- Listado de tareas (Casos incorrectos)
+- Creación de una tarea (Caso correcto)
+- Creación de una tareas (Casos incorrectos)
+- Modificación de una tarea (caso correcto)
+- Modificación de una tarea (casos incorrectos)
+- Eliminación de una tarea (caso correcto)
+- Eliminación de una tarea (casos incorrectos)
 ****
 Guardar los test cases en una test suite (formato `.side`).
 
-Puesto que para realizar una prueba exhaustiva, cubriendo todos los posibles escenarios, el número de casos de prueba es elevado, la forma de trabajar es dividir las funcionalidades entre los miembros del equipo y así repartir el trabajo: Una persona que haga los tests de *Registro de usuario + Editar perfil*, y otra los de *login de usuario + cambio de contraseña*. Para equipos de 3 personas, una el registro, otra el login y otra la edición de perfil y cambio de contraseña.
+Puesto que para realizar una prueba exhaustiva, cubriendo todos los posibles escenarios, el número de casos de prueba es elevado, la forma de trabajar es dividir las funcionalidades entre los miembros del equipo y así repartir el trabajo: Una persona que haga los tests de las dos primeras funcionalidades, y otra el resto. 
 
-=== Implementación del test Registro de usuario (Caso correcto)
+Para equipos de 3 personas, 
+
+=== Implementación del test de Creación de una tarea ya existente (Caso correcto)
 ****
-Para que el test de registro de usuario lo podamos ejecutar repetidamente sin que nos de el error de "usuario ya existe", tenemos que usar un email aleatorio en cada ejecución del test. Eso se consigue definiendo una variable en Selenium, llamado al comando `execute script`, escribiendo la función de JavaScript que genere ese email aleatorio, y guardándolo en una variable que luego usaremos en en paso que escribe el valor en el campo _email_ del registro. 
+Para que el test de creación de una tarea, si el nombre de la tarea ya existe, no debería permitir crear una nueva con el mismo nombre (identificador único). La plantilla que estés usando puede que valide esta restricción o no. Si lo hace, para poder ejecutar este tes repetidamente sin que nos de el error de "tarea ya existe", tenemos que usar un texto aleatorio en cada ejecución del test. Eso se consigue definiendo una variable en Selenium, llamado al comando `execute script`, escribiendo la función de JavaScript que genere ese valor te texto, por ejemplo un email aleatorio, y guardándolo en una variable que luego usaremos en en paso que escribe el valor en el campo _tarea_ del formulario de creación. 
 
 El paso sería del test case de Selenium IDE es: 
 
@@ -138,9 +106,9 @@ El paso sería del test case de Selenium IDE es:
 image::register-email-ramdon.png[role="thumb", align="center"]
 
 ****
-=== Implementación del test de email incorrecto 
+=== Implementación del test incorrecto con validación HTML5
 ****
-En aquellos formularios en los que se debe introducir una dirección de email y el campo está definido como tal en HTML5 mediante `<input type="email" ...>`, el valor introducido se valida en el navegador de manera que cuando el valor introducido no es un email válido muestra un pop-up con el texto _"Introduzca una dirección de correo."_ Este tipo de pop-ups no se pueden capturar con el menú contextual de Selenium IDE (botón derecho sobre el texto a validar), por lo que debemos usar un método alternativo.
+En aquellos formularios en los que se debe introducir un valor, por ejemplo una dirección de email y el campo está definido como tal en HTML5 mediante `<input type="email" ...>`, el valor introducido se valida en el navegador de manera que cuando el valor introducido no es un email válido muestra un pop-up con el texto _"Introduzca una dirección de correo."_ Este tipo de pop-ups no se pueden capturar con el menú contextual de Selenium IDE (botón derecho sobre el texto a validar), por lo que debemos usar un método alternativo.
 
 .Pop-up de validación en HTML5: email incorrecto
 image::selenium-ide-email-incorrecto.png[role="thumb", align="center", width=70%]
