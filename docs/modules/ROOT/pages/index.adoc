@@ -13,9 +13,9 @@ endif::[]
 _Version_ *{page-component-display-version}*
 
 
-. link:docs/selenium-ide-intro.html[Introduccion a Selenium]
+. link:selenium-ide-intro.html[Introduccion a Selenium]
 
-. link:docs/selenium-ide-ejercicios.html[Ejercicios Parte 1 - Proyecto]
+. link:selenium-ide-ejercicios.html[Ejercicios Parte 1 - Proyecto]
 
 //. link:docs/selenium-webdriver.html[Selenium WebDriver]
 
