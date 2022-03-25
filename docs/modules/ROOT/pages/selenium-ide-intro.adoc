@@ -1,4 +1,7 @@
+:encoding: utf-8
+:lang: es
 :toc: right
+:toc-title: Tabla de contenidos
 ////
 Nombre y título del trabajo
 ////

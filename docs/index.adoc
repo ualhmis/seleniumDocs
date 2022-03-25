@@ -5,7 +5,7 @@ Codificación, idioma, tabla de contenidos, tipo de documento
 :lang: es
 :toc: right
 :toc-title: Tabla de contenidos
-:keywords: EDAII Algoritmos
+:keywords: HMIS Selenium
 :doctype: article
 :icons: font
 

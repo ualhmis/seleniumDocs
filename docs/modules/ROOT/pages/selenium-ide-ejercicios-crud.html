@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
@@ -445,7 +445,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="revdate">Joaquín Cañadas &lt;jjcanada@ual.es&gt;</span>
 </div>
 <div id="toc" class="toc2">
-<div id="toctitle">Table of Contents</div>
+<div id="toctitle">Tabla de contenidos</div>
 <ul class="sectlevel1">
 <li><a href="#_test_de_la_web_del_equipo">1. Test de la web del equipo</a></li>
 <li><a href="#_aplicación_web_con_base_de_datos">2. Aplicación web con base de datos</a>
@@ -454,17 +454,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_usa_tu_propio_proyecto">2.2. Usa tu propio proyecto</a></li>
 </ul>
 </li>
-<li><a href="#_creación_de_los_tests_selenium">3. Creación de los tests Selenium</a>
+<li><a href="#_creación_de_los_tests_selenium">3. Creación de los tests Selenium</a></li>
+<li><a href="#_funciones_avanzadas_de_selenium_ide">4. Funciones avanzadas de Selenium IDE</a>
 <ul class="sectlevel2">
-<li><a href="#_creación_de_una_tarea_ya_existente_caso_correcto">3.1. Creación de una tarea ya existente (Caso correcto)</a></li>
-<li><a href="#_implementación_del_test_incorrecto_con_validación_html5">3.2. Implementación del test incorrecto con validación HTML5</a></li>
+<li><a href="#_creación_de_una_tarea_ya_existente_caso_correcto">4.1. Creación de una tarea ya existente (Caso correcto)</a></li>
+<li><a href="#_implementación_del_test_incorrecto_con_validación_html5">4.2. Implementación del test incorrecto con validación HTML5</a></li>
+<li><a href="#_control_de_flujo_en_selenium_ide">4.3. Control de flujo en Selenium IDE</a></li>
 </ul>
 </li>
-<li><a href="#_desplegar_la_aplicación_en_azure">4. Desplegar la aplicación en Azure</a>
-<ul class="sectlevel2">
-<li><a href="#_adaptar_los_test_a_la_url_de_despliegue">4.1. Adaptar los test a la URL de despliegue</a></li>
-</ul>
-</li>
+<li><a href="#_desplegar_la_aplicación_en_azure">5. Desplegar la aplicación en Azure</a></li>
 </ul>
 </div>
 </div>
@@ -517,7 +515,7 @@ Ejercicios de tests de aceptación con Selenium.
 <div class="sect2">
 <h3 id="_elige_una_plantilla">2.1. Elige una plantilla</h3>
 <div class="paragraph">
-<p>Os dejo aquí en enlace a la documentación oficial de <a href="https://docs.microsoft.com/es-es/azure/app-service/">Azure Web apps</a> varios ejemplos de plantillas de <strong>aplicación web con base de datos</strong>, en distintas tecnologías, que básicamente implementan una aplicación que permite crear tareas, listarlas, modificarlas y eliminarlas. Podrás encontralas en el menú <em>Tutoriales</em> / <em>Aplicación con base de datos</em>.</p>
+<p>Os dejo aquí en enlace a la documentación oficial de <a href="https://docs.microsoft.com/es-es/azure/app-service/" target="<em>blank">Azure Web apps</a> varios ejemplos de plantillas de <strong>aplicación web con base de datos</strong>, en distintas tecnologías, que básicamente implementan una aplicación que permite crear tareas, listarlas, modificarlas y eliminarlas. Podrás encontralas en el menú _Tutoriales</em> / <em>Aplicación con base de datos</em>.</p>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
@@ -537,9 +535,30 @@ Ejercicios de tests de aceptación con Selenium.
 </div>
 </div>
 <div class="paragraph">
-<p>Sique las instrucciones del tutorial teniendo en cuenta lo siguiente:
-    - En local, crea el proyecto basado en la plantilla. Probar que funciona en local.
-    - Comprueba el gasto que vas a realizar con la creación de la Web App y la base de datos del tutorial que elija. El consumo de la Web App dependerá del tipo de SKU que crea tutorial. Los pasos para crear una web app gratuita (SKU Free) están buen detallados en el apartado <a href="https://docs.microsoft.com/es-es/azure/app-service/tutorial-dotnetcore-sqldb-app?tabs=azure-portal%2Cvisualstudio-deploy%2Cdeploy-instructions-azure-portal%2Cazure-portal-logs%2Cazure-portal-resources#2---create-the-app-service">2. Creación de la instancia de App Service</a> del tutorial de DotNet Core, así que consultalos si es necesario.</p>
+<p>Sique las instrucciones del tutorial elegido, pero antes ten en cuenta lo siguiente:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>En la mayoría de los tutoriales te indicará los pasos para probar que la aplicación funciona <em>en local</em> antes de subirla a la Web App de Azure. Cuando sea necesario, el tutorial te indicará unos <strong>Prerrequitos</strong> que tendrás que tener en tu PC local, y ofrecerá dos opciones:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Use el entorno de Bash en <a href="https://docs.microsoft.com/es-es/azure/cloud-shell/quickstart" target="_blank" rel="noopener">Azure Cloud Shell</a>: tiene la ventaja de que todo el software necesario ya está instalado en la Cloud Shell, por lo que no necesitarás instalar nada en local.</p>
+</li>
+<li>
+<p>Si prefieres ejecutar la aplicación localmente, esta opción implica que debes instalar todo el software indicado como prerrequisitos que aun no tengas en tu PC (php, node, python, etc).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Comprueba el gasto que vas a realizar con la creación de la Web App y la base de datos del tutorial que elijas. El consumo de la Web App dependerá del tipo de SKU que crea tutorial. Los pasos para crear una web app gratuita (SKU Free) están buen detallados en el apartado <a href="https://docs.microsoft.com/es-es/azure/app-service/tutorial-dotnetcore-sqldb-app?tabs=azure-portal%2Cvisualstudio-deploy%2Cdeploy-instructions-azure-portal%2Cazure-portal-logs%2Cazure-portal-resources#2---create-the-app-service">2. Creación de la instancia de App Service</a> del tutorial de DotNet Core, así que consultalos si es necesario.</p>
+</li>
+<li>
+<p>Los comandos que aparencen en los tutoriales que comienzan por <code>az</code> permiten interactuar con los servicios Azure utilizando la CLI (Command Line Interface) de Azure. Básicamente, la CLI es una alternativa a usar el Portal de Azure, de manera que en lugar de operar forma interactiva sobre la interfaz web del Portal Azure, utilizarás los comandos de la CLI para crear y configurar los servicios. Los comandos <code>az</code> los podrás ejecutar <a href="https://docs.microsoft.com/es-es/azure/cloud-shell/quickstart" target="_blank" rel="noopener">Azure Cloud Shell</a> (recomendado) o bien en local, y en este último caso (<a href="https://docs.microsoft.com/es-ES/cli/azure/install-azure-cli" target="_blank" rel="noopener">instale la CLI de Azure</a>).</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -598,6 +617,20 @@ Ejercicios de tests de aceptación con Selenium.
 </div>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>En función de la tecnología que hayas elegido, tu plantilla de aplicación web tendrá todas estas funcionalidades, alguna de las indicadas anteriormente no estará implementada, o bien incorporará alguna funcionalidad adicional. En caso de que falte alguna, no te preocupes, crea los tests de las funcionalidades que estén incorporadas. Y si por el contrario la plantilla ofrece alguna funcionalidad adicional, puedes crear los tests de esa funcionalidad adicional de forma <em>optativa</em>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Guardar los test cases en una test suite (formato <code>.side</code>).</p>
 </div>
@@ -605,10 +638,18 @@ Ejercicios de tests de aceptación con Selenium.
 <p>Puesto que para realizar una prueba exhaustiva, cubriendo todos los posibles escenarios, el número de casos de prueba es elevado, la forma de trabajar es dividir las funcionalidades entre los miembros del equipo y así repartir el trabajo: Una persona que haga los tests de las dos primeras funcionalidades, y otra el resto.</p>
 </div>
 <div class="paragraph">
-<p>Para equipos de 3 personas,</p>
+<p>Para <strong>equipos de 3 personas</strong>, se pide elegir dos tecnologías y crear los tests de selenium para los dos proyectos. Al ser más carga de trabajo, en este caso se deja como optativo los tests de <em>Modificación de una tarea</em>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_funciones_avanzadas_de_selenium_ide">4. Funciones avanzadas de Selenium IDE</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ciertos pasos de algunos casos de prueba no se podrán grabar grabar con Selenium IDE, sino que habrá que modificarlos manualmente. A continuación, se ponen algunos ejemplos.</p>
 </div>
 <div class="sect2">
-<h3 id="_creación_de_una_tarea_ya_existente_caso_correcto">3.1. Creación de una tarea ya existente (Caso correcto)</h3>
+<h3 id="_creación_de_una_tarea_ya_existente_caso_correcto">4.1. Creación de una tarea ya existente (Caso correcto)</h3>
 <div class="paragraph">
 <p>Para que el test de creación de una tarea, si suponemos que el nombre de la tarea es un identificador único, no debería permitir crear una nueva tarea con el nombre de una tarea ya existente. La plantilla que estés usando puede que valide esta restricción o no. Si lo hace, para poder ejecutar este test repetidamente sin que de el error de "tarea ya existe", tenemos que usar un texto aleatorio en cada ejecución del test. Eso se consigue definiendo una variable en Selenium, llamado al comando <code>execute script</code>, escribiendo la función de JavaScript que genere ese valor te texto, por ejemplo un email aleatorio, y guardándolo en una variable que luego usaremos en en paso que escribe el valor en el campo <em>tarea</em> del formulario de creación.</p>
 </div>
@@ -636,7 +677,7 @@ Ejercicios de tests de aceptación con Selenium.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_implementación_del_test_incorrecto_con_validación_html5">3.2. Implementación del test incorrecto con validación HTML5</h3>
+<h3 id="_implementación_del_test_incorrecto_con_validación_html5">4.2. Implementación del test incorrecto con validación HTML5</h3>
 <div class="paragraph">
 <p>En aquellos formularios en los que se debe introducir un valor, por ejemplo una dirección de email y el campo está definido como tal en HTML5 mediante <code>&lt;input type="email" &#8230;&#8203;&gt;</code>, el valor introducido se valida en el navegador de manera que cuando el valor introducido no es un email válido muestra un pop-up con el texto <em>"Introduzca una dirección de correo."</em> Este tipo de pop-ups no se pueden capturar con el menú contextual de Selenium IDE (botón derecho sobre el texto a validar), por lo que debemos usar un método alternativo.</p>
 </div>
@@ -761,6 +802,9 @@ Ejercicios de tests de aceptación con Selenium.
 <div class="paragraph">
 <p>Como acabamos de ver en el punto anterior, puede ser necesario que en función del navegador que estemos usando o del idioma en que esté configurado dicho navegador, nuestro <code>assert</code> deba validar un mensaje u otro.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_control_de_flujo_en_selenium_ide">4.3. Control de flujo en Selenium IDE</h3>
 <div class="paragraph">
 <p>Selenium IDE permite añadir sentencias de <a href="https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow">control de flujo</a> como <a href="https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow#conditional-branching"><strong>condicionales</strong></a> y <a href="https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow#looping"><strong>bucles</strong></a>.</p>
 </div>
@@ -791,29 +835,23 @@ end            |</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_desplegar_la_aplicación_en_azure">4. Desplegar la aplicación en Azure</h2>
+<h2 id="_desplegar_la_aplicación_en_azure">5. Desplegar la aplicación en Azure</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>La aplicación que hemos probado localmente, debemos ponerla "en producción", es decir, desplegarla en Azure para que esté disponible por nuestros usuarios (ficticios).</p>
 </div>
 <div class="paragraph">
-<p>Dependiendo de la plantilla elegida, el despliegue será distinto. La plantilla de .Net explica el despliegue en Azure Web app. El resto se pueden desplegar en Web app, o bien en una máquina virtual.</p>
-</div>
-<div class="sect2">
-<h3 id="_adaptar_los_test_a_la_url_de_despliegue">4.1. Adaptar los test a la URL de despliegue</h3>
-<div class="paragraph">
-<p>Los test que hemos creado en el <em>entorno de desarrollo</em>, es decir, en nuestro equipo local, deben adaptarse para que funcionen en <em>entorno de producción</em> es decir, deben atacar a la aplicación desplegada.</p>
+<p>Dependiendo de la plantilla elegida, el despliegue será distinto. Los tutoriales indican como hacerlo mediante Web Apps.</p>
 </div>
 <div class="paragraph">
-<p>Para ello simplemente tendrás que cambiar la URL base.</p>
-</div>
+<p>Si los test los has creado en el <em>entorno de desarrollo</em>, es decir, en nuestro equipo local, deben adaptarse para que funcionen en <em>entorno de producción</em> es decir, deben atacar a la aplicación desplegada. Para ello simplemente tendrás que <strong>cambiar la URL base</strong>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-03-25 18:37:26 +0100
+Last updated 2022-03-25 19:23:33 +0100
 </div>
 </div>
 </body>

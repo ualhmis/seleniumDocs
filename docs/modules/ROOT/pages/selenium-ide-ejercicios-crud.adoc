@@ -1,4 +1,7 @@
+:encoding: utf-8
+:lang: es
 :toc: right
+:toc-title: Tabla de contenidos
 ////
 Nombre y título del trabajo
 ////
@@ -59,7 +62,7 @@ Desde ahora hasta el final de la asignatura vamos a iniciar un proyecto de equip
 
 === Elige una plantilla 
 
-Os dejo aquí en enlace a la documentación oficial de https://docs.microsoft.com/es-es/azure/app-service/[Azure Web apps] varios ejemplos de plantillas de *aplicación web con base de datos*, en distintas tecnologías, que básicamente implementan una aplicación que permite crear tareas, listarlas, modificarlas y eliminarlas. Podrás encontralas en el menú _Tutoriales_ / _Aplicación con base de datos_.
+Os dejo aquí en enlace a la documentación oficial de https://docs.microsoft.com/es-es/azure/app-service/[Azure Web apps, window=_blank] varios ejemplos de plantillas de *aplicación web con base de datos*, en distintas tecnologías, que básicamente implementan una aplicación que permite crear tareas, listarlas, modificarlas y eliminarlas. Podrás encontralas en el menú _Tutoriales_ / _Aplicación con base de datos_.
 
 .Tutoriales de Aplicación Web con base de datos
 image::azure-tutoriales-basededatos.png[role="thumb", align="center"]
@@ -72,9 +75,17 @@ Como alternativa, si lo deseas, puedes usar alguna otra plantilla que conozcas q
 
 ****
 
-Sique las instrucciones del tutorial teniendo en cuenta lo siguiente: 
-    - En local, crea el proyecto basado en la plantilla. Probar que funciona en local.
-    - Comprueba el gasto que vas a realizar con la creación de la Web App y la base de datos del tutorial que elija. El consumo de la Web App dependerá del tipo de SKU que crea tutorial. Los pasos para crear una web app gratuita (SKU Free) están buen detallados en el apartado https://docs.microsoft.com/es-es/azure/app-service/tutorial-dotnetcore-sqldb-app?tabs=azure-portal%2Cvisualstudio-deploy%2Cdeploy-instructions-azure-portal%2Cazure-portal-logs%2Cazure-portal-resources#2---create-the-app-service[2. Creación de la instancia de App Service] del tutorial de DotNet Core, así que consultalos si es necesario. 
+Sique las instrucciones del tutorial elegido, pero antes ten en cuenta lo siguiente:
+
+- En la mayoría de los tutoriales te indicará los pasos para probar que la aplicación funciona _en local_ antes de subirla a la Web App de Azure. Cuando sea necesario, el tutorial te indicará unos *Prerrequitos* que tendrás que tener en tu PC local, y ofrecerá dos opciones:
+
+    * Use el entorno de Bash en https://docs.microsoft.com/es-es/azure/cloud-shell/quickstart[Azure Cloud Shell, window=_blank]: tiene la ventaja de que todo el software necesario ya está instalado en la Cloud Shell, por lo que no necesitarás instalar nada en local. 
+
+    * Si prefieres ejecutar la aplicación localmente, esta opción implica que debes instalar todo el software indicado como prerrequisitos que aun no tengas en tu PC (php, node, python, etc).
+
+- Comprueba el gasto que vas a realizar con la creación de la Web App y la base de datos del tutorial que elijas. El consumo de la Web App dependerá del tipo de SKU que crea tutorial. Los pasos para crear una web app gratuita (SKU Free) están buen detallados en el apartado https://docs.microsoft.com/es-es/azure/app-service/tutorial-dotnetcore-sqldb-app?tabs=azure-portal%2Cvisualstudio-deploy%2Cdeploy-instructions-azure-portal%2Cazure-portal-logs%2Cazure-portal-resources#2---create-the-app-service[2. Creación de la instancia de App Service] del tutorial de DotNet Core, así que consultalos si es necesario. 
+
+- Los comandos que aparencen en los tutoriales que comienzan por `az` permiten interactuar con los servicios Azure utilizando la CLI (Command Line Interface) de Azure. Básicamente, la CLI es una alternativa a usar el Portal de Azure, de manera que en lugar de operar forma interactiva sobre la interfaz web del Portal Azure, utilizarás los comandos de la CLI para crear y configurar los servicios. Los comandos `az` los podrás ejecutar https://docs.microsoft.com/es-es/azure/cloud-shell/quickstart[Azure Cloud Shell, window=_blank] (recomendado) o bien en local, y en este último caso (https://docs.microsoft.com/es-ES/cli/azure/install-azure-cli[instale la CLI de Azure, window=_blank]). 
 
 
 === Usa tu propio proyecto
@@ -97,11 +108,19 @@ Crear en Selenium los test cases necesarios para probar, tanto escenarios correc
 - Eliminación de una tarea (caso correcto)
 - Eliminación de una tarea (casos incorrectos)
 ****
+[NOTE]
+====
+En función de la tecnología que hayas elegido, tu plantilla de aplicación web tendrá todas estas funcionalidades, alguna de las indicadas anteriormente no estará implementada, o bien incorporará alguna funcionalidad adicional. En caso de que falte alguna, no te preocupes, crea los tests de las funcionalidades que estén incorporadas. Y si por el contrario la plantilla ofrece alguna funcionalidad adicional, puedes crear los tests de esa funcionalidad adicional de forma _optativa_.
+====
 Guardar los test cases en una test suite (formato `.side`).
 
 Puesto que para realizar una prueba exhaustiva, cubriendo todos los posibles escenarios, el número de casos de prueba es elevado, la forma de trabajar es dividir las funcionalidades entre los miembros del equipo y así repartir el trabajo: Una persona que haga los tests de las dos primeras funcionalidades, y otra el resto. 
 
-Para equipos de 3 personas, 
+Para *equipos de 3 personas*, se pide elegir dos tecnologías y crear los tests de selenium para los dos proyectos. Al ser más carga de trabajo, en este caso se deja como optativo los tests de _Modificación de una tarea_.
+
+== Funciones avanzadas de Selenium IDE
+
+Ciertos pasos de algunos casos de prueba no se podrán grabar grabar con Selenium IDE, sino que habrá que modificarlos manualmente. A continuación, se ponen algunos ejemplos.
 
 === Creación de una tarea ya existente (Caso correcto)
 
@@ -184,6 +203,8 @@ Los mensajes de validación son distintos en cada navegador (https://hg.mozilla.
 
 Como acabamos de ver en el punto anterior, puede ser necesario que en función del navegador que estemos usando o del idioma en que esté configurado dicho navegador, nuestro `assert` deba validar un mensaje u otro.
 
+=== Control de flujo en Selenium IDE
+
 Selenium IDE permite añadir sentencias de https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow[control de flujo] como https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow#conditional-branching[*condicionales*] y https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow#looping[*bucles*]. 
 
 El siguiente https://github.com/ualjjcanada/selenium-ide-samples[ejemplo] usa de la propiedad `navigator.userAgent` que incluye información del navegador que se está utilizando en la ejecución del test.
@@ -210,11 +231,7 @@ De igual forma, la propiedad `navigator.language` puede ayudarnos a identificar 
 
 La aplicación que hemos probado localmente, debemos ponerla "en producción", es decir, desplegarla en Azure para que esté disponible por nuestros usuarios (ficticios).
 
-Dependiendo de la plantilla elegida, el despliegue será distinto. La plantilla de .Net explica el despliegue en Azure Web app. El resto se pueden desplegar en Web app, o bien en una máquina virtual. 
+Dependiendo de la plantilla elegida, el despliegue será distinto. Los tutoriales indican como hacerlo mediante Web Apps. 
 
-=== Adaptar los test a la URL de despliegue
-
-Los test que hemos creado en el _entorno de desarrollo_, es decir, en nuestro equipo local, deben adaptarse para que funcionen en _entorno de producción_ es decir, deben atacar a la aplicación desplegada. 
-
-Para ello simplemente tendrás que cambiar la URL base. 
+Si los test los has creado en el _entorno de desarrollo_, es decir, en nuestro equipo local, deben adaptarse para que funcionen en _entorno de producción_ es decir, deben atacar a la aplicación desplegada. Para ello simplemente tendrás que *cambiar la URL base*. 
 
