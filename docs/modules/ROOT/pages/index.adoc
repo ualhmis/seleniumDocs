@@ -13,7 +13,7 @@ endif::[]
 _Version_ *{page-component-display-version}*
 
 
-. link:selenium-ide-intro.html[Introduccion a Selenium]
+. link:selenium-ide-intro.html[Introduccion a Seleniummm]
 
 . link:selenium-ide-ejercicios.html[Ejercicios Parte 1 - Proyecto]
 

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
-<meta name="keywords" content="Selenium end-to-end testing">
+<meta name="author" content="Joaquín Cañadas">
 <title>Pruebas de aceptación con Selenium</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -436,25 +436,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="book toc2 toc-right">
+<body class="article">
 <div id="header">
 <h1>Pruebas de aceptación con Selenium</h1>
-<div id="toc" class="toc2">
-<div id="toctitle">Tabla de contenidos</div>
-<ul class="sectlevel1">
-<li><a href="#_introducción_a_selenium">1. Introducción a Selenium</a></li>
-<li><a href="#_selenium_ide">2. Selenium IDE</a></li>
-</ul>
+<div class="details">
+<span id="author" class="author">Joaquín Cañadas</span><br>
+<span id="email" class="email"><a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a></span><br>
 </div>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Version 2.0, Marzo-2021.
-Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</p>
+<p><em>Version</em> <strong>{page-component-display-version}</strong></p>
 </div>
 <div class="quoteblock abstract">
 <blockquote>
@@ -512,81 +507,81 @@ Breve introducción a los tests de aceptación de aplicaciones web con Selenium.
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
-<img src="images/selenium-ide-icon.png" alt="selenium ide icon">
+<img src="selenium-ide-icon.png" alt="selenium ide icon">
 </div>
-<div class="title">Fig. 1. Icono de Selenium IDE en el navegador</div>
+<div class="title">Figure 1. Icono de Selenium IDE en el navegador</div>
 </div>
 <div class="paragraph">
 <p>Al hacer clic sobre el icono, se abrirá Selenium IDE. Empieza por crear un nuevo proyecto:</p>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
-<img src="images/selenium-ide-open-1.png" alt="selenium ide open 1">
+<img src="selenium-ide-open-1.png" alt="selenium ide open 1">
 </div>
-<div class="title">Fig. 2. Selenium IDE inicio</div>
+<div class="title">Figure 2. Selenium IDE inicio</div>
 </div>
 <div class="paragraph">
 <p>Escribe un nombre al nuevo proyecto de pruebas:</p>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
-<img src="images/selenium-ide-open-new-project.png" alt="selenium ide open new project">
+<img src="selenium-ide-open-new-project.png" alt="selenium ide open new project">
 </div>
-<div class="title">Fig. 3. Selenium IDE inicio</div>
+<div class="title">Figure 3. Selenium IDE inicio</div>
 </div>
 <div class="paragraph">
 <p>Introduce la URL base a probar:</p>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
-<img src="images/selenium-ide-open-url-base.png" alt="selenium ide open url base">
+<img src="selenium-ide-open-url-base.png" alt="selenium ide open url base">
 </div>
-<div class="title">Fig. 4. Selenium IDE URL base</div>
+<div class="title">Figure 4. Selenium IDE URL base</div>
 </div>
 <div class="paragraph">
 <p>Directamente empieza a grabar las acciones que vayas realizando sobre el navegador:</p>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
-<img src="images/selenium-ide-start-recording.png" alt="selenium ide start recording">
+<img src="selenium-ide-start-recording.png" alt="selenium ide start recording">
 </div>
-<div class="title">Fig. 5. Selenium IDE grabando</div>
+<div class="title">Figure 5. Selenium IDE grabando</div>
 </div>
 <div class="paragraph">
 <p>Durante tu interacción con la web que estés probando <strong>SIEMPRE es necesario</strong> ir añadiendo <strong><em>asserts</em></strong> o <strong>verificaciones</strong> para comprobar que lo que muestra la aplicación corresponde con lo esperado. Para ello utiliza el <a href="https://www.selenium.dev/documentation/en/legacy_docs/selenium_ide/#adding-verifications-and-asserts-with-the-context-menu">menú contextual</a> para añadir verificaciones y/o asserts.</p>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
-<img src="images/selenium-ide-assert-text.png" alt="selenium ide assert text">
+<img src="selenium-ide-assert-text.png" alt="selenium ide assert text">
 </div>
-<div class="title">Fig. 6. Selenium IDE assert text</div>
+<div class="title">Figure 6. Selenium IDE assert text</div>
 </div>
 <div class="paragraph">
 <p>En la ventana de Selenium IDE, puedes ver que se van grabando en los comandos de Selenium los pasos realizados sobre el navegador (clics, entradas de texto, asserts, etc).</p>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
-<img src="images/selenium-ide-saved-steps.png" alt="selenium ide saved steps">
+<img src="selenium-ide-saved-steps.png" alt="selenium ide saved steps">
 </div>
-<div class="title">Fig. 7. Selenium IDE pasos guardados</div>
+<div class="title">Figure 7. Selenium IDE pasos guardados</div>
 </div>
 <div class="paragraph">
 <p>Finaliza la grabación del test en el botón de detener, y dale un nombre al test case creado:</p>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
-<img src="images/selenium-ide-stop-test-name.png" alt="selenium ide stop test name">
+<img src="selenium-ide-stop-test-name.png" alt="selenium ide stop test name">
 </div>
-<div class="title">Fig. 8. Selenium IDE guardar test case</div>
+<div class="title">Figure 8. Selenium IDE guardar test case</div>
 </div>
 <div class="paragraph">
 <p>A continuación, dale al <em>play</em> para volver a ejecutar el test:</p>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
-<img src="images/selenium-ide-play-test.png" alt="selenium ide play test">
+<img src="selenium-ide-play-test.png" alt="selenium ide play test">
 </div>
-<div class="title">Fig. 9. Selenium IDE detener grabación</div>
+<div class="title">Figure 9. Selenium IDE detener grabación</div>
 </div>
 <div class="paragraph">
 <p>Siguiendo estos sencillos pasos, puedes grabar tantos casos de prueba como sean necesarios para ejercitar tu aplicación web y verificar que todos escenarios de los casos de uso funcionan correctamente.</p>
@@ -615,7 +610,7 @@ Breve introducción a los tests de aceptación de aplicaciones web con Selenium.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-03-25 13:01:24 +0100
+Last updated 2022-03-25 13:44:02 +0100
 </div>
 </div>
 </body>
