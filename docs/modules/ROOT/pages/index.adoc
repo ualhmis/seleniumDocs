@@ -12,6 +12,9 @@ endif::[]
 
 _Version_ *{page-component-display-version}*
 
+:section: ROOT
+:sectionPath: modules/{section}/pages
+:imagesdir: modules/{section}/images
 
 . link:{sectionPath}/selenium-ide-intro.html[Introduccion a Seleniummm]
 
