@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
-<title>Pruebas de aceptación con Selenium</title>
+<meta name="author" content="Herramientas y Métodos en Ingeniería del Software">
+<title>Ejercicios Selenium. Aplicación con base de datos</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,28 +437,383 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 </head>
-<body class="article">
+<body class="article toc2 toc-right">
 <div id="header">
-<h1>Pruebas de aceptación con Selenium</h1>
+<h1>Ejercicios Selenium. Aplicación con base de datos</h1>
+<div class="details">
+<span id="author" class="author">Herramientas y Métodos en Ingeniería del Software</span><br>
+<span id="revdate">Joaquín Cañadas &lt;jjcanada@ual.es&gt;</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_test_de_la_web_del_equipo">1. Test de la web del equipo</a></li>
+<li><a href="#_aplicación_web_con_base_de_datos">2. Aplicación web con base de datos</a>
+<ul class="sectlevel2">
+<li><a href="#_elige_una_plantilla">2.1. Elige una plantilla</a></li>
+<li><a href="#_usa_tu_propio_proyecto">2.2. Usa tu propio proyecto</a></li>
+</ul>
+</li>
+<li><a href="#_creación_de_los_tests_selenium">3. Creación de los tests Selenium</a>
+<ul class="sectlevel2">
+<li><a href="#_creación_de_una_tarea_ya_existente_caso_correcto">3.1. Creación de una tarea ya existente (Caso correcto)</a></li>
+<li><a href="#_implementación_del_test_incorrecto_con_validación_html5">3.2. Implementación del test incorrecto con validación HTML5</a></li>
+</ul>
+</li>
+<li><a href="#_desplegar_la_aplicación_en_azure">4. Desplegar la aplicación en Azure</a>
+<ul class="sectlevel2">
+<li><a href="#_adaptar_los_test_a_la_url_de_despliegue">4.1. Adaptar los test a la URL de despliegue</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p><em>Version</em> <strong>{page-component-display-version}</strong></p>
+<p><em>Version</em> <strong>curso.2022</strong></p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="quoteblock abstract">
+<blockquote>
+Ejercicios de tests de aceptación con Selenium.
+</blockquote>
+</div>
+<div class="ulist">
+<div class="title">Objetivos</div>
+<ul>
 <li>
-<p><a href="modules/ROOT/pages/selenium-ide-intro.html">Introduccion a Seleniummm</a></p>
+<p>Comenzar a crear tests de aceptación de aplicaciones web con Selenium IDE.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Realización y entrega</div>
+<div class="paragraph">
+<p>La realización de estas actividades se realizará <strong>en equipo</strong>. La entrega será mediante el envío de un informe y el acceso al profesor a los repositorios y servicios configurados, para la revisión y evaluación de los mismos.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_test_de_la_web_del_equipo">1. Test de la web del equipo</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Realiza con Selenium IDE los tests de la web del equipo de la sesión 04 que verifiquen que la web incorpora todos los elementos que se pedían que se incluyeran en la misma.</p>
+</div>
+<div class="paragraph">
+<p>Como siempre, crea un repositorio (privado) en GitHub para guardar los archivos creados. Se trata de una actividad en equipo, así que aplica el método de colaboración fork + pull request. Comparte el repositorio con el profesor para que pueda tener acceso al mismo.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_aplicación_web_con_base_de_datos">2. Aplicación web con base de datos</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Desde ahora hasta el final de la asignatura vamos a iniciar un proyecto de equipo consistente en el desarrollo de una aplicación  web dinámica (con base de datos) sobre el que aplicar las herramientas y métodos que vamos introduciendo durante el curso. El proyecto tendrá diversa funcionalidad, como las operaciones CRUD (Create, Read, Update, Delete) sobre una o varias entidades, un login y registro de usuarios, etc., así que vamos a comenzar por implementar esta funcionalidad. Tenemos dos alternativas: elegir una plantilla de proyecto que ya implemente la funcionalidad deseada, o bien hacerlo nosotros mismos.</p>
+</div>
+<div class="sect2">
+<h3 id="_elige_una_plantilla">2.1. Elige una plantilla</h3>
+<div class="paragraph">
+<p>Os dejo aquí en enlace a la documentación oficial de <a href="https://docs.microsoft.com/es-es/azure/app-service/">Azure Web apps</a> varios ejemplos de plantillas de <strong>aplicación web con base de datos</strong>, en distintas tecnologías, que básicamente implementan una aplicación que permite crear tareas, listarlas, modificarlas y eliminarlas. Podrás encontralas en el menú <em>Tutoriales</em> / <em>Aplicación con base de datos</em>.</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/azure-tutoriales-basededatos.png" alt="azure tutoriales basededatos">
+</div>
+<div class="title">Figura 1. Tutoriales de Aplicación Web con base de datos</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Proyecto TO-DO - Opciones</div>
+<div class="paragraph">
+<p>Elige la tecnología que prefieras, os animo a elegir una que tengáis curiosidad por aprender. Seguramente seguirás usando esa tecnología para el proyecto hasta el final de la asignatura, así que tomad la decisión en equipo. En cualquier caso, si más adelante quieres cambiar de tecnología para alguna de las siguientes prácticas, no habrá problema.</p>
+</div>
+<div class="paragraph">
+<p>Como alternativa, si lo deseas, puedes usar alguna otra plantilla que conozcas que no esté entre los tutoriales de Azure, incluso en otra tecnología (por ejemplo, Go). En ese caso, comentádmelo antes para validar que implemente la funcionalidad básica requerida (CRUD).</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Sique las instrucciones del tutorial teniendo en cuenta lo siguiente:
+    - En local, crea el proyecto basado en la plantilla. Probar que funciona en local.
+    - Comprueba el gasto que vas a realizar con la creación de la Web App y la base de datos del tutorial que elija. El consumo de la Web App dependerá del tipo de SKU que crea tutorial. Los pasos para crear una web app gratuita (SKU Free) están buen detallados en el apartado <a href="https://docs.microsoft.com/es-es/azure/app-service/tutorial-dotnetcore-sqldb-app?tabs=azure-portal%2Cvisualstudio-deploy%2Cdeploy-instructions-azure-portal%2Cazure-portal-logs%2Cazure-portal-resources#2---create-the-app-service">2. Creación de la instancia de App Service</a> del tutorial de DotNet Core, así que consultalos si es necesario.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_usa_tu_propio_proyecto">2.2. Usa tu propio proyecto</h3>
+<div class="paragraph">
+<p>Como alternativa, si ya has desarrollado o estás desarrollando un proyecto similar en alguna tecnología que conozcas, y que implemente:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>la funcionalidad de listado, creación, modificación y eliminación (CRUD) sobre al menos una determinada entidad (por ejemplo: tareas, usuarios, eventos, etc.)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Pero asegúrate de que tu proyecto es <strong>funcional</strong>, es decir, implementa las características indicadas y estas funcionan, ya que el objetivo es probarlas con Selenium. Y además tu proyecto debe implementar los casos de error mediante los mensajes de validación oportunos. Si tu proyecto no es funcional, o no implementa esas características o los casos de error, entonces mejor usa una plantilla de las propuestas.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_creación_de_los_tests_selenium">3. Creación de los tests Selenium</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Crear en Selenium los test cases necesarios para probar, tanto escenarios correctos como escenarios de error, de las siguientes funcionalidades:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Listado de tareas (Caso correcto)</p>
 </li>
 <li>
-<p><a href="modules/ROOT/pages/selenium-ide-ejercicios.html">Ejercicios Parte 1 - Proyecto</a></p>
+<p>Listado de tareas (Casos incorrectos)</p>
+</li>
+<li>
+<p>Creación de una tarea (Caso correcto)</p>
+</li>
+<li>
+<p>Creación de una tareas (Casos incorrectos)</p>
+</li>
+<li>
+<p>Modificación de una tarea (caso correcto)</p>
+</li>
+<li>
+<p>Modificación de una tarea (casos incorrectos)</p>
+</li>
+<li>
+<p>Eliminación de una tarea (caso correcto)</p>
+</li>
+<li>
+<p>Eliminación de una tarea (casos incorrectos)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Guardar los test cases en una test suite (formato <code>.side</code>).</p>
+</div>
+<div class="paragraph">
+<p>Puesto que para realizar una prueba exhaustiva, cubriendo todos los posibles escenarios, el número de casos de prueba es elevado, la forma de trabajar es dividir las funcionalidades entre los miembros del equipo y así repartir el trabajo: Una persona que haga los tests de las dos primeras funcionalidades, y otra el resto.</p>
+</div>
+<div class="paragraph">
+<p>Para equipos de 3 personas,</p>
+</div>
+<div class="sect2">
+<h3 id="_creación_de_una_tarea_ya_existente_caso_correcto">3.1. Creación de una tarea ya existente (Caso correcto)</h3>
+<div class="paragraph">
+<p>Para que el test de creación de una tarea, si suponemos que el nombre de la tarea es un identificador único, no debería permitir crear una nueva tarea con el nombre de una tarea ya existente. La plantilla que estés usando puede que valide esta restricción o no. Si lo hace, para poder ejecutar este test repetidamente sin que de el error de "tarea ya existe", tenemos que usar un texto aleatorio en cada ejecución del test. Eso se consigue definiendo una variable en Selenium, llamado al comando <code>execute script</code>, escribiendo la función de JavaScript que genere ese valor te texto, por ejemplo un email aleatorio, y guardándolo en una variable que luego usaremos en en paso que escribe el valor en el campo <em>tarea</em> del formulario de creación.</p>
+</div>
+<div class="paragraph">
+<p>El paso sería del test case de Selenium IDE es:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Command: <strong>execute script</strong></p>
+</li>
+<li>
+<p>Target: <code>return "ual-" + Math.floor(Math.random()*1500000)+"@ual.es"`</code></p>
+</li>
+<li>
+<p>Value: <code>emailramdon</code></p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/register-email-ramdon.png" alt="register email ramdon">
+</div>
+<div class="title">Figura 2. Generación de un email aleatorio</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_implementación_del_test_incorrecto_con_validación_html5">3.2. Implementación del test incorrecto con validación HTML5</h3>
+<div class="paragraph">
+<p>En aquellos formularios en los que se debe introducir un valor, por ejemplo una dirección de email y el campo está definido como tal en HTML5 mediante <code>&lt;input type="email" &#8230;&#8203;&gt;</code>, el valor introducido se valida en el navegador de manera que cuando el valor introducido no es un email válido muestra un pop-up con el texto <em>"Introduzca una dirección de correo."</em> Este tipo de pop-ups no se pueden capturar con el menú contextual de Selenium IDE (botón derecho sobre el texto a validar), por lo que debemos usar un método alternativo.</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/selenium-ide-email-incorrecto.png" alt="selenium ide email incorrecto" width="70%">
+</div>
+<div class="title">Figura 3. Pop-up de validación en HTML5: email incorrecto</div>
+</div>
+<div class="paragraph">
+<p>Para ello, tras hacer click sobre el botón de <em>enviar</em>, debemos usar el comando <code>execute script</code> de Selenium IDE para que guarde el valor del atributo <code>validationMessage</code> del campo tipo email en una variable, y a continuación comprobamos el valor almacenado en esa variable. El resultado sería tal que así:</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/selenium-ide-email-incorrecto-commands.png" alt="selenium ide email incorrecto commands">
+</div>
+<div class="title">Figura 4. Comandos en Selenium IDE para validar el mensaje de email incorrecto.</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>Guarda el contenido del atributo <code>validationMessage</code> del campo con id <code>email-address</code> en la variable <code>message</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Command: <strong>execute script</strong></p>
+</li>
+<li>
+<p>Target: <code>return document.getElementById("email-address").validationMessage</code></p>
+</li>
+<li>
+<p>Value: <code>message</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Muestra la variable <code>message</code> en el log de Selenium IDE.</p>
+</li>
+<li>
+<p>Validación de que el valor de <code>message</code> es el esperado.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>El comando <code>execute script</code> permite acceder a los elementos y propiedades del <a href="https://www.w3schools.com/jsref/dom_obj_document.asp">DOM</a> del documento HTML, y llamar a los métodos del mismo, en concreto en el ejemplo llama a <a href="https://www.w3schools.com/jsref/met_document_getelementbyid.asp">getElementById("fieldId")</a>.</p>
+</div>
+<div class="paragraph">
+<p>En caso de que el elemento no se pueda identificar por su <code>id</code>, como alternativa se usar el método  <a href="https://www.w3schools.com/jsref/met_document_getelementsbyclassname.asp">getElementsByName("fieldName")</a>, pero ten en cuenta que <code>getElementsByName</code> devuelve una colección de objetos <a href="https://www.w3schools.com/jsref/dom_obj_htmlcollection.asp">HTMLCollection</a> en lugar de un único objeto, por lo que si queremos acceder al primer elemento de la colección simplemente tenemos que añadir la posición entre corchetes: <code>getElementsByName("fieldName")[0]</code>.</p>
+</div>
+<div class="paragraph">
+<p>Otras alternativas son <a href="https://www.w3schools.com/jsref/met_document_getelementsbyclassname.asp">getElementsByClassName()</a>, y <a href="https://www.w3schools.com/jsref/met_document_getelementsbytagname.asp">getElementsByTagName()</a>.</p>
+</div>
+<div class="paragraph">
+<p>Esta solución también se puede aplicar a otros campos de HTML5 que también crean este tipo de <em>pop-ups</em> para la validación, por ejemplo los campos que se establecen como requeridos, o con una longitud mínima y máxima, definidos por ejemplo así:  <code>&lt;input type="password" required minlength="6" maxlength="10"/&gt;</code></p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/selenium-ide-contraseña-requerida.png" alt="selenium ide contraseña requerida" width="60%">
+</div>
+<div class="title">Figura 5. Pop-up de validación en HTML5: contraseña requerida</div>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/selenium-ide-contraseña-requerida-assert.png" alt="selenium ide contraseña requerida assert" width="90%">
+</div>
+<div class="title">Figura 6. Comandos en Selenium IDE para validar contraseña vacía.</div>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/selenium-ide-contraseña-incorrecta.png" alt="selenium ide contraseña incorrecta" width="60%">
+</div>
+<div class="title">Figura 7. Pop-up de validación en HTML5: contraseña demasiado corta</div>
+</div>
+<div class="paragraph">
+<p>Otro ejemplo son los campos de fecha definidos como <code>&lt;input type="date" &#8230;&#8203;&gt;</code></p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="https://mdn.mozillademos.org/files/14913/date-picker-chrome-error-message.png" alt="date picker chrome error message">
+</div>
+<div class="title">Figura 8. Pop-up de validación en HTML5: fecha incorrecta</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Los mensajes de validación son distintos en cada navegador (<a href="https://hg.mozilla.org/l10n-central/es-ES/file/default/dom/chrome/dom/dom.properties">Firefox</a>, <a href="https://chromium.googlesource.com/chromium/src/+/a0e2753f75c926313e183b912584a7f15790825d/content/app/strings/translations/content_strings_es.xtb">Chrome</a>), tenlo en cuenta a la hora de definir el <code>assert</code>. También hay que considerar el idioma en el que esté configurado el navegador (En Firefox,  en su <a href="https://hg.mozilla.org/l10n-central">repostorio</a> selecciona el idioma deseado y busca el archivo <code>dom/chrome/dom/dom.properties</code>, y en <a href="https://chromium.googlesource.com/chromium/src/+/a0e2753f75c926313e183b912584a7f15790825d/content/app/strings/translations/">Chrome</a> lo encontrarás en el archivo del idioma, en español <a href="https://chromium.googlesource.com/chromium/src/\+/a0e2753f75c926313e183b912584a7f15790825d/content/app/strings/translations/content_strings_es.xtb">content_strings_es.xtb</a>).</p>
+</div>
+<table class="tableblock frame-all grid-none stripes-even stretch">
+<caption class="title">Table 1. Validación de email incorrecto en Firefox y Chrome</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="image"><img src="https://www.mozilla.org/media/protocol/img/logos/firefox/browser/logo.eb1324e44442.svg" alt="logo.eb1324e44442" width="10%"></span></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="image"><img src="https://www.google.com/chrome/static/images/chrome-logo.svg" alt="chrome logo" width="11%"></span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="image thumb"><img src="../images/selenium-ide-email-incorrecto-firefox.png" alt="selenium ide email incorrecto firefox"></span></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="image thumb"><img src="../images/selenium-ide-email-incorrecto-chrome.png" alt="selenium ide email incorrecto chrome"></span></p></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>=== Control de flujo en Selenium IDE</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Como acabamos de ver en el punto anterior, puede ser necesario que en función del navegador que estemos usando o del idioma en que esté configurado dicho navegador, nuestro <code>assert</code> deba validar un mensaje u otro.</p>
+</div>
+<div class="paragraph">
+<p>Selenium IDE permite añadir sentencias de <a href="https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow">control de flujo</a> como <a href="https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow#conditional-branching"><strong>condicionales</strong></a> y <a href="https://www.selenium.dev/selenium-ide/docs/en/introduction/control-flow#looping"><strong>bucles</strong></a>.</p>
+</div>
+<div class="paragraph">
+<p>El siguiente <a href="https://github.com/ualjjcanada/selenium-ide-samples">ejemplo</a> usa de la propiedad <code>navigator.userAgent</code> que incluye información del navegador que se está utilizando en la ejecución del test.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>execute script | return navigator.userAgent  |  valor_navigatoruserAgent
+if             | ${navigatoruserAgent}.includes("Firefox")
+assert         | message | Ajústese al formato solicitado: 8 character password.
+end            |
+if             | ${navigatoruserAgent}.includes("Chrome")
+assert         | message | Utiliza un formato que coincida con el solicitado
+end            |</code></pre>
+</div>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/selenium-ide-conditional-navigators.png" alt="selenium ide conditional navigators" width="100%">
+</div>
+<div class="title">Figura 9. Uso de condicional para distinguir entre navegadores</div>
+</div>
+<div class="paragraph">
+<p>De igual forma, la propiedad <code>navigator.language</code> puede ayudarnos a identificar el idioma del navegador: <code>es_ES</code> para español, <code>en_GB</code> para inglés.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_desplegar_la_aplicación_en_azure">4. Desplegar la aplicación en Azure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La aplicación que hemos probado localmente, debemos ponerla "en producción", es decir, desplegarla en Azure para que esté disponible por nuestros usuarios (ficticios).</p>
+</div>
+<div class="paragraph">
+<p>Dependiendo de la plantilla elegida, el despliegue será distinto. La plantilla de .Net explica el despliegue en Azure Web app. El resto se pueden desplegar en Web app, o bien en una máquina virtual.</p>
+</div>
+<div class="sect2">
+<h3 id="_adaptar_los_test_a_la_url_de_despliegue">4.1. Adaptar los test a la URL de despliegue</h3>
+<div class="paragraph">
+<p>Los test que hemos creado en el <em>entorno de desarrollo</em>, es decir, en nuestro equipo local, deben adaptarse para que funcionen en <em>entorno de producción</em> es decir, deben atacar a la aplicación desplegada.</p>
+</div>
+<div class="paragraph">
+<p>Para ello simplemente tendrás que cambiar la URL base.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-03-25 13:51:38 +0100
+Last updated 2022-03-25 18:37:26 +0100
 </div>
 </div>
 </body>
