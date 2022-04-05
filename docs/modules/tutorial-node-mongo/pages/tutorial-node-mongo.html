@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
-<title>Pruebas de aceptación con Selenium</title>
+<meta name="author" content="Herramientas y Métodos en Ingeniería del Software">
+<title>Tutorial – Aplicación web de Node.js y MongoDB en Azure</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,38 +437,529 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 </head>
-<body class="article">
+<body class="article toc2 toc-right">
 <div id="header">
-<h1>Pruebas de aceptación con Selenium</h1>
+<h1>Tutorial – Aplicación web de Node.js y MongoDB en Azure</h1>
+<div class="details">
+<span id="author" class="author">Herramientas y Métodos en Ingeniería del Software</span><br>
+<span id="revdate">Joaquín Cañadas &lt;jjcanada@ual.es&gt;</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Tabla de contenidos</div>
+<ul class="sectlevel1">
+<li><a href="#_introducción">1. Introducción</a></li>
+<li><a href="#_requisitos">2. Requisitos</a></li>
+<li><a href="#_configuración_de_la_aplicación_de_ejemplo">3. Configuración de la aplicación de ejemplo</a></li>
+<li><a href="#creacion_web_app">4. Creación de la instancia de App Service</a></li>
+<li><a href="#creacion_bbdd">5. Creación de la base de datos</a></li>
+<li><a href="#_conexión_de_app_service_a_cosmos_db">6. Conexión de App Service a Cosmos DB</a></li>
+<li><a href="#_despliegue_en_app_service">7. Despliegue en App Service</a></li>
+<li><a href="#_prueba_de_la_aplicación_desplegada">8. Prueba de la aplicación desplegada</a>
+<ul class="sectlevel2">
+<li><a href="#_troubleshooting">8.1. Troubleshooting</a></li>
+</ul>
+</li>
+<li><a href="#_referencias">Referencias</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p><em>Version</em> <strong>{page-component-display-version}</strong></p>
+<p><em>Version</em> <strong>curso.2022</strong></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introducción">1. Introducción</h2>
+<div class="sectionbody">
+<div class="exampleblock">
+<div class="title">Objetivos</div>
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Usar una aplicacion de base de datos NodeJs y Mongo en Azure basada en un proyecto existente</p>
+</li>
+<li>
+<p>Desplegar la aplicación en Azure en Web App con un coste mínimo.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Este documento es una versión adaptada del Tutorial oficial: Implementación de una aplicación web de Node.js y MongoDB en Azure <a href="#tutorial-azure-docs">[1]</a>. Se ha simplificado y modificado la creación de la base de datos para elegir una <strong>base de datos de mínimo costo</strong>, suficiente para el uso que le vamos a dar.</p>
+</div>
+<div class="paragraph">
+<p>En este tutorial, implementarás una aplicación de ejemplo de Express.js con una base de datos de MongoDB en Azure. La aplicación de Express.js se va a hospedar en Azure App Service, que admite el hospedaje de aplicaciones de Node.js en entornos de servidor Linux y Windows. La base de datos de MongoDB se hospedará en Azure Cosmos DB, una base de datos nativa en la nube que ofrece una API 100 % compatible con MongoDB.</p>
+</div>
+<div class="paragraph">
+<p>Se da por supuesto que tienes una cuenta de Azure con una suscripción activa (Azure para estudiantes).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_requisitos">2. Requisitos</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Para la realización del tutorial necesitarás tener instalado en tu PD de trabajo (Local):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Git</strong></p>
+</li>
+<li>
+<p>Un IDE como <strong>Visual Studio Code</strong>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Además usaremos <strong>Cloud Shell</strong> de Azure desde el Portal de Azure (en el navegador) para ejecutar los comandos mediante la CLI (Command Line Interface) de Azure, que son todos aquellos que comienzan por el comando <code>az</code>. La CLI nos permite interactuar con los recursos de Azure mediante comandos, sin tener que usar el Portal Web, con lo que lo haremos más rápido.</p>
+</div>
+<div id="cloudShell" class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/cloud-shell-azure.png" alt="cloud shell azure">
+</div>
+<div class="title">Figura 1. Cloud Shell de Azure</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuración_de_la_aplicación_de_ejemplo">3. Configuración de la aplicación de ejemplo</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Para seguir este tutorial, usa el proyecto disponible en el repositorio <a href="https://github.com/Azure-Samples/msdocs-nodejs-mongodb-azure-sample-app" class="bare">https://github.com/Azure-Samples/msdocs-nodejs-mongodb-azure-sample-app</a>. Clona el respositorio en tu máquina local para poder realizar cambios sobre el mismo, mediante el siguiente comando de Git. Si lo deseas, puedes hacer un <em>fork</em> para permitir hacer guardar en remoto tus modificaciones al mismo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git clone https://github.com/Azure-Samples/msdocs-nodejs-mongodb-azure-sample-app.git
+cd msdocs-nodejs-mongodb-azure-sample-app
+code . <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Abre Visual Studio Code en esta carpeta.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>La aplicación Web de este proyecto, cuando la ejecutemos, tendrá este aspecto:</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/sample-app-in-browser.png" alt="sample app in browser">
+</div>
+<div class="title">Figura 2. Captura de pantalla de la aplicación</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Aunque <strong>no es necesario</strong>, si lo deseas, puedes probar la aplicación en tu PC Local. Para ello, debes instalar Node y Mongo en tu PC local, y tras ello, sigue estos pasos para ejecutar la aplicación en local:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Instala las dependencias del paquete mediante la ejecución de <code>npm install</code>.</p>
+</li>
+<li>
+<p>Copia el archivo <code>.env.sample</code> en <code>.env</code> y rellena el valor <code>DATABASE_URL</code> con la dirección URL de MongoDB (por ejemplo, mongodb://localhost:27017/).</p>
+</li>
+<li>
+<p>Inicia la aplicación mediante <code>npm start</code>.</p>
+</li>
+<li>
+<p>Para ver la aplicación, ve a <a href="http://localhost:3000" class="bare">http://localhost:3000</a>.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creacion_web_app">4. Creación de la instancia de App Service</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>En primer lugar, vamos a crear la instancia de Azure App Service que hospede nuestra aplicación web implementada. Usarás un plan <strong>F1 (Free)</strong>, por lo que esta parte es gratuita.</p>
+</div>
+<div class="paragraph">
+<p>Se recomienda usar los siguientes comandos de la CLI de Azure, que deberás <strong>ejecutar en Cloud Shell</strong> (<a href="#cloudShell">Figura 1</a>).</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a href="{sectionPath}/selenium-ide-intro.html">Introduccion a Selenium</a></p>
-</li>
-<li>
-<p><a href="{sectionPath}/selenium-ide-ejercicios-crud.html">Ejercicios Parte 1 - Proyecto Aplicación Web con base de datos</a></p>
-</li>
-<li>
-<p><strong>Tutoriales (adaptados) de Aplicacion Web con Base de datos</strong> para los Ejercicios Parte 1.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p><a href="modules/tutorial-dotnetcore-sql/pages/tutorial-dotnetcore.html">Aplicación Web DotNet Core con Base de datos SQL en Azure</a></p>
+<p>En primer lugar, crea un grupo de recursos con el comando <code>az group create</code>. El grupo de recursos actua como contenedor de todos los recursos de Azure relacionados con esta aplicación. Crea el grupo de recursos en la región Este de EEUU, con nombre <code>msdocs-node-mongo</code>:</p>
 </li>
 </ol>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az group create --location eastus --name msdocs-node-mongo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A continuación, crea un plan de App Service con el comando <code>az appservice plan create</code>. El parámetro <code>--sku</code> define el tamaño (CPU, memoria) y el costo del plan de App Service. En este ejemplo se usa el plan de servicio <strong>F1 (Gratis)</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az appservice plan create \
+    --name msdocs-node-mongo-plan-f1 \
+    --resource-group msdocs-node-mongo \
+    --sku F1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Por último, cree la aplicación web de App Service mediante el comando <code>az webapp create</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az webapp create \
+    --name msdocs-node-mongo-2022-jjcanada \ <i class="conum" data-value="1"></i><b>(1)</b>
+    --runtime "NODE|14-lts" \ <i class="conum" data-value="2"></i><b>(2)</b>
+    --plan msdocs-node-mongo-plan-f1  \
+    --resource-group msdocs-node-mongo</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Sustituye <code>jjcanada</code> por tu nombre de usuario de la UAL en el nombre de la instancia Web App. El nombre de la instancia de App Service debe ser único en Azure, y se usa no solo como nombre del recurso en Azure, sino también para formar el nombre de dominio completo de la aplicación en el formato <code><a href="https://&lt;app_service_name&gt;.azurewebsites.net" class="bare">https://&lt;app_service_name&gt;.azurewebsites.net</a></code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>El runtime especifica la versión de Node.Js que ejecuta la aplicación. En este ejemplo se usa Node.JS 14 LTS.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creacion_bbdd">5. Creación de la base de datos</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A continuación, vamos a crear la base de datos Cosmos DB en modo de compatibilidad de MongoDB, que almacene los datos en la aplicación. Utiliza el Portal de Azure para crear una base de datos <strong>básica de consumo mínimo</strong>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Para que la base de datos sea gratuita, en el tutorial oficial debes seguir los pasos de Azure Portal, y aprovechar la instancia gratuita.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>En Azure Portal, Azure Cosmos DB, Azure Cosmos DB API for MongoDB, Crear.</p>
 </li>
 </ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/create-cosmos-mongo.png" alt="create cosmos mongo">
+</div>
+<div class="title">Figura 3. Cosmos DB API for MongoDB, Crear</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Selecciona el grupo de recursos creado previamente, <code>msdocs-node-mongo</code></p>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/create-cosmos-mongo-rg.png" alt="create cosmos mongo rg">
+</div>
+<div class="title">Figura 4. Selecciona el grupo de recursos ya creado</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>Más abajo, en la sección de detalles de la instancia:</p>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/create-cosmos-mongo-name.png" alt="create cosmos mongo name">
+</div>
+<div class="title">Figura 5. Da un nombre a la base de datos</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Escriba el Nombre de cuenta <code>docs-node-mongodb-2022-jjcanada</code> para el nombre de la instancia de Azure Cosmos DB, y sustituya <code>jjcanada</code> por su nombre de usuario de la UAL. Los nombres de cuenta de Cosmos DB deben ser únicos en Azure.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>En Ubicación, seleccione la misma ubicación de Azure que ha usado para la aplicación web de App Service, <code>East US</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Si el descuento por <strong>nivel Gratis</strong> está disponible para la cuenta, puede aplicarlo.</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="4">
+<li>
+<p>Selecciona <strong>Siguiente: Distribución Global</strong>. Desabilita la redundancia.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/create-cosmos-mongo-global-distribution.png" alt="create cosmos mongo global distribution">
+</div>
+<div class="title">Figura 6. Desabilita la redundancia</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="5">
+<li>
+<p>Selecciona <strong>Revisar y crear</strong> para ir a la página de confirmación y luego Crear para crear la base de datos. La creación de una nueva instancia de Azure CosmosDB normalmente dura unos cinco minutos.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conexión_de_app_service_a_cosmos_db">6. Conexión de App Service a Cosmos DB</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Para conectarse a la base de datos de Cosmos DB debe proporcionar la cadena de conexión de la base de datos a la aplicación. Esto se hace en la aplicación de ejemplo mediante la lectura de la variable de entorno <code>DATABASE_URL</code> del archivo <code>.env</code>.</p>
+</div>
+<div class="paragraph">
+<p>En Azure, los valores de configuración como las cadenas de conexión se pueden almacenar en la configuración de la aplicación de la instancia de App Service que hospeda la aplicación web. Estos valores luego se ponen a disposición de la aplicación como variables de entorno durante el tiempo de ejecución. De esta manera, la aplicación accede a la cadena de conexión de <code>.env</code> de la misma manera tanto si se ejecuta localmente como en Azure. Además, esto elimina la necesidad de administrar e implementar archivos de configuración específicos del entorno con la aplicación.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Para obtener la cadena de conexión de una base de datos de Cosmos DB, ejecute en <strong>Cloud Shell</strong> el comando <code>az cosmos keys list</code>. A continuación se muestra como hacerlo para que el resultado se guarde en una variable de entorno <code>COSMOS_DB_CONNECTION_STRING</code> que se reutilizará más adelante.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">COSMOS_DB_CONNECTION_STRING=`az cosmosdb keys list \
+    --type connection-strings \
+    --resource-group msdocs-node-mongo \
+    --name docs-node-mongodb-2022-jjcanada \ <i class="conum" data-value="1"></i><b>(1)</b>
+    --query "connectionStrings[?description=='Primary MongoDB Connection String'].connectionString" \
+    --output tsv`</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Sustituya <code>jjcanada</code> por su nombre de usuario de la UAL, como hizo al darle nombre a la BD Cosmos.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Comprueba que el valor se ha guardado en la variable de entorno con: <code>echo $COSMOS_DB_CONNECTION_STRING</code></p>
+</div>
+<div class="paragraph">
+<p>El resutlado debe ser tal que así:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">mongodb://docs-node-mongodb-2022-jjcanada:dfasdfasdfasdfaasdfasdfasdasdfasdfaPrF6Gw==@docs-node-mongodb-2022-jjcanada.mongo.cosmos.azure.com:10255/?ssl=true&amp;replicaSet=globaldb&amp;retrywrites=false&amp;maxIdleTimeMS=120000&amp;appName=@docs-node-mongodb-2022-jjcanada@</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>El comando <code>az webapp config appsettings</code> se usa para establecer los valores de configuración de la aplicación de una aplicación web de App Service. Se establecen uno o varios pares clave-valor mediante el parámetro <code>--settings</code>. Para establecer el valor <code>DATABASE_URL</code> en la cadena de conexión de la aplicación web, use el siguiente comando en <strong>Cloud Shell</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az webapp config appsettings set \
+    --name msdocs-node-mongo-2022-jjcanada \ <i class="conum" data-value="1"></i><b>(1)</b>
+    --resource-group msdocs-node-mongo \
+    --settings DATABASE_URL=$COSMOS_DB_CONNECTION_STRING <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Use el nombre de Web App apropiado</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Aquí se reutiliza el valor guardado en la variable de entorno <code>COSMOS_DB_CONNECTION_STRING</code></td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_despliegue_en_app_service">7. Despliegue en App Service</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Para desplegar (o implementar, es el término que utiliza la documentación oficial de Azure) el código de la aplicación en Azure desde un repositorio de Git local, ve en tu máquina local donde has clonado el repositorio, y configura un <strong>segundo remoto</strong> que apunte a la instancia de Azure App Service. Para ello:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>En Cloud Shell, configura el origen de implementación para que la aplicación web sea un Git local, para lo que debes usar el comando <code>az webapp deployment source</code>.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az webapp deployment source config-local-git \
+    --name msdocs-node-mongo-2022-jjcanada \ <i class="conum" data-value="1"></i><b>(1)</b>
+    --resource-group msdocs-node-mongo</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Usa el mismo nombre de la instancia Web App que has usado al <a href="#creacion_web_app">crearla anteriormente</a>.</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Para poder hacer push, debes recuperar las credenciales de implementación de la aplicación. Serán necesarias para que Git se autentique en Azure al insertar código en Azure en un paso posterior.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az webapp deployment list-publishing-credentials \
+        --name msdocs-node-mongo-2022-jjcanada \ <i class="conum" data-value="1"></i><b>(1)</b>
+        --resource-group msdocs-node-mongo \
+        --query "{Username:publishingUserName, Password:publishingPassword}"</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Usa el mismo nombre de la instancia Web App que has usado al <a href="#creacion_web_app">crearla anteriormente</a>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>El resultado debe ser algo así:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">"Password": "wqasdfjasdfasdfdfasdfasdfasdfasdasdfasdfasdW",
+"Username": "$msdocs-node-mongo-2022-jjcanada"</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>Ahora pasa a tu máquina local, y añade el segundo remoto <code>azure</code> usando el nombre de tu web app:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git remote add azure https://&lt;your-app-name&gt;.scm.azurewebsites.net/&lt;your-app-name&gt;.git</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Que en mi caso, sería tal que así:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git remote add azure https://msdocs-node-mongo-2022-jjcanada.scm.azurewebsites.net/msdocs-node-mongo-2022-jjcanada.git</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="4">
+<li>
+<p>Por último, sube el proyecto al repositorio remoto <code>azure</code> asociado al Web app mediante un push al remoto <code>azure</code>. Te pedirá las credenciales que obtuviste en el paso anterior.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git push azure main:master</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Te pedirá las credenciales que has recuperado anteriormente.</p>
+</div>
+<div class="paragraph">
+<p>Ten paciencia&#8230;&#8203; puede tardar unos minutos. Si todo ha ido bien, en tu Web App ya está subido el código de la aplicación que estamos usando.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prueba_de_la_aplicación_desplegada">8. Prueba de la aplicación desplegada</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Navega a la URL de tu web app. Ahora mismo la bbdd debe estar vacía, por lo que no se verán tareas.</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/MyTodoListApp-empty.png" alt="MyTodoListApp empty">
+</div>
+<div class="title">Figura 7. Aplicación funcionando en el web app</div>
+</div>
+<div class="paragraph">
+<p>Prueba a crear una nueva tarea. Si te aparece algún error, revisa la siguiente sección.</p>
+</div>
+<div class="paragraph">
+<p>Comprobarás que esta aplicación <strong>no implementa todas las operaciones CRUD</strong>, solamente crea, elimina, lista, pero <strong>no modifica</strong> tareas. Lo único nuevo es que puedes marcar una tarea como completada, y tras ello, ya no te deja ni eliminarla ni modificarla.</p>
+</div>
+<div class="sect2">
+<h3 id="_troubleshooting">8.1. Troubleshooting</h3>
+<div class="paragraph">
+<p>Aquí documentaremos los problemas que vayan apareciendo.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_referencias">Referencias</h2>
+<div class="sectionbody">
+<div class="ulist bibliography">
+<ul class="bibliography">
+<li>
+<p><a id="tutorial-azure-docs"></a>[1] Documentación Oficial de Azure Web Apps. <a href="https://docs.microsoft.com/es-es/azure/app-service/tutorial-nodejs-mongodb-app?tabs=azure-portal%2Cterminal-bash%2Cvscode-deploy%2Cdeploy-instructions-azportal%2Cdeploy-zip-linux-mac%2Cdeploy-instructions&#8212;&#8203;zip-azcli">Tutorial: Implementación de una aplicación web de Node.js y MongoDB en Azure</a>  [Fecha de consulta: 5/04/2022]</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-04-05 13:58:17 +0200
+Last updated 2022-04-05 22:45:18 +0200
 </div>
 </div>
 </body>

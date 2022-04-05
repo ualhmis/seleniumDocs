@@ -6,7 +6,7 @@
 ////
 Nombre y título del trabajo
 ////
-= Tutorial – Aplicación Web DotNet Core con Base de datos SQL en Azure
+= Tutorial – Aplicación Web ASP.Net con Base de datos SQL en Azure
 :navtitle: Introducción
 Herramientas y Métodos en Ingeniería del Software
 Joaquín Cañadas <jjcanada@ual.es>
@@ -33,13 +33,13 @@ COLOCA A CONTINUACION LOS OBJETIVOS
 ////
 .Objetivos
 ====
-* Usar una aplicacion de base de datos con DotNet Core y SQL Database de Azure basada en un proyecto existente
+* Usar una aplicacion de base de datos con ASP.Net y SQL Database de Azure basada en un proyecto existente
 * Desplegar la aplicación en Azure en Web App con un coste mínimo. 
 ====
 
-Este documento es una versión adaptada del Tutorial oficial: Implementación de una aplicación de ASP.NET Core y Azure SQL Database en Azure App Service <<tutorial-azure-docs>>. Se ha simplificado y modificado la creación de la base de datos para elegir una *base de datos de mínimo costo*, suficiente para el uso que le vamos a dar.
+Este documento es una versión adaptada del Tutorial oficial: Implementación de una aplicación ASP.NET en Azure con Azure SQL Database <<tutorial-aspnet-azure-docs>>. Se ha simplificado y modificado la creación de la base de datos para elegir una *base de datos de mínimo costo*, suficiente para el uso que le vamos a dar.
 
-En este tutorial aprenderá a implementar una aplicación de ASP.NET Core en Azure App Service y a conectarse a Azure SQL Database. Se da por supuesto que se conoces .NET y que tienes una cuenta de Azure con una suscripción activa (Azure para estudiantes). 
+En este tutorial aprenderás a implementar una aplicación ASP.NET orientada a datos en App Service y conectarla a Azure SQL Database. Se da por supuesto que se conoces .NET y que tienes una cuenta de Azure con una suscripción activa (Azure para estudiantes). 
 
 == Requisitos
 
@@ -56,19 +56,27 @@ image::cloud-shell-azure.png[role="thumb", align="center"]
 
 ==  Configuración de la aplicación de ejemplo
 
-Para seguir este tutorial, usa el proyecto disponible en el repositorio https://github.com/Azure-Samples/msdocs-app-service-sqldb-dotnetcore. Clona el respositorio en tu máquina local para poder realizar cambios sobre el mismo, mediante el siguiente comando de Git. Si lo deseas, puedes hacer un _fork_ para permitir hacer guardar en remoto tus modificaciones al mismo. 
+Para seguir este tutorial, usa el proyecto disponible en el repositorio https://github.com/Azure-Samples/dotnet-sqldb-tutorial. El proyecto de ejemplo contiene una aplicación básica CRUD (crear, leer, actualizar, eliminar) de ASP.NET MVC que usa Entity Framework Code First. Clona el respositorio en tu máquina local para poder realizar cambios sobre el mismo, mediante el siguiente comando de Git. Si lo deseas, puedes hacer un _fork_ para permitir hacer guardar en remoto tus modificaciones al mismo. 
 
 [source,bash]
 ----
-git clone https://github.com/Azure-Samples/msdocs-app-service-sqldb-dotnetcore.git
-cd msdocs-app-service-sqldb-dotnetcore
+git clone https://github.com/Azure-Samples/dotnet-sqldb-tutorial.git
+cd dotnet-sqldb-tutorial
+code . <1>
 ----
+<1> Abre Visual Studio Code en esta carpeta.
+
+Si aun no tienes instaladas las extensiones para C# en Visual Studio Code, instalalas ahora. Abre el archivo `.sln` en VSCode, y se mostrará esta ventanta
+
+.Instalar las extensiones para proyectos .sln
+image::instalar-extensiones-vsc.png.png[role="thumb", align="center"]
 
 La aplicación Web de este proyecto, cuando la ejecutemos, tendrá este aspecto: 
 
 .Captura de pantalla de la aplicación
 image::azure-app-in-browser.png[role="thumb", align="center"]
 
+---> TODO
 
 == Creación de la instancia de App Service [[creacion_web_app]]
 
@@ -176,7 +184,7 @@ Tu base de datos SQL con un conste mínimo ya está creada.
 
 == Despliegue en App Service
 
-Para desplegar (o implementar, es el término que utiliza la documentación oficial de Azure) el código de la aplicación en Azure desde un repositorio de Git local, ve en tu máquina local donde has clonado el repositorio, y configura un *segundo remoto* que apunte a la instancia de Azure App Service. Para ello: 
+Para desplegar (o implementar, es el término que utiliza la documantación oficial de Azure) el código de la aplicación en Azure desde un repositorio de Git local, ve en tu máquina local donde has clonado el repositorio, y configura un *segundo remoto* que apunte a la instancia de Azure App Service. Para ello: 
 
 . En Cloud Shell, configure el origen de implementación para que la aplicación web sea un Git local, para lo que debe usar el comando `az webapp deployment source`.
 
@@ -393,4 +401,4 @@ Para listar todas las reglas de firewall para la BBDD SQL:
 [bibliography]
 == Referencias
 
-* [[[tutorial-azure-docs,1]]] Documentación Oficial de Azure Web Apps. https://docs.microsoft.com/es-es/azure/app-service/tutorial-dotnetcore-sqldb-app?tabs=azure-portal%2Cvisualstudio-deploy%2Cdeploy-instructions-azure-portal%2Cazure-portal-logs%2Cazure-portal-resources[Tutorial: Implementación de una aplicación de ASP.NET Core y Azure SQL Database en Azure App Service]  [Fecha de consulta: 4/04/2022]
+* [[[tutorial-aspnet-azure-docs,1]]] Documentación Oficial de Azure Web Apps. https://docs.microsoft.com/es-es/azure/app-service/app-service-web-tutorial-dotnet-sqldatabase[Tutorial: Implementación de una aplicación ASP.NET en Azure con Azure SQL Database]  [Fecha de consulta: 4/04/2022]

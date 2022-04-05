@@ -1,0 +1,285 @@
+:encoding: utf-8
+:lang: es
+:toc: right
+:toc-title: Tabla de contenidos
+
+////
+Nombre y título del trabajo
+////
+= Tutorial – Aplicación web de Node.js y MongoDB en Azure
+:navtitle: Introducción
+Herramientas y Métodos en Ingeniería del Software
+Joaquín Cañadas <jjcanada@ual.es>
+
+// Entrar en modo no numerado de apartados
+:numbered!: 
+:imagesdir: ../images
+:figure-caption: Figura
+:example-caption!: 
+:icons: font
+
+
+:page-component-display-version: curso.2022
+_Version_ *{page-component-display-version}*
+
+
+
+// Entrar en modo numerado de apartados
+:numbered:
+== Introducción
+
+////
+COLOCA A CONTINUACION LOS OBJETIVOS
+////
+.Objetivos
+====
+* Usar una aplicacion de base de datos NodeJs y Mongo en Azure basada en un proyecto existente
+* Desplegar la aplicación en Azure en Web App con un coste mínimo. 
+====
+
+Este documento es una versión adaptada del Tutorial oficial: Implementación de una aplicación web de Node.js y MongoDB en Azure <<tutorial-azure-docs>>. Se ha simplificado y modificado la creación de la base de datos para elegir una *base de datos de mínimo costo*, suficiente para el uso que le vamos a dar.
+
+En este tutorial, implementarás una aplicación de ejemplo de Express.js con una base de datos de MongoDB en Azure. La aplicación de Express.js se va a hospedar en Azure App Service, que admite el hospedaje de aplicaciones de Node.js en entornos de servidor Linux y Windows. La base de datos de MongoDB se hospedará en Azure Cosmos DB, una base de datos nativa en la nube que ofrece una API 100 % compatible con MongoDB.
+
+Se da por supuesto que tienes una cuenta de Azure con una suscripción activa (Azure para estudiantes). 
+
+== Requisitos
+
+Para la realización del tutorial necesitarás tener instalado en tu PD de trabajo (Local):
+
+- *Git* 
+- Un IDE como *Visual Studio Code*. 
+
+
+Además usaremos *Cloud Shell* de Azure desde el Portal de Azure (en el navegador) para ejecutar los comandos mediante la CLI (Command Line Interface) de Azure, que son todos aquellos que comienzan por el comando `az`. La CLI nos permite interactuar con los recursos de Azure mediante comandos, sin tener que usar el Portal Web, con lo que lo haremos más rápido. 
+
+[#cloudShell]
+.Cloud Shell de Azure
+image::cloud-shell-azure.png[role="thumb", align="center"]
+
+==  Configuración de la aplicación de ejemplo
+
+Para seguir este tutorial, usa el proyecto disponible en el repositorio https://github.com/Azure-Samples/msdocs-nodejs-mongodb-azure-sample-app. Clona el respositorio en tu máquina local para poder realizar cambios sobre el mismo, mediante el siguiente comando de Git. Si lo deseas, puedes hacer un _fork_ para permitir hacer guardar en remoto tus modificaciones al mismo. 
+
+[source,bash]
+----
+git clone https://github.com/Azure-Samples/msdocs-nodejs-mongodb-azure-sample-app.git
+cd msdocs-nodejs-mongodb-azure-sample-app
+code . <1>
+----
+<1> Abre Visual Studio Code en esta carpeta.
+
+
+La aplicación Web de este proyecto, cuando la ejecutemos, tendrá este aspecto: 
+
+.Captura de pantalla de la aplicación
+image::sample-app-in-browser.png[role="thumb", align="center"]
+
+[NOTE]
+====
+Aunque *no es necesario*, si lo deseas, puedes probar la aplicación en tu PC Local. Para ello, debes instalar Node y Mongo en tu PC local, y tras ello, sigue estos pasos para ejecutar la aplicación en local:
+
+- Instala las dependencias del paquete mediante la ejecución de `npm install`.
+- Copia el archivo `.env.sample` en `.env` y rellena el valor `DATABASE_URL` con la dirección URL de MongoDB (por ejemplo, mongodb://localhost:27017/).
+- Inicia la aplicación mediante `npm start`.
+- Para ver la aplicación, ve a http://localhost:3000.
+====
+
+
+== Creación de la instancia de App Service [[creacion_web_app]]
+
+En primer lugar, vamos a crear la instancia de Azure App Service que hospede nuestra aplicación web implementada. Usarás un plan *F1 (Free)*, por lo que esta parte es gratuita.
+
+Se recomienda usar los siguientes comandos de la CLI de Azure, que deberás *ejecutar en Cloud Shell* (link:#cloudShell[Figura 1]). 
+
+. En primer lugar, crea un grupo de recursos con el comando `az group create`. El grupo de recursos actua como contenedor de todos los recursos de Azure relacionados con esta aplicación. Crea el grupo de recursos en la región Este de EEUU, con nombre `msdocs-node-mongo`:
+
+[source,Azure CLI]
+----
+az group create --location eastus --name msdocs-node-mongo
+----
+
+A continuación, crea un plan de App Service con el comando `az appservice plan create`. El parámetro `--sku` define el tamaño (CPU, memoria) y el costo del plan de App Service. En este ejemplo se usa el plan de servicio *F1 (Gratis)*.
+
+[source,Azure CLI]
+----
+az appservice plan create \
+    --name msdocs-node-mongo-plan-f1 \
+    --resource-group msdocs-node-mongo \
+    --sku F1
+----
+
+Por último, cree la aplicación web de App Service mediante el comando `az webapp create`.
+
+[source,Azure CLI]
+----
+az webapp create \
+    --name msdocs-node-mongo-2022-jjcanada \ <1>
+    --runtime "NODE|14-lts" \ <2>
+    --plan msdocs-node-mongo-plan-f1  \
+    --resource-group msdocs-node-mongo
+----
+<1> Sustituye `jjcanada` por tu nombre de usuario de la UAL en el nombre de la instancia Web App. El nombre de la instancia de App Service debe ser único en Azure, y se usa no solo como nombre del recurso en Azure, sino también para formar el nombre de dominio completo de la aplicación en el formato `https://<app_service_name>.azurewebsites.net`.
+<2> El runtime especifica la versión de Node.Js que ejecuta la aplicación. En este ejemplo se usa Node.JS 14 LTS. 
+
+== Creación de la base de datos [[creacion_bbdd]]
+
+A continuación, vamos a crear la base de datos Cosmos DB en modo de compatibilidad de MongoDB, que almacene los datos en la aplicación. Utiliza el Portal de Azure para crear una base de datos *básica de consumo mínimo*.
+
+[IMPORTANT]
+====
+Para que la base de datos sea gratuita, en el tutorial oficial debes seguir los pasos de Azure Portal, y aprovechar la instancia gratuita.
+====
+
+. En Azure Portal, Azure Cosmos DB, Azure Cosmos DB API for MongoDB, Crear.
+
+.Cosmos DB API for MongoDB, Crear
+image::create-cosmos-mongo.png[role="thumb", align="center"]
+
+[start=2]
+. Selecciona el grupo de recursos creado previamente, `msdocs-node-mongo`
+
+.Selecciona el grupo de recursos ya creado
+image::create-cosmos-mongo-rg.png[role="thumb", align="center"]
+
+[start=3]
+. Más abajo, en la sección de detalles de la instancia:
+
+.Da un nombre a la base de datos 
+image::create-cosmos-mongo-name.png[role="thumb", align="center"]
+
+<1> Escriba el Nombre de cuenta `docs-node-mongodb-2022-jjcanada` para el nombre de la instancia de Azure Cosmos DB, y sustituya `jjcanada` por su nombre de usuario de la UAL. Los nombres de cuenta de Cosmos DB deben ser únicos en Azure. 
+<2> En Ubicación, seleccione la misma ubicación de Azure que ha usado para la aplicación web de App Service, `East US`
+<3> Si el descuento por *nivel Gratis* está disponible para la cuenta, puede aplicarlo.
+
+
+[start=4]
+. Selecciona *Siguiente: Distribución Global*. Desabilita la redundancia.
+
+.Desabilita la redundancia
+image::create-cosmos-mongo-global-distribution.png[role="thumb", align="center"]
+
+[start=5]
+. Selecciona *Revisar y crear* para ir a la página de confirmación y luego Crear para crear la base de datos. La creación de una nueva instancia de Azure CosmosDB normalmente dura unos cinco minutos.
+
+== Conexión de App Service a Cosmos DB
+
+Para conectarse a la base de datos de Cosmos DB debe proporcionar la cadena de conexión de la base de datos a la aplicación. Esto se hace en la aplicación de ejemplo mediante la lectura de la variable de entorno `DATABASE_URL` del archivo `.env`.
+
+En Azure, los valores de configuración como las cadenas de conexión se pueden almacenar en la configuración de la aplicación de la instancia de App Service que hospeda la aplicación web. Estos valores luego se ponen a disposición de la aplicación como variables de entorno durante el tiempo de ejecución. De esta manera, la aplicación accede a la cadena de conexión de `.env` de la misma manera tanto si se ejecuta localmente como en Azure. Además, esto elimina la necesidad de administrar e implementar archivos de configuración específicos del entorno con la aplicación.
+
+. Para obtener la cadena de conexión de una base de datos de Cosmos DB, ejecute en *Cloud Shell* el comando `az cosmos keys list`. A continuación se muestra como hacerlo para que el resultado se guarde en una variable de entorno `COSMOS_DB_CONNECTION_STRING` que se reutilizará más adelante.
+
+[source,Azure CLI]
+----
+COSMOS_DB_CONNECTION_STRING=`az cosmosdb keys list \
+    --type connection-strings \
+    --resource-group msdocs-node-mongo \
+    --name docs-node-mongodb-2022-jjcanada \ <1>
+    --query "connectionStrings[?description=='Primary MongoDB Connection String'].connectionString" \
+    --output tsv`
+----
+<1> Sustituya `jjcanada` por su nombre de usuario de la UAL, como hizo al darle nombre a la BD Cosmos.
+
+Comprueba que el valor se ha guardado en la variable de entorno con: `echo $COSMOS_DB_CONNECTION_STRING`
+
+El resutlado debe ser tal que así: 
+
+[source,bash]
+----
+mongodb://docs-node-mongodb-2022-jjcanada:dfasdfasdfasdfaasdfasdfasdasdfasdfaPrF6Gw==@docs-node-mongodb-2022-jjcanada.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@docs-node-mongodb-2022-jjcanada@
+----
+
+[start=2]
+. El comando `az webapp config appsettings` se usa para establecer los valores de configuración de la aplicación de una aplicación web de App Service. Se establecen uno o varios pares clave-valor mediante el parámetro `--settings`. Para establecer el valor `DATABASE_URL` en la cadena de conexión de la aplicación web, use el siguiente comando en *Cloud Shell*.
+
+[source,Azure CLI]
+----
+az webapp config appsettings set \
+    --name msdocs-node-mongo-2022-jjcanada \ <1>
+    --resource-group msdocs-node-mongo \
+    --settings DATABASE_URL=$COSMOS_DB_CONNECTION_STRING <2>
+----
+<1> Use el nombre de Web App apropiado
+<2> Aquí se reutiliza el valor guardado en la variable de entorno `COSMOS_DB_CONNECTION_STRING`
+
+== Despliegue en App Service
+
+Para desplegar (o implementar, es el término que utiliza la documentación oficial de Azure) el código de la aplicación en Azure desde un repositorio de Git local, ve en tu máquina local donde has clonado el repositorio, y configura un *segundo remoto* que apunte a la instancia de Azure App Service. Para ello: 
+
+. En Cloud Shell, configura el origen de implementación para que la aplicación web sea un Git local, para lo que debes usar el comando `az webapp deployment source`.
+
+[source,Azure CLI]
+----
+az webapp deployment source config-local-git \
+    --name msdocs-node-mongo-2022-jjcanada \ <1>
+    --resource-group msdocs-node-mongo
+----
+<1> Usa el mismo nombre de la instancia Web App que has usado al <<creacion_web_app, crearla anteriormente>>.
+
+[start=2]
+. Para poder hacer push, debes recuperar las credenciales de implementación de la aplicación. Serán necesarias para que Git se autentique en Azure al insertar código en Azure en un paso posterior.
+
+[source,Azure CLI]
+----
+az webapp deployment list-publishing-credentials \
+        --name msdocs-node-mongo-2022-jjcanada \ <1>
+        --resource-group msdocs-node-mongo \
+        --query "{Username:publishingUserName, Password:publishingPassword}"
+----
+<1> Usa el mismo nombre de la instancia Web App que has usado al <<creacion_web_app, crearla anteriormente>>.
+
+El resultado debe ser algo así: 
+
+[source,bash]
+----
+"Password": "wqasdfjasdfasdfdfasdfasdfasdfasdasdfasdfasdW",
+"Username": "$msdocs-node-mongo-2022-jjcanada"
+----
+
+[start=3]
+. Ahora pasa a tu máquina local, y añade el segundo remoto `azure` usando el nombre de tu web app:
+
+[source,bash]
+----
+git remote add azure https://<your-app-name>.scm.azurewebsites.net/<your-app-name>.git
+----
+
+Que en mi caso, sería tal que así: 
+[source,bash]
+----
+git remote add azure https://msdocs-node-mongo-2022-jjcanada.scm.azurewebsites.net/msdocs-node-mongo-2022-jjcanada.git
+----
+
+[start=4]
+. Por último, sube el proyecto al repositorio remoto `azure` asociado al Web app mediante un push al remoto `azure`. Te pedirá las credenciales que obtuviste en el paso anterior.
+
+[source,bash]
+----
+git push azure main:master
+----
+
+Te pedirá las credenciales que has recuperado anteriormente. 
+
+
+Ten paciencia... puede tardar unos minutos. Si todo ha ido bien, en tu Web App ya está subido el código de la aplicación que estamos usando.
+
+== Prueba de la aplicación desplegada
+
+Navega a la URL de tu web app. Ahora mismo la bbdd debe estar vacía, por lo que no se verán tareas.
+
+.Aplicación funcionando en el web app
+image::MyTodoListApp-empty.png[role="thumb", align="center"]
+
+Prueba a crear una nueva tarea. Si te aparece algún error, revisa la siguiente sección.
+
+Comprobarás que esta aplicación *no implementa todas las operaciones CRUD*, solamente crea, elimina, lista, pero *no modifica* tareas. Lo único nuevo es que puedes marcar una tarea como completada, y tras ello, ya no te deja ni eliminarla ni modificarla.
+
+=== Troubleshooting
+
+Aquí documentaremos los problemas que vayan apareciendo.
+
+[bibliography]
+== Referencias
+
+* [[[tutorial-azure-docs,1]]] Documentación Oficial de Azure Web Apps. https://docs.microsoft.com/es-es/azure/app-service/tutorial-nodejs-mongodb-app?tabs=azure-portal%2Cterminal-bash%2Cvscode-deploy%2Cdeploy-instructions-azportal%2Cdeploy-zip-linux-mac%2Cdeploy-instructions--zip-azcli[Tutorial: Implementación de una aplicación web de Node.js y MongoDB en Azure]  [Fecha de consulta: 5/04/2022]
