@@ -18,7 +18,13 @@ _Version_ *{page-component-display-version}*
 
 . link:{sectionPath}/selenium-ide-ejercicios-crud.html[Ejercicios Parte 1 - Proyecto Aplicación Web con base de datos]
 
-// . link:{sectionPath}/selenium-ide-ejercicios.html[Ejercicios Parte 1 - Proyecto Login]
+. *Tutoriales (adaptados) de Aplicacion Web con Base de datos* para los Ejercicios Parte 1.
++
+:section: tutorial-dotnetcore-sql
+:sectionPath: modules/{section}/pages
+[loweralpha]
+.. link:{sectionPath}/tutorial-dotnetcore.html[Aplicación Web DotNet Core con Base de datos SQL en Azure]
+.. link:{sectionPath}/tutorial-dotnetcore.html[Aplicación Web ASP.NET con Base de datos SQL en Azure]
 
 //. link:docs/selenium-webdriver.html[Selenium WebDriver]
 

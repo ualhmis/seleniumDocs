@@ -1,0 +1,396 @@
+:encoding: utf-8
+:lang: es
+:toc: right
+:toc-title: Tabla de contenidos
+
+////
+Nombre y título del trabajo
+////
+= Tutorial – Aplicación Web DotNet Core con Base de datos SQL en Azure
+:navtitle: Introducción
+Herramientas y Métodos en Ingeniería del Software
+Joaquín Cañadas <jjcanada@ual.es>
+
+// Entrar en modo no numerado de apartados
+:numbered!: 
+:imagesdir: ../images
+:figure-caption: Figura
+:example-caption!: 
+:icons: font
+
+
+:page-component-display-version: curso.2022
+_Version_ *{page-component-display-version}*
+
+
+
+// Entrar en modo numerado de apartados
+:numbered:
+== Introducción
+
+////
+COLOCA A CONTINUACION LOS OBJETIVOS
+////
+.Objetivos
+====
+* Usar una aplicacion de base de datos con DotNet Core y SQL Database de Azure basada en un proyecto existente
+* Desplegar la aplicación en Azure en Web App con un coste mínimo. 
+====
+
+Este documento es una versión adaptada del Tutorial oficial: Implementación de una aplicación de ASP.NET Core y Azure SQL Database en Azure App Service <<tutorial-azure-docs>>. Se ha simplificado y modificado la creación de la base de datos para elegir una *base de datos de mínimo costo*, suficiente para el uso que le vamos a dar.
+
+En este tutorial aprenderá a implementar una aplicación de ASP.NET Core en Azure App Service y a conectarse a Azure SQL Database. Se da por supuesto que se conoces .NET y que tienes una cuenta de Azure con una suscripción activa (Azure para estudiantes). 
+
+== Requisitos
+
+Para la realización del tutorial necesitarás tener instalado en tu PD de trabajo (Local):
+
+- *Git* 
+- Un IDE como *Visual Studio Code*. 
+
+Además usaremos *Cloud Shell* de Azure desde el Portal de Azure (en el navegador) para ejecutar los comandos mediante la CLI (Command Line Interface) de Azure, que son todos aquellos que comienzan por el comando `az`. La CLI nos permite interactuar con los recursos de Azure mediante comandos, sin tener que usar el Portal Web, con lo que lo haremos más rápido. 
+
+[#cloudShell]
+.Cloud Shell de Azure
+image::cloud-shell-azure.png[role="thumb", align="center"]
+
+==  Configuración de la aplicación de ejemplo
+
+Para seguir este tutorial, usa el proyecto disponible en el repositorio https://github.com/Azure-Samples/msdocs-app-service-sqldb-dotnetcore. Clona el respositorio en tu máquina local para poder realizar cambios sobre el mismo, mediante el siguiente comando de Git. Si lo deseas, puedes hacer un _fork_ para permitir hacer guardar en remoto tus modificaciones al mismo. 
+
+[source,bash]
+----
+git clone https://github.com/Azure-Samples/msdocs-app-service-sqldb-dotnetcore.git
+cd msdocs-app-service-sqldb-dotnetcore
+----
+
+La aplicación Web de este proyecto, cuando la ejecutemos, tendrá este aspecto: 
+
+.Captura de pantalla de la aplicación
+image::azure-app-in-browser.png[role="thumb", align="center"]
+
+
+== Creación de la instancia de App Service [[creacion_web_app]]
+
+En primer lugar, vamos a crear la instancia de Azure App Service que hospede nuestra aplicación web implementada. Usarás un plan *F1 (Free)*, por lo que esta parte es gratuita.
+
+Se recomienda usar los siguientes comandos de la CLI de Azure, que deberás *ejecutar en Cloud Shell* (link:#cloudShell[Figura 1]). 
+
+. En primer lugar, crea un grupo de recursos con el comando `az group create`. El grupo de recursos actua como contenedor de todos los recursos de Azure relacionados con esta aplicación. Crea el grupo de recursos en la región Este de EEUU, con nombre `msdocs-core-sql`:
+
+[source,Azure CLI]
+----
+az group create --location eastus --name msdocs-core-sql
+----
+
+A continuación, crea un plan de App Service con el comando `az appservice plan create`. El parámetro `--sku` define el tamaño (CPU, memoria) y el costo del plan de App Service. En este ejemplo se usa el plan de servicio F1 (Gratis).
+
+[source,Azure CLI]
+----
+az appservice plan create \
+    --name msdocs-core-sql-plan-f1 \
+    --resource-group msdocs-core-sql \
+    --sku F1
+----
+
+Por último, cree la aplicación web de App Service mediante el comando `az webapp create`.
+
+[source,Azure CLI]
+----
+az webapp create \
+    --name msdocs-core-sql-2022-jjcanada \ <1>
+    --runtime "DOTNET|6.0" \ <2>
+    --plan msdocs-core-sql-plan-f1  \
+    --resource-group msdocs-core-sql
+----
+<1> Sustituye `jjcanada` por tu nombre de usuario de la UAL en el nombre de la instancia Web App. El nombre de la instancia de App Service se usa no solo como nombre del recurso en Azure, sino también para formar el nombre de dominio completo de la aplicación en el formato `https://<app_service_name>.azurewebsites.net`.
+<2> El runtime especifica la versión de .NET que ejecuta la aplicación. En este ejemplo se usa .NET 6.0 LTS. 
+
+== Creación de la base de datos [[creacion_bbdd]]
+
+A continuación, vamos a crear la base de datos de Azure SQL Database que almacene los datos en la aplicación. Utiliza el Portal de Azure para crear una base de datos *básica de consumo mínimo*.
+
+[IMPORTANT]
+====
+El tutorial oficial indica los pasos para crear una base de datos que consume más de 300€ al mes. Por ello se recomienda usar los pasos descritos a continuación.
+====
+
+. En Azure Portal, SQL Database, Crear.
+
+.SQL Database, Crear
+image::dotnetcore-database1.png[role="thumb", align="center"]
+
+[start=2]
+. Selecciona el grupo de recursos creado previamente, `msdocs-core-sql`
+
+.Selecciona el grupo de recursos ya creado
+image::dotnetcore-database2.png[role="thumb", align="center"]
+
+[start=3]
+. Más abajo, en la sección de detalles de creación de la BBDD, dale un nombre a la base de datos y crea un nuevo servidor
+
+.Da un nombre a la base de datos y crea un nuevo servidor
+image::dotnetcore-database3.png[role="thumb", align="center"]
+
+<1> En el nombre de la base de datos, utiliza tu nombre de usuario de la UAL.
+
+[start=4]
+. Crea un nuevo servidor, usando un nombre apropiado, y unas credenciales para el mismo.
+
+[IMPORTANT]
+====
+Apunta bien estos datos porque los necesitarás más adelante.
+====
+
+.Nuevo servidor y credenciales de acceso a la BBDD
+image::dotnetcore-database4.png[role="thumb", align="center"]
+
+[start=5]
+. Una vez creado el servidor, más abajo, en la creación de la BBDD, selecciona "Configurar base de datos". Este paso es *muy importante*, porque la base de datos predeterminada es una G5 con 2 nucleos que tiene un precio superior a los 300€ mensuales.
+
+.Configurar la base de datos
+image::dotnetcore-database5.png[role="thumb", align="center"]
+
+[start=6]
+. Selecciona la base de datos básica. El precio es de unos 3€ al mes, y no necesitamos más.
+
+.Configurar base de datos tipo básico
+image::dotnetcore-database5-2.png[role="thumb", align="center"]
+
+[start=7]
+. La base de datos básica aparece correctamente seleccionada
+
+.Base de datos seleccionada
+image::dotnetcore-database6.png[role="thumb", align="center"]
+
+[start=8]
+. Por último, selecciona redundancia local.
+
+.Redundancia local
+image::dotnetcore-database7.png[role="thumb", align="center"]
+
+Haz clic en *Revisar y crear*, y *Crear*. 
+
+Tu base de datos SQL con un conste mínimo ya está creada.
+
+
+== Despliegue en App Service
+
+Para desplegar (o implementar, es el término que utiliza la documantación oficial de Azure) el código de la aplicación en Azure desde un repositorio de Git local, ve en tu máquina local donde has clonado el repositorio, y configura un *segundo remoto* que apunte a la instancia de Azure App Service. Para ello: 
+
+. En Cloud Shell, configure el origen de implementación para que la aplicación web sea un Git local, para lo que debe usar el comando `az webapp deployment source`.
+
+[source,Azure CLI]
+----
+az webapp deployment source config-local-git \
+    --name msdocs-core-sql-2022-jjcanada \ <1>
+    --resource-group msdocs-core-sql
+----
+<1> Usa el mismo nombre de la instancia Web App que has usado al <<creacion_web_app, crearla anteriormente>>.
+
+[start=2]
+. Para poder hacer push, debes recuperar las credenciales de implementación de la aplicación. Serán necesarias para que Git se autentique en Azure al insertar código en Azure en un paso posterior.
+
+[source,Azure CLI]
+----
+az webapp deployment list-publishing-credentials \
+        --name msdocs-core-sql-2022-jjcanada \ <1>
+        --resource-group msdocs-core-sql \
+        --query "{Username:publishingUserName, Password:publishingPassword}"
+----
+<1> Usa el mismo nombre de la instancia Web App que has usado al <<creacion_web_app, crearla anteriormente>>.
+
+El resultado debe ser algo así: 
+
+[source,bash]
+----
+"Password": "wqdZ3jqv6RasdfasdfasdfasdfasdfX0hGfBae4uEhoW",
+"Username": "$msdocs-core-sql-2022-jjcanada"
+----
+
+[start=3]
+. Ahora pasa a tu máquina local, y añade el segundo remoto `azure` usando el nombre de tu web app:
+
+[source,bash]
+----
+git remote add azure https://<your-app-name>.scm.azurewebsites.net/<your-app-name>.git
+----
+
+Que en mi caso, sería tal que así: 
+[source,bash]
+----
+git remote add azure https://msdocs-core-sql-2022-jjcanada.scm.azurewebsites.net/msdocs-core-sql-2022-jjcanada.git
+----
+
+[start=4]
+. Por último, sube el proyecto al repositorio remoto `azure` asociado al Web app mediante un push al remoto `azure`. Te pedirá las credenciales que obtuviste en el paso anterior.
+
+[source,bash]
+----
+git push azure main:master
+----
+
+Si todo ha ido bien, en tu Web App ya está subido el código de la aplicación que estamos usando. Pero aun no funcionará, faltaría configurar la conexión a la base de datos que hemos creado. 
+
+== Conexión de la aplicación a la base de datos
+
+Debemos conectar la aplicación hospedada en App Service a nuestra base de datos mediante una cadena de conexión. Utiliza CLI en *Cloud Shell* para hacer esta operación.
+
+[source,Azure CLI]
+----
+az sql db show-connection-string \
+    --client ado.net \
+    --name coreDb \
+    ---server <your-server-name> <1>
+----
+<1> En mi caso, <<creacion_bdd, antes al servidor de bbdd>> le he dado el nombre `dotnetcore-tutorial-jjcanada`
+
+El resultado debe ser algo así, con los valores de username y password que diste en la creación: 
+[source,bash]
+----
+Server=tcp:dotnetcore-tutorial-jjcanada.database.windows.net,1433;Database=coreDb;User ID=username;Password=password;Encrypt=true;Connection Timeout=30;
+----
+
+A continuación, usa el comando siguiente para asignar la cadena de conexión a App Service. `MyDbConnection` es el nombre de la cadena de conexión en nuestro archivo `appsettings.json`. Reemplaza el nombre de usuario y la contraseña de la cadena de conexión por los suyos propios antes de ejecutar el comando.
+
+[source,Azure CLI]
+----
+az webapp config connection-string set \
+    -g msdocs-core-sql \
+    -n <your-app-name> \  <1>
+    -t SQLServer \
+    --settings MyDbConnection=<your-connection-string>  <2>
+----
+<1> Reemplaza el nombre del web app. 
+<2> Reemplaza la cadena de conexión por los que has obtenido en el comando anterior.
+
+== Generación del esquema de la base de datos
+
+Para generar el esquema de la base de datos, es preciso configurar una regla de firewall en nuestro servidor de bases de datos, para que la base de datos SQL de Azure nos permita acceder a ella desde nuestra máquina local. Para este paso, deberá conocer la dirección IP de su equipo local. Para obtener más información sobre cómo buscar la dirección IP, consulte https://www.whatismyip.com/es/[aquí,window=_blank].
+
+. Ejecute en *Cloud Shell* el comando `az sql server firewall-rule create` para agregar una regla de firewall a la instancia de SQL Server, usando el nombre de su servidor SQL, y su dirección IP tanto en el parámetro `start-ip-address`, como el parámetro `end-ip-address`
+
+[source,Azure CLI]
+----
+az sql server firewall-rule create -resource-group msdocs-core-sql --server <yoursqlserver> --name LocalAccess --start-ip-address <your-ip> --end-ip-address <your-ip>
+----
+
+[start=2]
+. A continuación, actualice el archivo `appsettings.json` en el código de la aplicación en su máquina local con la cadena de conexión de la base de datos de Azure SQL Database. Para ello, abra en su IDE Visual Studio Code el archivo `appsettings.json` que se encuentra en la carpeta donde ha clonado el proyecto al inicio del tutorial.
+
+El texto sería algo así, reemplazando el nombre de usuario y contraseña por los valores que elegiste al crear la base de datos.
+
+[source,JSON]
+----
+ "ConnectionStrings": {
+    "MyDbConnection": "Server=tcp:coredbserver456.database.windows.net,1433;
+        Initial Catalog=coredb;
+        Persist Security Info=False;
+        User ID=<username>;Password=<password>;
+        Encrypt=True;
+        TrustServerCertificate=False;"
+  }
+----
+Antes de guardar, deja la cadena de conexión *en una sola linea*, eliminando los saltos de linea.
+
+[start=3]
+. Por último, debes ejecutar en tu máquina local varios comandos de `dotnet` por lo que debes tener instalado DotNet SDK. Para comprobarlo, en el terminal de tu equipo local ejecuta `dotnet --info`
+
+El resultado debe ser algo así: 
+
+[source,bash]
+----
+$ dotnet --info
+
+Host (useful for support):
+  Version: 6.0.2
+  Commit:  839cdfb0ec
+
+.NET SDKs installed:
+  No SDKs were found.  <1>
+
+.NET runtimes installed:
+  Microsoft.NETCore.App 3.1.22 [C:\Program Files\dotnet\shared\Microsoft.NETCore.App]      
+  Microsoft.NETCore.App 6.0.2 [C:\Program Files\dotnet\shared\Microsoft.NETCore.App]       
+  Microsoft.WindowsDesktop.App 3.1.22 [C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App]
+  Microsoft.WindowsDesktop.App 6.0.2 [C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App]
+
+To install additional .NET runtimes or SDKs:
+  https://aka.ms/dotnet-download
+----
+<1> Si se muestra esto, no hay instalado ningún DotNet SDK. Deberás instalar la versión 6.0 LTS.
+
+[NOTE]
+====
+Para instalar DotNet SDK, puedes hacerlo desde https://aka.ms/dotnet-download, o incluso Visual Studio Code puede que te muestre un aviso para instalarlo. En cualquier caso, es recomendable usar un gestor de paquetes, y para Windows el más utilzado es https://chocolatey.org/[Chocolatey].  
+
+Si optas por usar Chocolatey, https://chocolatey.org/install[instalalo] siguiendo las instrucciones de la sección *Install Chocolatey for Individual Use*. Luego, abre una ventana de comandos (CMD) *como administrador* e instala DotNet SDK: 
+
+ choco install dotnet-sdk -y
+====
+
+Una vez hayas instalado DotNet Core en tu PC, instala en el proyecto las herramientas CLI necesarias para Entity Framework Core, ejecutando estos comandos en su PC local, *uno a uno*, desde la carpeta del proyecto clonado, para actualizar la base de datos:
+
+[source,bash]
+----
+dotnet tool install -g dotnet-ef \
+dotnet ef migrations add InitialCreate \
+dotnet ef database update
+----
+
+
+== Prueba de la aplicación desplegada
+
+Navega a la URL de tu web app. Ahora mismo la bbdd debe estar vacía, por lo que no se verán tareas.
+
+.Aplicación funcionando en el web app
+image::MyTodoListApp-empty.png[role="thumb", align="center"]
+
+Prueba a crear una nueva tarea. Si te aparece algún error, revisa la siguiente sección.
+
+
+=== Troubleshooting
+
+. Prueba a crear una nueva tarea. Si al guardar te aparece un error *ASPNETCORE_ENVIRONMENT* debe ser valor *Development*, crear esa variable en la configuración de la web app: 
+
+.Creación de una variable de configuración
+image::web-app-variable-configuracion.png[role="thumb", align="center"]
+
+[start=2]
+. Si al guardar te aparece un error de que _no existe regla para acceder a la base de datos_, debes crear la para que acceda la WebApp. Para ello, primero consulta la IP que usa la web app, mediante este comando:
+
+ nslookup <app_name>.azurewebsites.net
+
+El resultado debe ser algo así: 
+
+[source,bash]
+----
+$ nslookup msdocs-core-sql-2022-jjcanada.azurewebsites.net
+Servidor:  254.red-80-58-61.staticip.rima-tde.net
+Address:  80.58.61.254
+
+Respuesta no autoritativa:
+Nombre:  waws-prod-blu-315-02a8.eastus.cloudapp.azure.com
+Address:  20.119.8.0 <1>
+Aliases:  msdocs-core-sql-plan-2022-jjcanada.azurewebsites.net
+          waws-prod-blu-315.sip.azurewebsites.windows.net
+----
+<1> IP que debes añadir en la regla para acceder a la BBDD.
+
+Crea la regla en Cloud Shell, personalizando el nombre de tu servidor SQL y la IP de tu Web App: 
+
+[source,Azure CLI]
+----
+az sql server firewall-rule create --resource-group msdocs-core-sql --server dotnetcore-tutorial-jjcanada --name webAppAccess --start-ip-address 20.119.8.0 --end-ip-address 20.119.8.0
+----
+
+Para listar todas las reglas de firewall para la BBDD SQL:
+
+ az sql server firewall-rule list  --resource-group msdocs-core-sql --server dotnetcore-tutorial-jjcanada
+
+
+
+[bibliography]
+== Referencias
+
+* [[[tutorial-azure-docs,1]]] Documentación Oficial de Azure Web Apps. https://docs.microsoft.com/es-es/azure/app-service/tutorial-dotnetcore-sqldb-app?tabs=azure-portal%2Cvisualstudio-deploy%2Cdeploy-instructions-azure-portal%2Cazure-portal-logs%2Cazure-portal-resources[Tutorial: Implementación de una aplicación de ASP.NET Core y Azure SQL Database en Azure App Service]  [Fecha de consulta: 4/04/2022]
