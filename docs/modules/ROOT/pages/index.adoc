@@ -24,7 +24,7 @@ _Version_ *{page-component-display-version}*
 :sectionPath: modules/{section}/pages
 [loweralpha]
 .. link:{sectionPath}/tutorial-dotnetcore.html[Aplicación Web DotNet Core con Base de datos SQL en Azure]
-.. link:{sectionPath}/tutorial-dotnetcore.html[Aplicación Web ASP.NET con Base de datos SQL en Azure]
+// .. link:{sectionPath}/tutorial-dotnetcore.html[Aplicación Web ASP.NET con Base de datos SQL en Azure]
 
 //. link:docs/selenium-webdriver.html[Selenium WebDriver]
 
