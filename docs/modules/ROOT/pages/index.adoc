@@ -25,13 +25,15 @@ _Version_ *{page-component-display-version}*
 [loweralpha]
 .. link:{sectionPath}/tutorial-dotnetcore.html[Aplicación Web DotNet Core con Base de datos SQL en Azure]
 // .. link:{sectionPath}/tutorial-dotnetcore.html[Aplicación Web ASP.NET con Base de datos SQL en Azure]
+.. Aplicación Web ASP.NET con Base de datos SQL en Azure
+.. Aplicación Web PHP con MySQL en Azure
 
 +
-[start=2]
+[start=4]
 :section: tutorial-node-mongo
 :sectionPath: modules/{section}/pages
 .. link:{sectionPath}/tutorial-node-mongo.html[Aplicación web de Node.js y MongoDB en Azure]
+.. Aplicación Web Ruby con Postgres en Azure
+.. Aplicación Web Python con Postgres en Azure
+.. Aplicación Web Java Spring con Cosmos DB en Azure
 
-//. link:docs/selenium-webdriver.html[Selenium WebDriver]
-
-//. link:docs/selenium-jenkins.html[Selenium en Jenkins]
