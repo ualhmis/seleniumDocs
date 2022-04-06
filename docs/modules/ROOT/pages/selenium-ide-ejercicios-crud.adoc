@@ -177,8 +177,6 @@ Otro ejemplo son los campos de fecha definidos como `<input type="date" ...>`
 .Pop-up de validación en HTML5: fecha incorrecta
 image::https://mdn.mozillademos.org/files/14913/date-picker-chrome-error-message.png[role="thumb", align="center"]
 
-****
-
 [NOTE]
 ====
 Los mensajes de validación son distintos en cada navegador (https://hg.mozilla.org/l10n-central/es-ES/file/default/dom/chrome/dom/dom.properties[Firefox], https://chromium.googlesource.com/chromium/src/\+/a0e2753f75c926313e183b912584a7f15790825d/content/app/strings/translations/content_strings_es.xtb[Chrome]), tenlo en cuenta a la hora de definir el `assert`. También hay que considerar el idioma en el que esté configurado el navegador (En Firefox,  en su https://hg.mozilla.org/l10n-central[repostorio] selecciona el idioma deseado y busca el archivo `dom/chrome/dom/dom.properties`, y en https://chromium.googlesource.com/chromium/src/+/a0e2753f75c926313e183b912584a7f15790825d/content/app/strings/translations/[Chrome] lo encontrarás en el archivo del idioma, en español https://chromium.googlesource.com/chromium/src/\+/a0e2753f75c926313e183b912584a7f15790825d/content/app/strings/translations/content_strings_es.xtb[content_strings_es.xtb]). 
@@ -195,13 +193,10 @@ Los mensajes de validación son distintos en cada navegador (https://hg.mozilla.
 
 |===
 
+Como acabamos de ver en el punto anterior, puede ser necesario que en función del navegador que estemos usando o del idioma en que esté configurado dicho navegador, nuestro `assert` deba validar un mensaje u otro.
 
 ====
 
-=== Control de flujo en Selenium IDE 
-****
-
-Como acabamos de ver en el punto anterior, puede ser necesario que en función del navegador que estemos usando o del idioma en que esté configurado dicho navegador, nuestro `assert` deba validar un mensaje u otro.
 
 === Control de flujo en Selenium IDE
 
