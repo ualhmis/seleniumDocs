@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
-<meta name="keywords" content="HMIS Selenium">
-<title>Pruebas de aceptación con Selenium</title>
+<meta name="author" content="Herramientas y Métodos en Ingeniería del Software">
+<title>Tutorial – Aplicación Web ASP.Net con Base de datos SQL en Azure</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,65 +436,585 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article text-justify">
+<body class="article toc2 toc-right">
 <div id="header">
-<h1>Pruebas de aceptación con Selenium</h1>
+<h1>Tutorial – Aplicación Web ASP.Net con Base de datos SQL en Azure</h1>
+<div class="details">
+<span id="author" class="author">Herramientas y Métodos en Ingeniería del Software</span><br>
+<span id="revdate">Joaquín Cañadas &lt;jjcanada@ual.es&gt;</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Tabla de contenidos</div>
+<ul class="sectlevel1">
+<li><a href="#_introducción">1. Introducción</a></li>
+<li><a href="#_requisitos">2. Requisitos</a></li>
+<li><a href="#_configuración_de_la_aplicación_de_ejemplo">3. Configuración de la aplicación de ejemplo</a></li>
+<li><a href="#_publicación_de_la_aplicación_asp_net_en_azure">4. Publicación de la aplicación ASP.NET en Azure</a>
+<ul class="sectlevel2">
+<li><a href="#_inicio_de_sesión">4.1. Inicio de sesión</a></li>
+<li><a href="#creacion_web_app">4.2. Creación de la instancia de App Service</a></li>
+<li><a href="#creacion_bbdd">4.3. Creación de la base de datos</a></li>
+<li><a href="#_despliegue_de_la_aplicación">4.4. Despliegue de la aplicación</a></li>
+</ul>
+</li>
+<li><a href="#_prueba_de_la_aplicación_desplegada">5. Prueba de la aplicación desplegada</a>
+<ul class="sectlevel2">
+<li><a href="#_troubleshooting">5.1. Troubleshooting</a></li>
+</ul>
+</li>
+<li><a href="#_referencias">Referencias</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
 <p><em>Version</em> <strong>curso.2022</strong></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introducción">1. Introducción</h2>
+<div class="sectionbody">
+<div class="exampleblock">
+<div class="title">Objetivos</div>
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Usar una aplicacion de base de datos con ASP.Net y SQL Database de Azure basada en un proyecto existente</p>
+</li>
+<li>
+<p>Desplegar la aplicación en Azure en Web App con un coste mínimo.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Este documento es una versión adaptada del Tutorial oficial: Implementación de una aplicación ASP.NET en Azure con Azure SQL Database <a href="#tutorial-aspnet-azure-docs">[1]</a>. Es casi idéntico al tutorial original, modificando la configuración de los resursos para que supongan un mínimo coste, como en la creación de la base de datos para elegir una <strong>base de datos de mínimo costo</strong>, suficiente para el uso que le vamos a dar.</p>
+</div>
+<div class="paragraph">
+<p>En este tutorial aprenderás a implementar una aplicación ASP.NET orientada a datos en App Service y conectarla a Azure SQL Database. Se da por supuesto que se conoces .NET y que tienes una cuenta de Azure con una suscripción activa (Azure para estudiantes).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_requisitos">2. Requisitos</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Para la realización del tutorial necesitarás tener instalado en tu PD de trabajo (Local):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Git</strong></p>
+</li>
+<li>
+<p><strong>Visual Studio</strong> 2022 (Community o Profesional).</p>
+</li>
+<li>
+<p>Cargas de trabajo ASP.NET y desarrollo web, y desarrollo de Azure para Visual Studio. Si ya ha instalado Visual Studio, agregue las cargas de trabajo en Visual Studio, para lo que debe hacer clic en Herramientas&gt;Get Tools and Features (Obtener herramientas y características)</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Si necesitas instalar Visual Studio 2022, puedes hacerlo la página oficial, o bien puedes usar un gestor de paquetes (recomendable), que para Windows el más utilzado es <a href="https://chocolatey.org/">Chocolatey</a>.</p>
+</div>
+<div class="paragraph">
+<p>Si optas por usar Chocolatey, <a href="https://chocolatey.org/install">instalalo</a> siguiendo las instrucciones de la sección <strong>Install Chocolatey for Individual Use</strong>. Luego, abre una ventana de comandos (CMD) <strong>como administrador</strong> e instala Visual Studio y las cargas de trabajo necesarias con:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>choco install visualstudio2022community -y
+choco install visualstudio2022-workload-azure -y
+choco install visualstudio2022-workload-netweb -y</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>IMPORTANTE</strong>: Ten mucha paciencia, porque puede tardar mucho tiempo (más de 30 minutos)</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Además, en alguna descrición alternativa a la creación de los recursos Azure desde Visual Studio, usaremos <strong>Cloud Shell</strong> de Azure desde el Portal de Azure (en el navegador) para ejecutar los comandos mediante la CLI (Command Line Interface) de Azure, que son todos aquellos que comienzan por el comando <code>az</code>. La CLI nos permite interactuar con los recursos de Azure mediante comandos, sin tener que usar el Portal Web, con lo que lo haremos más rápido.</p>
+</div>
+<div id="cloudShell" class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/cloud-shell-azure.png" alt="cloud shell azure">
+</div>
+<div class="title">Figura 1. Cloud Shell de Azure</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuración_de_la_aplicación_de_ejemplo">3. Configuración de la aplicación de ejemplo</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Para seguir este tutorial, usa el proyecto disponible en el repositorio <a href="https://github.com/Azure-Samples/dotnet-sqldb-tutorial.git" class="bare">https://github.com/Azure-Samples/dotnet-sqldb-tutorial.git</a>. El proyecto de ejemplo contiene una aplicación básica CRUD (crear, leer, actualizar, eliminar) de ASP.NET MVC que usa Entity Framework Code First. Para comenzar, clona el respositorio en tu máquina local en Visual Studio. Si lo deseas, puedes hacer antes un <em>fork</em> y trabajar sobre él,para permitir hacer guardar en remoto tus modificaciones al mismo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git clone https://github.com/Azure-Samples/dotnet-sqldb-tutorial.git
+cd dotnet-sqldb-tutorial</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>También puedes clonar directamente el respositorio en Visual Studio.</p>
+</div>
+<div class="paragraph">
+<p>La aplicación Web de este proyecto, cuando la ejecutemos, tendrá este aspecto:</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/azure-app-in-browser.png" alt="azure app in browser">
+</div>
+<div class="title">Figura 2. Captura de pantalla de la aplicación</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_publicación_de_la_aplicación_asp_net_en_azure">4. Publicación de la aplicación ASP.NET en Azure</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>En <strong>Visual Studio</strong>, en el Explorador de soluciones, haga clic con el botón derecho en su proyecto DotNetAppSqlDb y seleccione Publicar.</p>
+</li>
+<li>
+<p>Seleccione Azure como destino y haga clic en Siguiente.</p>
+</li>
+<li>
+<p>Asegúrese de que Azure App Service (Windows) esté seleccionado y haga clic en Siguiente.</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="_inicio_de_sesión">4.1. Inicio de sesión</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>En el cuadro de diálogo Publicar, haga clic en Iniciar sesión.</p>
+</li>
+<li>
+<p>Inicie sesión en la suscripción de Azure.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creacion_web_app">4.2. Creación de la instancia de App Service</h3>
+<div class="paragraph">
+<p>Se describen dos formas alternativas de realizar este paso. Si lo haces desde Visual Studio no necesitarás volver a hacerlo desde Azure CLI.</p>
+</div>
+<div class="sect3">
+<h4 id="_desde_visual_studio">4.2.1. Desde Visual Studio</h4>
+<div class="paragraph">
+<p>En primer lugar, vamos a crear la instancia de Azure App Service que hospede nuestra aplicación web implementada. Los pasos son similares al tutorial original, excepto el <strong>paso 6</strong> en el que debes seccionar un plan <strong>F1 (Free)</strong> para que sea gratuita.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a href="modules/ROOT/pages/selenium-ide-intro.html">Introduccion a Selenium</a></p>
+<p>En el panel Instancias de App Service, haga clic en +.</p>
 </li>
 <li>
-<p><a href="modules/ROOT/pages/selenium-ide-ejercicios-crud.html">Ejercicios Parte 1 - Proyecto Aplicación Web con base de datos</a></p>
+<p>Dale un nombre a la Web App. El nombre de la aplicación web se usa como parte de la dirección URL predeterminada en la aplicación (<code>&lt;app_name&gt;.azurewebsites.net</code>, donde <code>&lt;app_name&gt;</code> es el nombre de la aplicación web). El nombre de la aplicación web debe ser único entre todas las aplicaciones de Azure.</p>
 </li>
 <li>
-<p><strong>Tutoriales (adaptados) de Aplicacion Web con Base de datos</strong> para los Ejercicios Parte 1.</p>
+<p>Junto a Grupo de recursos, haga clic en Nuevo</p>
+</li>
+<li>
+<p>Llame al grupo de recursos igual que su Web App.</p>
+</li>
+<li>
+<p>En Hosting Plan, haga clic en Nuevo</p>
+</li>
+<li>
+<p>Elija <code>Free</code></p>
 </li>
 </ol>
 </div>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/aspnet-hosting-plan-free.png" alt="aspnet hosting plan free">
+</div>
+<div class="title">Figura 3. Plan gratuito</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="7">
 <li>
-<p><a href="modules/tutorial-dotnetcore-sql/pages/tutorial-dotnetcore.html">Aplicación Web DotNet Core con Base de datos SQL en Azure</a></p>
+<p>Haga clic en Crear y espere a que se creen los recursos de Azure.</p>
+</li>
+<li>
+<p>En el cuadro de diálogo Publicar se muestran los recursos que ha configurado. Haga clic en Finalizar</p>
 </li>
 </ol>
 </div>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a" start="2">
+</div>
+<div class="sect3">
+<h4 id="_desde_azure_cli_y_cloud_shell">4.2.2. Desde Azure CLI y Cloud Shell</h4>
+<div class="paragraph">
+<p>Como alternativa, los recursos Web App se pueden crear con Azure CLI y Cloud Shell, mediante los siguientes comandos de la CLI de Azure, que deberás <strong>ejecutar en Cloud Shell</strong> (<a href="#cloudShell">Figura 1</a>).</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p><a href="modules/tutorial-aspnet-sql/pages/tutorial-aspnet.html">Aplicación Web ASP.NET con Base de datos SQL en Azure</a></p>
-</li>
-<li>
-<p>Aplicación Web PHP con MySQL en Azure</p>
+<p>En primer lugar, crea un grupo de recursos con el comando <code>az group create</code>. El grupo de recursos actua como contenedor de todos los recursos de Azure relacionados con esta aplicación. Crea el grupo de recursos en la región Este de EEUU, con nombre <code>msdocs-core-sql</code>:</p>
 </li>
 </ol>
 </div>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a" start="4">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az group create --location eastus --name DotNetAppSQLDb-jjcanada <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Sustituya <code>jjcanada</code> por su nombre de usuario de la UAL.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A continuación, crea un plan de App Service con el comando <code>az appservice plan create</code>. El parámetro <code>--sku</code> define el tamaño (CPU, memoria) y el costo del plan de App Service. En este ejemplo se usa el plan de servicio F1 (Gratis).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az appservice plan create \
+    --name DotNetAppSQLDb-jjcanada-plan-f1 \
+    --resource-group DotNetAppSQLDb-jjcanada \
+    --sku F1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Por último, cree la aplicación web de App Service mediante el comando <code>az webapp create</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az webapp create \
+    --name DotNetAppSQLDb-jjcanada \ <i class="conum" data-value="1"></i><b>(1)</b>
+    --runtime "ASPNET|V4.8" \ <i class="conum" data-value="2"></i><b>(2)</b>
+    --plan DotNetAppSQLDb-jjcanada-plan-f1  \
+    --resource-group DotNetAppSQLDb-jjcanada</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Sustituye <code>jjcanada</code> por tu nombre de usuario de la UAL en el nombre de la instancia Web App. El nombre de la instancia de App Service se usa no solo como nombre del recurso en Azure, sino también para formar el nombre de dominio completo de la aplicación en el formato <code><a href="https://&lt;app_service_name&gt;.azurewebsites.net" class="bare">https://&lt;app_service_name&gt;.azurewebsites.net</a></code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>El runtime especifica la versión de .NET que ejecuta la aplicación. En este ejemplo se usa ASPNET V4.8 LTS. Use <code>az webapp list-runtimes</code> para ver la lista de runtimes disponibles.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creacion_bbdd">4.3. Creación de la base de datos</h3>
+<div class="paragraph">
+<p>A continuación, vamos a crear la base de datos de Azure SQL Database que almacene los datos en la aplicación. De nuevo se ofrecen dos alternativas para realizar este paso, la primera desde Visual Studio, y la segunda desde el Portal de Azure. En ambos casos, debes estar atento al paso de configuración de la base de datos de tipo <strong>básico</strong> para que tenga un <strong>consumo mínimo</strong>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>El tutorial oficial indica los pasos para crear una base de datos que consume más de 300€ al mes. Por ello se recomienda usar los pasos descritos a continuación.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_desde_visual_studio_2">4.3.1. Desde Visual Studio</h4>
+<div class="paragraph">
+<p>Todos estos pasos son idéntidos al tutorial original, excepto el <strong>paso 9</strong> que es <strong>muy importante</strong> porque modifica el tipo de base de datos al <strong>Básico</strong> (de menor coste).</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p><a href="modules/tutorial-node-mongo/pages/tutorial-node-mongo.html">Aplicación web de Node.js y MongoDB en Azure</a></p>
+<p>En el cuadro de diálogo Publicar, desplácese hacia abajo hasta la sección Dependencias del servicio. Junto a Base de datos de SQL Server, haga clic en Configurar.</p>
 </li>
 <li>
-<p>Aplicación Web Ruby con Postgres en Azure</p>
+<p>Seleccione Azure SQL Database y haga clic en Siguiente</p>
 </li>
 <li>
-<p>Aplicación Web Python con Postgres en Azure</p>
+<p>En el cuadro de diálogo Configurar Azure SQL Database, haga clic en +.</p>
 </li>
 <li>
-<p>Aplicación Web Java Spring con Cosmos DB en Azure</p>
+<p>Junto a Servidor de bases de datos, haga clic en Nuevo.</p>
+</li>
+<li>
+<p>El nombre de servidor se usa como parte de la dirección URL predeterminada del servidor, &lt;server_name&gt;.database.windows.net. Tiene que ser único entre todos los servidores de Azure SQL. Cambie el nombre del servidor al valor que desee.</p>
+</li>
+<li>
+<p>Agregue un nombre de usuario y una contraseña de administrador. Recuerde este nombre de usuario y esta contraseña. Los necesitará para administrar el servidor más adelante.</p>
+</li>
+<li>
+<p>Haga clic en OK.</p>
+</li>
+<li>
+<p>En el cuadro de diálogo Azure SQL Database, seleccione Crear y espere a que se cree el recurso</p>
+</li>
+<li>
+<p>Tras unos minutos, accede al Portal Azure y consulta las bases de datos <strong>Azure SQL</strong>.  Comprobarás que la base de datos se ha creado, y el tipo predeterminado supone un coste excesivo. Este paso es <strong>muy importante</strong>: cambie manualmente el tipo de la bbdd Azure SQL a <strong>Básico</strong>.</p>
 </li>
 </ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/DotNetAppSqlDb_db-select-tier.png" alt="DotNetAppSqlDb db select tier">
+</div>
+<div class="title">Figura 4. Seleccione la capa de precio actual</div>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/DotNetAppSqlDb_db-change-basic.png" alt="DotNetAppSqlDb db change basic">
+</div>
+<div class="title">Figura 5. Cambia manualmente a <em>Básico</em> el tipo de base de datos</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_desde_azure_portal">4.3.2. Desde Azure Portal</h4>
+<div class="paragraph">
+<p>Como alternativa a la creación desde Visual Studio, se puede crear la BBDD en el Portal Azure y luego desde Visual Studio seleccionarla una vez que ya existe.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>En Azure Portal, SQL Database, Crear.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/dotnetcore-database1.png" alt="dotnetcore database1">
+</div>
+<div class="title">Figura 6. SQL Database, Crear</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Selecciona el grupo de recursos creado previamente, <code>DotNetAppSqlDb-jjcanada</code></p>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/dotnetcore-database2.png" alt="dotnetcore database2">
+</div>
+<div class="title">Figura 7. Selecciona el grupo de recursos ya creado</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>Más abajo, en la sección de detalles de creación de la BBDD, dale un nombre a la base de datos y crea un nuevo servidor</p>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/dotnetcore-database3.png" alt="dotnetcore database3">
+</div>
+<div class="title">Figura 8. Da un nombre a la base de datos y crea un nuevo servidor</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>En el nombre de la base de datos, utiliza tu nombre de usuario de la UAL.</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="4">
+<li>
+<p>Crea un nuevo servidor, usando un nombre apropiado, y unas credenciales para el mismo.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Apunta bien estos datos porque los necesitarás más adelante.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/dotnetcore-database4.png" alt="dotnetcore database4">
+</div>
+<div class="title">Figura 9. Nuevo servidor y credenciales de acceso a la BBDD</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="5">
+<li>
+<p>Una vez creado el servidor, más abajo, en la creación de la BBDD, selecciona "Configurar base de datos". Este paso es <strong>muy importante</strong>, porque la base de datos predeterminada es una G5 con 2 nucleos que tiene un precio superior a los 300€ mensuales.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/dotnetcore-database5.png" alt="dotnetcore database5">
+</div>
+<div class="title">Figura 10. Configurar la base de datos</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="6">
+<li>
+<p>Selecciona la base de datos básica. El precio es de unos 3€ al mes, y no necesitamos más.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/dotnetcore-database5-2.png" alt="dotnetcore database5 2">
+</div>
+<div class="title">Figura 11. Configurar base de datos tipo básico</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="7">
+<li>
+<p>La base de datos básica aparece correctamente seleccionada</p>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/dotnetcore-database6.png" alt="dotnetcore database6">
+</div>
+<div class="title">Figura 12. Base de datos seleccionada</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="8">
+<li>
+<p>Por último, selecciona redundancia local.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/dotnetcore-database7.png" alt="dotnetcore database7">
+</div>
+<div class="title">Figura 13. Redundancia local</div>
+</div>
+<div class="paragraph">
+<p>Haz clic en <strong>Revisar y crear</strong>, y <strong>Crear</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Tu base de datos SQL con un coste mínimo ya está creada. En Visual Studio, en el paso de configurar la base de datos SQL Azure, en lugar de crear una nueva, selecciona la BBDD existente en la lista.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_despliegue_de_la_aplicación">4.4. Despliegue de la aplicación</h3>
+<div class="paragraph">
+<p>En <strong>Visual Studio</strong>, en la pestaña Publicar, desplácese hacia arriba hasta la parte superior y haga clic en <strong>Publicar</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Una vez implementada la aplicación ASP.NET en Azure. El explorador predeterminado se inicia con la dirección URL a la aplicación implementada.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prueba_de_la_aplicación_desplegada">5. Prueba de la aplicación desplegada</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Navega a la URL de tu web app. Ahora mismo la bbdd debe estar vacía, por lo que no se verán tareas.</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/MyTodoListApp-empty.png" alt="MyTodoListApp empty">
+</div>
+<div class="title">Figura 14. Aplicación funcionando en el web app</div>
+</div>
+<div class="paragraph">
+<p>Sin embargo, el tutorial da un error que se indica en la siguiente sección, junto con su solución.</p>
+</div>
+<div class="sect2">
+<h3 id="_troubleshooting">5.1. Troubleshooting</h3>
+<div class="paragraph">
+<p>Se visualizará un error <code>Server Error in '/' Application</code>, para resolverlo realice los siguientes pasos:</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/publish-error.png" alt="publish error">
+</div>
+<div class="title">Figura 15. Error tras la primera publicación</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Vuelva a <strong>Visual Studio</strong>. Sobre la solución, botón derecho, Publicar. En la sección Connected Services, en Azure SQL Database aparecerá un aviso de error.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/conected-services-dbconnection-error.png" alt="conected services dbconnection error">
+</div>
+<div class="title">Figura 16. Error en la dependencia a la BBDD</div>
+</div>
+<div class="paragraph">
+<p>Elimine la dependencia a Azure SQL Database.</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/remove-dependency.png" alt="remove dependency">
+</div>
+<div class="title">Figura 17. Elimine la dependencia con problemas</div>
+</div>
+<div class="paragraph">
+<p>Y vuelva a publicar.</p>
+</div>
+<div class="paragraph">
+<p>Compruebe que la aplicación funciona.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_referencias">Referencias</h2>
+<div class="sectionbody">
+<div class="ulist bibliography">
+<ul class="bibliography">
+<li>
+<p><a id="tutorial-aspnet-azure-docs"></a>[1] Documentación Oficial de Azure Web Apps. <a href="https://docs.microsoft.com/es-es/azure/app-service/app-service-web-tutorial-dotnet-sqldatabase">Tutorial: Implementación de una aplicación ASP.NET en Azure con Azure SQL Database</a>  [Fecha de consulta: 4/04/2022]</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
+Last updated 2022-04-07 23:44:52 +0200
 </div>
 </div>
 </body>
