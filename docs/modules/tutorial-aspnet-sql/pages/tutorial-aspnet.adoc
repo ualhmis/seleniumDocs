@@ -275,7 +275,7 @@ Navega a la URL de tu web app. Ahora mismo la bbdd debe estar vacía, por lo que
 .Aplicación funcionando en el web app
 image::MyTodoListApp-empty.png[role="thumb", align="center"]
 
-Sin embargo, el tutorial da un error que se indica en la siguiente sección, junto con su solución.
+Sin embargo, el tutorial da un error, reportado como un https://github.com/Azure-Samples/dotnet-sqldb-tutorial/issues/4[issue] en el repositorio GitHub, que se describe en la siguiente sección, junto con su solución.
 
 === Troubleshooting
 
@@ -301,4 +301,4 @@ Compruebe que la aplicación funciona.
 [bibliography]
 == Referencias
 
-* [[[tutorial-aspnet-azure-docs,1]]] Documentación Oficial de Azure Web Apps. https://docs.microsoft.com/es-es/azure/app-service/app-service-web-tutorial-dotnet-sqldatabase[Tutorial: Implementación de una aplicación ASP.NET en Azure con Azure SQL Database]  [Fecha de consulta: 4/04/2022]
+* [[[tutorial-aspnet-azure-docs,1]]] Documentación Oficial de Azure Web Apps. https://docs.microsoft.com/es-es/azure/app-service/app-service-web-tutorial-dotnet-sqldatabase[Tutorial: Implementación de una aplicación ASP.NET en Azure con Azure SQL Database]  [Fecha de consulta: 7/04/2022]
