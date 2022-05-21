@@ -19,19 +19,19 @@ _Version_ *{page-component-display-version}*
 . link:{sectionPath}/selenium-ide-ejercicios-crud.html[Ejercicios Parte 1 - Proyecto Aplicación Web con base de datos]
 
 . *Tutoriales (adaptados) de Aplicacion Web con Base de datos* para los Ejercicios Parte 1.
-
++
 :section: tutorial-dotnetcore-sql
 :sectionPath: modules/{section}/pages
 [loweralpha]
 .. link:{sectionPath}/tutorial-dotnetcore.html[Aplicación Web DotNet Core con Base de datos SQL en Azure]
-
++
 [start=2]
 :section: tutorial-aspnet-sql
 :sectionPath: modules/{section}/pages
 [loweralpha]
 .. link:{sectionPath}/tutorial-aspnet.html[Aplicación Web ASP.NET con Base de datos SQL en Azure]
 .. Aplicación Web PHP con MySQL en Azure
-
++
 [start=4]
 :section: tutorial-node-mongo
 :sectionPath: modules/{section}/pages
@@ -40,3 +40,10 @@ _Version_ *{page-component-display-version}*
 .. Aplicación Web Python con Postgres en Azure
 .. Aplicación Web Java Spring con Cosmos DB en Azure
 
+[start=4]
+:section: ROOT
+:sectionPath: modules/{section}/pages
+. *Parte 2: Selenium WebDriver* 
++
+.. link:{sectionPath}/selenium-webdriver.html[Selenium WebDriver en Eclipse]
+.. link:{sectionPath}/selenium-jenkins.html[Selenium WebDriver en Jenkins]
