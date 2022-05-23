@@ -27,11 +27,13 @@ Nombre y título del trabajo
 ////
 = Pruebas de aceptación con Selenium
 
-Version 2.0, Marzo-2021.
+Version curso.2022, Mayo-2022.
 Joaquín Cañadas <jjcanada@ual.es>
 
 // Entrar en modo no numerado de apartados
 :numbered!: 
+:imagesdir: ../images
+:figure-caption: Figura
 
 [abstract]
 ////
