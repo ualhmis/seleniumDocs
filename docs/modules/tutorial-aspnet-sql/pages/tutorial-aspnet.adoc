@@ -2,7 +2,8 @@
 :lang: es
 :toc: right
 :toc-title: Tabla de contenidos
-
+:doctype: book
+:icons: font
 ////
 Nombre y título del trabajo
 ////
@@ -16,7 +17,7 @@ Joaquín Cañadas <jjcanada@ual.es>
 :imagesdir: ../images
 :figure-caption: Figura
 :example-caption!: 
-:icons: font
+
 
 
 :page-component-display-version: curso.2022

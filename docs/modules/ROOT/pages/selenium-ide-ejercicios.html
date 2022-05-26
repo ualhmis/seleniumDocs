@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
@@ -436,13 +436,38 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article">
+<body class="book toc2 toc-right">
 <div id="header">
 <h1>Pruebas de aceptación con Selenium. Ejercicios Parte 1: Selenium IDE</h1>
 <div class="details">
 <span id="author" class="author">Herramientas y Métodos en Ingeniería del Software</span><br>
 <span id="revdate">Joaquín Cañadas &lt;jjcanada@ual.es&gt;</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Tabla de contenidos</div>
+<ul class="sectlevel1">
+<li><a href="#_test_de_la_web_del_equipo">1. Test de la web del equipo</a></li>
+<li><a href="#_aplicación_web_login_y_registro_de_usuarios">2. Aplicación web login y registro de usuarios</a>
+<ul class="sectlevel2">
+<li><a href="#_elige_una_plantilla">2.1. Elige una plantilla</a></li>
+<li><a href="#_usa_tu_propio_proyecto">2.2. Usa tu propio proyecto</a></li>
+</ul>
+</li>
+<li><a href="#_creación_de_los_tests_selenium">3. Creación de los tests Selenium</a>
+<ul class="sectlevel2">
+<li><a href="#_implementación_del_test_registro_de_usuario_caso_correcto">3.1. Implementación del test Registro de usuario (Caso correcto)</a></li>
+<li><a href="#_implementación_del_test_de_email_incorrecto">3.2. Implementación del test de email incorrecto</a></li>
+<li><a href="#_control_de_flujo_en_selenium_ide">3.3. Control de flujo en Selenium IDE</a></li>
+</ul>
+</li>
+<li><a href="#_desplegar_la_aplicación_en_azure">4. Desplegar la aplicación en Azure</a>
+<ul class="sectlevel2">
+<li><a href="#_adaptar_los_test_a_la_url_de_despliegue">4.1. Adaptar los test a la URL de despliegue</a></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 <div id="content">
@@ -535,7 +560,7 @@ Ejercicios de tests de aceptación con Selenium.
 <table>
 <tr>
 <td class="icon">
-<div class="title">Tip</div>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -669,9 +694,10 @@ Ejercicios de tests de aceptación con Selenium.
 <div class="title">Figura 3. Comandos en Selenium IDE para validar el mensaje de email incorrecto.</div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>Guarda el contenido del atributo <code>validationMessage</code> del campo con id <code>email-address</code> en la variable <code>message</code>:</p>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Guarda el contenido del atributo <code>validationMessage</code> del campo con id <code>email-address</code> en la variable <code>message</code>:
 <div class="ulist">
 <ul>
 <li>
@@ -684,15 +710,17 @@ Ejercicios de tests de aceptación con Selenium.
 <p>Value: <code>message</code>.</p>
 </li>
 </ul>
-</div>
-</li>
-<li>
-<p>Muestra la variable <code>message</code> en el log de Selenium IDE.</p>
-</li>
-<li>
-<p>Validación de que el valor de <code>message</code> es el esperado.</p>
-</li>
-</ol>
+</div></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Muestra la variable <code>message</code> en el log de Selenium IDE.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Validación de que el valor de <code>message</code> es el esperado.</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>El comando <code>execute script</code> permite acceder a los elementos y propiedades del <a href="https://www.w3schools.com/jsref/dom_obj_document.asp">DOM</a> del documento HTML, y llamar a los métodos del mismo, en concreto en el ejemplo llama a <a href="https://www.w3schools.com/jsref/met_document_getelementbyid.asp">getElementById("fieldId")</a>.</p>
@@ -739,7 +767,7 @@ Ejercicios de tests de aceptación con Selenium.
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -828,7 +856,7 @@ end            |</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-03-25 18:26:17 +0100
+Last updated 2022-05-26 13:15:59 +0200
 </div>
 </div>
 </body>

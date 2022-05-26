@@ -20,7 +20,7 @@ Codificación, idioma, tabla de contenidos, tipo de documento
 // :highlightjsdir: ./highlight
 
 :figure-caption: Fig.
-:imagesdir: images
+:imagesdir: ../images
 
 ////
 Nombre y título del trabajo
