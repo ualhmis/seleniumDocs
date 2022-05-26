@@ -436,8 +436,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article toc2 toc-right">
+<body class="book toc2 toc-right">
 <div id="header">
 <h1>Ejercicios Selenium. Aplicación con base de datos</h1>
 <div class="details">
@@ -621,7 +622,7 @@ Ejercicios de tests de aceptación con Selenium.
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -697,9 +698,10 @@ Ejercicios de tests de aceptación con Selenium.
 <div class="title">Figura 4. Comandos en Selenium IDE para validar el mensaje de email incorrecto.</div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>Guarda el contenido del atributo <code>validationMessage</code> del campo con id <code>email-address</code> en la variable <code>message</code>:</p>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Guarda el contenido del atributo <code>validationMessage</code> del campo con id <code>email-address</code> en la variable <code>message</code>:
 <div class="ulist">
 <ul>
 <li>
@@ -712,15 +714,17 @@ Ejercicios de tests de aceptación con Selenium.
 <p>Value: <code>message</code>.</p>
 </li>
 </ul>
-</div>
-</li>
-<li>
-<p>Muestra la variable <code>message</code> en el log de Selenium IDE.</p>
-</li>
-<li>
-<p>Validación de que el valor de <code>message</code> es el esperado.</p>
-</li>
-</ol>
+</div></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Muestra la variable <code>message</code> en el log de Selenium IDE.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Validación de que el valor de <code>message</code> es el esperado.</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>El comando <code>execute script</code> permite acceder a los elementos y propiedades del <a href="https://www.w3schools.com/jsref/dom_obj_document.asp">DOM</a> del documento HTML, y llamar a los métodos del mismo, en concreto en el ejemplo llama a <a href="https://www.w3schools.com/jsref/met_document_getelementbyid.asp">getElementById("fieldId")</a>.</p>
@@ -765,7 +769,7 @@ Ejercicios de tests de aceptación con Selenium.
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -844,7 +848,7 @@ end            |</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-04-06 11:22:32 +0200
+Last updated 2022-05-26 13:16:01 +0200
 </div>
 </div>
 </body>
