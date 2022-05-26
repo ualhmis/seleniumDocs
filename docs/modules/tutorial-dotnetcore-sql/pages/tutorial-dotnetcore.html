@@ -1028,6 +1028,26 @@ dotnet ef migrations add InitialCreate \
 dotnet ef database update</code></pre>
 </div>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Los comandos <code>dotnet ef migrations</code> y <code>dotnet ef database update</code> <strong>crean las tablas necesarias sobre la base de datos</strong>, que hasta este momento aun estaba vacía. Para ello, atacan al servidor de base de datos en Azure, en el <strong>puerto 1433</strong>, configurado mediante la cadena de conexión <code>"MyDbConnection": "Server=tcp:coredbserver456.database.windows.net,1433</code>.</p>
+</div>
+<div class="paragraph">
+<p>Pues bien, el <strong>perfil wifi de estudiante</strong> de la UAL tiene <strong>capados el acceso a todos los puertos</strong> de cualquier IP del Internet público, excepto los habituales: <em>22, 80, 443, 8080</em>. Por tanto, <strong>desde tu portátil conectado a la wifi de la UAL no podrás acceder al puerto 1433 del servidor de base de datos en Azure</strong>, y los comandos previos no se ejecutarán correctamente.</p>
+</div>
+<div class="paragraph">
+<p>Para resolverlo, puedes conectar temporalmente a la tarifa de datos de tu móvil compartiendo la wifi del móvil, y ejecutar los comandos anteriores. Tras ello, puedes volver a conectar a la wifi de la UAL.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1130,7 +1150,7 @@ Aliases:  msdocs-core-sql-plan-2022-jjcanada.azurewebsites.net
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-05-26 13:15:01 +0200
+Last updated 2022-05-26 21:06:21 +0200
 </div>
 </div>
 </body>

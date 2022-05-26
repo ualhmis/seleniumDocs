@@ -338,6 +338,16 @@ dotnet ef migrations add InitialCreate \
 dotnet ef database update
 ----
 
+[IMPORTANT]
+====
+Los comandos `dotnet ef migrations` y `dotnet ef database update` *crean las tablas necesarias sobre la base de datos*, que hasta este momento aun estaba vacía. Para ello, atacan al servidor de base de datos en Azure, en el *puerto 1433*, configurado mediante la cadena de conexión `"MyDbConnection": "Server=tcp:coredbserver456.database.windows.net,1433`. 
+
+Pues bien, el *perfil wifi de estudiante* de la UAL tiene *capados el acceso a todos los puertos* de cualquier IP del Internet público, excepto los habituales: _22, 80, 443, 8080_. Por tanto, *desde tu portátil conectado a la wifi de la UAL no podrás acceder al puerto 1433 del servidor de base de datos en Azure*, y los comandos previos no se ejecutarán correctamente. 
+
+Para resolverlo, puedes conectar temporalmente a la tarifa de datos de tu móvil compartiendo la wifi del móvil, y ejecutar los comandos anteriores. Tras ello, puedes volver a conectar a la wifi de la UAL.
+====
+
+
 
 == Prueba de la aplicación desplegada
 
