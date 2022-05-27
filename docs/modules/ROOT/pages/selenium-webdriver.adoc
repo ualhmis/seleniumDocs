@@ -290,7 +290,7 @@ image::selenium-webdriver-waitForElementVisible.png[role="thumb", align="center"
 ----
 // 9 | waitForElementVisible | xpath="//h2[contains(.,\'Ingeniería y Arquitectura\')]" | 30000 
 {
-  WebDriverWait wait = new WebDriverWait(driver, 30); 
+  WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30)); 
   wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(.,\'Ingeniería y Arquitectura\')]")));
 }
 ----
@@ -301,7 +301,7 @@ En caso de que siga sin funcionar, sustituye el método `visibilityOfElementLoca
 ----
 // 9 | waitForElementVisible | xpath="//h2[contains(.,\'Ingeniería y Arquitectura\')]" | 30000 
 {
-  WebDriverWait wait = new WebDriverWait(driver, 30); 
+  WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
   wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h2[contains(.,\'Ingeniería y Arquitectura\')]")));
 }
 ----
@@ -310,9 +310,9 @@ Otro método de espera es la espera implícita, que aparece en la documentación
 
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
-Se supone que establece la cantidad de tiempo que el driver debería esperar cuando busca un elemento si este no está presente inmediatamente. Sin embargo, no funciona como se espera y los errores no se solucionan.
+Se supone que establece la cantidad de tiempo que el driver debería esperar cuando busca un elemento si este no está presente inmediatamente. Sin embargo, no funciona como se espera si no se están usando las últimas versiones de las dependencias y de los navegadores, y los errores no se solucionan.
 
-Así que la única forma es añadir manualmente esperas explícitas en cada paso que requiera tiempo de carga de los contenidos. Puesto que añadir un `sleep()` está desaconsejado, la mejor opción entonces es añadir comandos `waitForElementVisible` y su equivalente en Webdriver `wait.until(ExpectedConditions.elementToBeClickable...)`.
+Así que la forma más segura, aunque no la recomendada, es *añadir manualmente esperas explícitas* en cada paso que requiera tiempo de carga de los contenidos. Puesto que añadir un `sleep()` está desaconsejado, la mejor opción entonces es añadir comandos `waitForElementVisible` y su equivalente en Webdriver `wait.until(ExpectedConditions.elementToBeClickable...)`.
 
 
 [TIP]
@@ -398,24 +398,36 @@ Durante la ejecución no se abrirá la ventana de Chrome y los tests se ejecutar
 
 === HtmlUnit Driver: modo _headless_ nativo
 
-https://github.com/SeleniumHQ/selenium/wiki/HtmlUnitDriver[HtmlUnit Driver] es un driver _headless_ nativo para Selenium Webdriver. Se trata de una implementación en Java de Webdriver. 
+https://github.com/SeleniumHQ/htmlunit-driver[HtmlUnit Driver] es un driver _headless_ nativo para Selenium Webdriver. Se trata de una implementación en Java de Webdriver. 
+
+Para usarlo, hay que añadir la https://mvnrepository.com/artifact/org.seleniumhq.selenium/htmlunit-driver[dependencia a HtmlUnit Driver] en el pom: 
+
+[source, xml]
+----
+<dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>htmlunit-driver</artifactId>
+    <version>3.61.0</version>
+</dependency>
+----
+
+La versión 3.x es compatible con Selenium 4.
 
 En local, comenta los otros drivers y cambia el driver a `HtmlUnitDriver();`
 
 [source,java]
 ----
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+
   @Before
   public void setUp() throws Exception {
     ...
     // simple case - javascript support enabled
-    driver = new HtmlUnitDriver(BrowserVersion.FIREFOX_68, true)
+    WebDriver driver = new HtmlUnitDriver(BrowserVersion.FIREFOX, true);
     ...
   }
 ----
-
-Debes importar la librería:
-
-    import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 HtmlUnit Driver da muchos problemas, sobre todo con JavaScript. Es la versión reducida de un navegador, por lo que no soporta gran parte de la funcionalidad del mismo, y la mayoría de tests que funcionan para FirefoxDriver y ChromeDriver fallan con HtmlUnitDriver. Si te fallan los test HtmlUnitDriver *no te preocupes*. El modo _headless_ de FirefoxDriver y ChromeDriver nos ayudará a nuestro objetivo. 
 
