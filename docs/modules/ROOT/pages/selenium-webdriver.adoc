@@ -25,7 +25,7 @@ Codificación, idioma, tabla de contenidos, tipo de documento
 ////
 Nombre y título del trabajo
 ////
-= Pruebas de aceptación con Selenium
+= Pruebas de aceptación con Selenium WebDriver
 
 Version curso.2022, Mayo-2022.
 Joaquín Cañadas <jjcanada@ual.es>
@@ -98,30 +98,30 @@ A continuación, añade las siguientes 4 dependencias en un nuevo bloque con la 
   	<dependency> <1>
   		<groupId>junit</groupId>
   		<artifactId>junit</artifactId>
-  		<version>4.13.1</version>
+  		<version>4.13.2</version>
   	</dependency>
   	<dependency> <2>
   		<groupId>org.seleniumhq.selenium</groupId>
   		<artifactId>selenium-java</artifactId>
-  		<version>3.141.59</version>
+  		<version>4.1.4</version>
   	</dependency>
   	<dependency> <3>
   		<groupId>org.seleniumhq.selenium</groupId>
   		<artifactId>selenium-firefox-driver</artifactId>
-  		<version>3.141.59</version>
+  		<version>4.1.4</version>
   	</dependency>
   	<dependency> <4>
   		<groupId>org.seleniumhq.selenium</groupId>
   		<artifactId>selenium-chrome-driver</artifactId>
-  		<version>3.141.59</version>
+  		<version>4.1.4</version>
   	</dependency>
   </dependencies>
 </project>
 ----
 <1> JUnit 4. 
-<2> Selenium-Java, librería básica de Selenium Webdriver.
-<3> Selenium Firefox Driver, librería con el driver de Firefox para poder ejecutar los tests en este navegador.
-<4> Selenium Chrome Driver,  librería con el driver de Chrome para poder ejecutar los tests en este navegador. 
+<2> Selenium-Java, librería básica de Selenium Webdriver. You can see all available versions on https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java[Selenium Java on Maven Repository,window=_blank]
+<3> Selenium Firefox Driver, librería con el driver de Firefox para poder ejecutar los tests en este navegador. You can see all available versions on https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-firefox-driver[Selenium Firefox Driver on Maven Repository,window=_blank]
+<4> Selenium Chrome Driver, librería con el driver de Chrome para poder ejecutar los tests en este navegador. You can see all available versions on https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver[Selenium Chrome Driver on Maven Repository,window=_blank]
 
 Una vez guardados los cambios, los errores de compilación en tu clase `.java` con los test exportados de Selenium deberían desaparecer.
 
@@ -157,7 +157,7 @@ Es importante que los drivers específicos de los navegadores no se guarden en e
 [start=2]
 . En esa carpeta descarga los drivers de los navegadores Firefox y Chrome. Para ello: 
 .. Descarga y descomprime Firefox driver (Gecko Driver) de https://github.com/mozilla/geckodriver/releases eligiendo la versión adecuada para tu sistema.
-.. Descarga y descomprime Chrome driver de https://sites.google.com/a/chromium.org/chromedriver/downloads  eligiendo la versión adecuada para tu sistema y la versión de Chrome que tengas instalado.
+.. Descarga y descomprime Chrome driver de https://sites.google.com/chromium.org/driver/downloads eligiendo la versión adecuada para tu sistema y la versión de Chrome que tengas instalado.
 .. Con estos dos drivers es suficiente como prueba de concepto, pero puedes ver como descargar los drivers de otros navegadores aquí: https://www.selenium.dev/documentation/en/webdriver/driver_requirements/#quick-reference[Driver requirements].
 
 [start=3]
@@ -475,7 +475,7 @@ Es necesario revisar los procesos tanto en nuestra máquina local como en Jenkin
 
 == Más info
 
-- Mas información sobre https://www.selenium.dev/maven[Maven con Selenium].
+- Mas información sobre https://www.selenium.dev/documentation/webdriver/getting_started/upgrade_to_selenium_4/#maven[Maven con Selenium 4]. 
 
 - https://www.browserstack.com/guide/selenium-with-java-for-automated-test[Best Practices while writing Selenium tests with Java] (sección al final de la página) 
 

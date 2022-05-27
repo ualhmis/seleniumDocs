@@ -25,10 +25,10 @@ Codificación, idioma, tabla de contenidos, tipo de documento
 ////
 Nombre y título del trabajo
 ////
-= Actividad 9. Pruebas de aceptación con Selenium
+= Actividad. Pruebas de aceptación con Selenium
 
 Herramientas y Métodos en Ingeniería del Software
-Version 1.2, Abril-2021.
+Version.2022.
 Joaquín Cañadas <jjcanada@ual.es>
 
 // Entrar en modo no numerado de apartados
