@@ -63,7 +63,7 @@ La ejecución de los tests de Selenium en Jenkins debe hacerse en modo _headless
 
 === Configuración 
 
-. En la carpeta JENKINS_HOME (si no recuerdas cual es, la predeterminada es `/var/lib/jenkins`, puedes verla en http://fake[http://_mi-jenkins-url_/systemInfo]) crea una carpeta `selenium-drivers` y descarga ahí los drivers de los navegadores Firefox y Chrome para Ubuntu. Para ello, ejecuta los siguientes comandos en la máquina Jenkins.
+. Conecta por SSH a la máquina Jenkins. En la carpeta JENKINS_HOME (si no recuerdas cual es, la predeterminada es `/var/lib/jenkins`, puedes verla en http://fake[http://_mi-jenkins-url_/systemInfo]) crea una carpeta `selenium-drivers` y descarga ahí los drivers de los navegadores Firefox y Chrome para Ubuntu. Para ello, ejecuta los siguientes comandos en la máquina Jenkins.
 
 [source,bash]
 ----
@@ -71,9 +71,9 @@ cd
 JENKINS_HOME=/var/lib/jenkins <1>
 echo $JENKINS_HOME
 mkdir $JENKINS_HOME/selenium-drivers <2>
-wget https://github.com/mozilla/geckodriver/releases/download/v0.29.1/geckodriver-v0.29.1-linux64.tar.gz
-sudo tar -C $JENKINS_HOME/selenium-drivers/ -xvf geckodriver-v0.29.1-linux64.tar.gz <3>
-wget https://chromedriver.storage.googleapis.com/90.0.4430.24/chromedriver_linux64.zip <4>
+wget https://github.com/mozilla/geckodriver/releases/download/v0.31.0/geckodriver-v0.31.0-linux64.tar.gz
+sudo tar -C $JENKINS_HOME/selenium-drivers/ -xvf geckodriver*.tar.gz <3>
+wget https://chromedriver.storage.googleapis.com/102.0.5005.61/chromedriver_linux64.zip <4>
 sudo apt-get install unzip -y 
 sudo unzip chromedriver_linux64.zip -d $JENKINS_HOME/selenium-drivers/ <5>
 ls -la  $JENKINS_HOME/selenium-drivers/ <6>
@@ -82,7 +82,7 @@ sudo chown jenkins:jenkins $JENKINS_HOME/selenium-drivers/*
 ----
 <1> Declara la variable de entorno `JENKINS_HOME`
 <2> Crea la carpeta donde guardar los drivers de los navegadores. Asegúrate que tienes permisos suficientes. Si necesitas usar `sudo`, deberás de cambiar los permisos y grupos de los archivos al usuario `jenkins:jenkins` (ver paso 6).
-<3> Con `wget` descarga `geckodriver` para linux en la carpeta home, y con `tar -xvf` descomprime en la carpeta deseada.
+<3> Con `wget` https://github.com/mozilla/geckodriver/releases/[descarga la última versión,window=_blank] de `geckodriver` para linux en la carpeta `home`, y con `tar -xvf` descomprime en la carpeta deseada.
 <4> Con `wget` descarga `chromedriver` para linux en la carpeta home, pero antes revisa la https://www.ubuntuupdates.org/package/google_chrome/stable/main/base/google-chrome-stable[última versión estable] de Chrome para Ubuntu y usa la https://chromedriver.chromium.org/downloads[URL de descarga] de `chromedriver_linux64.zip` adecuada para la versión estable de Chrome
 <5> Con `unzip` descomprime en la carpeta deseada. Además has tenido que instalar `unzip`
 <6> Lista los archivos en la carpeta `selenium-drivers`. Comprueba que los permisos no son adecuados para que Jenkins pueda lanzar los ejecutables de los drivers. 
@@ -193,8 +193,6 @@ image::jenkins-blueocean-parallel-browser-testing.png[role="thumb", align="cente
 == Más info
 
 - https://github.com/shailendravaichalkar/Selenium-Maven-Template
-
-- Mas información sobre https://www.selenium.dev/maven[Maven con Selenium].
 
 - https://www.browserstack.com/guide/selenium-with-java-for-automated-test[Buenas prácticas]: Selenium con Java
 

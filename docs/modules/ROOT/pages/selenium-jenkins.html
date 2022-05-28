@@ -714,7 +714,7 @@ Tests de Selenium JUnit WebDriver en Jenkins.
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>En la carpeta JENKINS_HOME (si no recuerdas cual es, la predeterminada es <code>/var/lib/jenkins</code>, puedes verla en <a href="http://fake">http://<em>mi-jenkins-url</em>/systemInfo</a>) crea una carpeta <code>selenium-drivers</code> y descarga ahí los drivers de los navegadores Firefox y Chrome para Ubuntu. Para ello, ejecuta los siguientes comandos en la máquina Jenkins.</p>
+<p>Conecta por SSH a la máquina Jenkins. En la carpeta JENKINS_HOME (si no recuerdas cual es, la predeterminada es <code>/var/lib/jenkins</code>, puedes verla en <a href="http://fake">http://<em>mi-jenkins-url</em>/systemInfo</a>) crea una carpeta <code>selenium-drivers</code> y descarga ahí los drivers de los navegadores Firefox y Chrome para Ubuntu. Para ello, ejecuta los siguientes comandos en la máquina Jenkins.</p>
 </li>
 </ol>
 </div>
@@ -724,9 +724,9 @@ Tests de Selenium JUnit WebDriver en Jenkins.
 </span><span class="nv">JENKINS_HOME</span><span class="o">=</span>/var/lib/jenkins <i class="conum" data-value="1"></i><b>(1)</b>
 <span class="nb">echo</span> <span class="nv">$JENKINS_HOME</span>
 <span class="nb">mkdir</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers <i class="conum" data-value="2"></i><b>(2)</b>
-wget https://github.com/mozilla/geckodriver/releases/download/v0.29.1/geckodriver-v0.29.1-linux64.tar.gz
-<span class="nb">sudo tar</span> <span class="nt">-C</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <span class="nt">-xvf</span> geckodriver-v0.29.1-linux64.tar.gz <i class="conum" data-value="3"></i><b>(3)</b>
-wget https://chromedriver.storage.googleapis.com/90.0.4430.24/chromedriver_linux64.zip <i class="conum" data-value="4"></i><b>(4)</b>
+wget https://github.com/mozilla/geckodriver/releases/download/v0.31.0/geckodriver-v0.31.0-linux64.tar.gz
+<span class="nb">sudo tar</span> <span class="nt">-C</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <span class="nt">-xvf</span> geckodriver<span class="k">*</span>.tar.gz <i class="conum" data-value="3"></i><b>(3)</b>
+wget https://chromedriver.storage.googleapis.com/102.0.5005.61/chromedriver_linux64.zip <i class="conum" data-value="4"></i><b>(4)</b>
 <span class="nb">sudo </span>apt-get <span class="nb">install </span>unzip <span class="nt">-y</span>
 <span class="nb">sudo </span>unzip chromedriver_linux64.zip <span class="nt">-d</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <i class="conum" data-value="5"></i><b>(5)</b>
 <span class="nb">ls</span> <span class="nt">-la</span>  <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <i class="conum" data-value="6"></i><b>(6)</b>
@@ -746,7 +746,7 @@ wget https://chromedriver.storage.googleapis.com/90.0.4430.24/chromedriver_linux
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Con <code>wget</code> descarga <code>geckodriver</code> para linux en la carpeta home, y con <code>tar -xvf</code> descomprime en la carpeta deseada.</td>
+<td>Con <code>wget</code> <a href="https://github.com/mozilla/geckodriver/releases/" target="_blank" rel="noopener">descarga la última versión</a> de <code>geckodriver</code> para linux en la carpeta <code>home</code>, y con <code>tar -xvf</code> descomprime en la carpeta deseada.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
@@ -959,9 +959,6 @@ Sin embargo, el diseño de clases JUnit y uso de los distintos drivers tiene var
 <p><a href="https://github.com/shailendravaichalkar/Selenium-Maven-Template" class="bare">https://github.com/shailendravaichalkar/Selenium-Maven-Template</a></p>
 </li>
 <li>
-<p>Mas información sobre <a href="https://www.selenium.dev/maven">Maven con Selenium</a>.</p>
-</li>
-<li>
 <p><a href="https://www.browserstack.com/guide/selenium-with-java-for-automated-test">Buenas prácticas</a>: Selenium con Java</p>
 </li>
 </ul>
@@ -971,7 +968,7 @@ Sin embargo, el diseño de clases JUnit y uso de los distintos drivers tiene var
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-05-26 22:57:33 +0200
+Last updated 2022-05-28 13:32:01 +0200
 </div>
 </div>
 </body>
