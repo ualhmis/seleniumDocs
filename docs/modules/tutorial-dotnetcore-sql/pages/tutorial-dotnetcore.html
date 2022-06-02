@@ -567,8 +567,16 @@ cd msdocs-app-service-sqldb-dotnetcore</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az group create --location eastus --name msdocs-core-sql</code></pre>
+<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az group create --location eastus --name msdocs-core-sql <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Recuerda el nombre que has dado al grupo de recursos recien creado, <code>msdocs-core-sql</code>, y úsalo siempre con ese nombre cuando tengas que indicar, como argumento, el nombre del grupo de recursos, que serán los comandos en los que aparezca lo siguiente: <code>--resource-group msdocs-core-sql</code></td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>A continuación, crea un plan de App Service con el comando <code>az appservice plan create</code>. El parámetro <code>--sku</code> define el tamaño (CPU, memoria) y el costo del plan de App Service. En este ejemplo se usa el plan de servicio F1 (Gratis).</p>
@@ -576,10 +584,18 @@ cd msdocs-app-service-sqldb-dotnetcore</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az appservice plan create \
-    --name msdocs-core-sql-plan-f1 \
+    --name msdocs-core-sql-plan-f1 \ <i class="conum" data-value="1"></i><b>(1)</b>
     --resource-group msdocs-core-sql \
     --sku F1</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Recuerda el nombre que has dado al plan de App Service recien creado, <code>msdocs-core-sql-plan-f1</code>, y úsalo siempre con ese nombre cuando tengas que indicar, como argumento, el nombre del plan de App Service, que serán los comandos en los que aparezca lo siguiente: <code>--plan msdocs-core-sql-plan-f1</code></td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Por último, cree la aplicación web de App Service mediante el comando <code>az webapp create</code>.</p>
@@ -785,7 +801,7 @@ cd msdocs-app-service-sqldb-dotnetcore</code></pre>
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Usa el mismo nombre de la instancia Web App que has usado al <a href="#creacion_web_app">crearla anteriormente</a>.</td>
+<td>Usa el mismo nombre de la instancia Web App que has usado al <a href="#creacion_web_app">crearla anteriormente</a> mediante el comando <code>az webapp create</code>.</td>
 </tr>
 </table>
 </div>
@@ -1150,7 +1166,7 @@ Aliases:  msdocs-core-sql-plan-2022-jjcanada.azurewebsites.net
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-05-30 14:27:52 +0200
+Last updated 2022-06-02 14:36:03 +0200
 </div>
 </div>
 </body>

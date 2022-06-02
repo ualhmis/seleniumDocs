@@ -80,18 +80,21 @@ Se recomienda usar los siguientes comandos de la CLI de Azure, que deberás *eje
 
 [source,Azure CLI]
 ----
-az group create --location eastus --name msdocs-core-sql
+az group create --location eastus --name msdocs-core-sql <1>
 ----
+<1> Recuerda el nombre que has dado al grupo de recursos recien creado, `msdocs-core-sql`, y úsalo siempre con ese nombre cuando tengas que indicar, como argumento, el nombre del grupo de recursos, que serán los comandos en los que aparezca lo siguiente: `--resource-group msdocs-core-sql`
+
 
 A continuación, crea un plan de App Service con el comando `az appservice plan create`. El parámetro `--sku` define el tamaño (CPU, memoria) y el costo del plan de App Service. En este ejemplo se usa el plan de servicio F1 (Gratis).
 
 [source,Azure CLI]
 ----
 az appservice plan create \
-    --name msdocs-core-sql-plan-f1 \
+    --name msdocs-core-sql-plan-f1 \ <1>
     --resource-group msdocs-core-sql \
     --sku F1
 ----
+<1> Recuerda el nombre que has dado al plan de App Service recien creado, `msdocs-core-sql-plan-f1`, y úsalo siempre con ese nombre cuando tengas que indicar, como argumento, el nombre del plan de App Service, que serán los comandos en los que aparezca lo siguiente: `--plan msdocs-core-sql-plan-f1`
 
 Por último, cree la aplicación web de App Service mediante el comando `az webapp create`.
 
@@ -186,7 +189,7 @@ az webapp deployment source config-local-git \
     --name msdocs-core-sql-2022-jjcanada \ <1>
     --resource-group msdocs-core-sql
 ----
-<1> Usa el mismo nombre de la instancia Web App que has usado al <<creacion_web_app, crearla anteriormente>>.
+<1> Usa el mismo nombre de la instancia Web App que has usado al <<creacion_web_app, crearla anteriormente>> mediante el comando `az webapp create`.
 
 [start=2]
 . Para poder hacer push, debes recuperar las credenciales de implementación de la aplicación. Serán necesarias para que Git se autentique en Azure al insertar código en Azure en un paso posterior.
