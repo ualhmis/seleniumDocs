@@ -723,7 +723,7 @@ Tests de Selenium JUnit WebDriver en Jenkins.
 <pre class="rouge highlight"><code data-lang="bash"><span class="nb">cd
 </span><span class="nv">JENKINS_HOME</span><span class="o">=</span>/var/lib/jenkins <i class="conum" data-value="1"></i><b>(1)</b>
 <span class="nb">echo</span> <span class="nv">$JENKINS_HOME</span>
-<span class="nb">mkdir</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="nb">sudo mkdir</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers <i class="conum" data-value="2"></i><b>(2)</b>
 wget https://github.com/mozilla/geckodriver/releases/download/v0.31.0/geckodriver-v0.31.0-linux64.tar.gz
 <span class="nb">sudo tar</span> <span class="nt">-C</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <span class="nt">-xvf</span> geckodriver<span class="k">*</span>.tar.gz <i class="conum" data-value="3"></i><b>(3)</b>
 wget https://chromedriver.storage.googleapis.com/102.0.5005.61/chromedriver_linux64.zip <i class="conum" data-value="4"></i><b>(4)</b>
@@ -968,7 +968,7 @@ Sin embargo, el diseño de clases JUnit y uso de los distintos drivers tiene var
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-05-28 13:32:01 +0200
+Last updated 2022-06-03 10:33:13 +0200
 </div>
 </div>
 </body>

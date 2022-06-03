@@ -70,7 +70,7 @@ La ejecución de los tests de Selenium en Jenkins debe hacerse en modo _headless
 cd
 JENKINS_HOME=/var/lib/jenkins <1>
 echo $JENKINS_HOME
-mkdir $JENKINS_HOME/selenium-drivers <2>
+sudo mkdir $JENKINS_HOME/selenium-drivers <2>
 wget https://github.com/mozilla/geckodriver/releases/download/v0.31.0/geckodriver-v0.31.0-linux64.tar.gz
 sudo tar -C $JENKINS_HOME/selenium-drivers/ -xvf geckodriver*.tar.gz <3>
 wget https://chromedriver.storage.googleapis.com/102.0.5005.61/chromedriver_linux64.zip <4>
