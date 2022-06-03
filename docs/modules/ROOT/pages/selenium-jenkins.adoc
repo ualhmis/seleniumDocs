@@ -65,7 +65,7 @@ La ejecución de los tests de Selenium en Jenkins debe hacerse en modo _headless
 
 . Conecta por SSH a la máquina Jenkins. En la carpeta JENKINS_HOME (si no recuerdas cual es, la predeterminada es `/var/lib/jenkins`, puedes verla en http://fake[http://_mi-jenkins-url_/systemInfo]) crea una carpeta `selenium-drivers` y descarga ahí los drivers de los navegadores Firefox y Chrome para Ubuntu. Para ello, ejecuta los siguientes comandos en la máquina Jenkins.
 
-[source,bash]
+[source%nowrap,bash,linenums]
 ----
 cd
 JENKINS_HOME=/var/lib/jenkins <1>
@@ -93,8 +93,11 @@ image::jenkins-installed-selenium-drivers.png[role="thumb", align="center"]
 
 [start=2]
 . Instala `firefox` en tu máquina Jenkins. También deberás instalar `xvfb` que hace de http://elementalselenium.com/tips/38-headless[entorno de visualización simulado] para ejecutar los tests _headeless_ de Selenium. Recuerda que la maquina Jenkins no tiene una interfaz gráfica, así que aunque firefox se va a ejecutar en modo _headless_, es necesario tener un entorno de visualización simulado, y esto lo proporciona `xvfb`.
-    
-    sudo apt-get install -y  xvfb firefox
+
+[source%nowrap,bash,linenums]
+----
+sudo apt-get install -y  xvfb firefox
+----
 
 === Creación del pipeline en Jenkins
 

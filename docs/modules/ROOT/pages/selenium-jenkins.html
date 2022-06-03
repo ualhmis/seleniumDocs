@@ -720,7 +720,19 @@ Tests de Selenium JUnit WebDriver en Jenkins.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="bash"><span class="nb">cd
+<pre class="rouge highlight nowrap"><code data-lang="bash"><table class="linenotable"><tbody><tr><td class="linenos gl"><pre class="lineno"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+</pre></td><td class="code"><pre><span class="nb">cd
 </span><span class="nv">JENKINS_HOME</span><span class="o">=</span>/var/lib/jenkins <i class="conum" data-value="1"></i><b>(1)</b>
 <span class="nb">echo</span> <span class="nv">$JENKINS_HOME</span>
 <span class="nb">sudo mkdir</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers <i class="conum" data-value="2"></i><b>(2)</b>
@@ -731,7 +743,8 @@ wget https://chromedriver.storage.googleapis.com/102.0.5005.61/chromedriver_linu
 <span class="nb">sudo </span>unzip chromedriver_linux64.zip <span class="nt">-d</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <i class="conum" data-value="5"></i><b>(5)</b>
 <span class="nb">ls</span> <span class="nt">-la</span>  <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <i class="conum" data-value="6"></i><b>(6)</b>
 <span class="nb">sudo chown </span>jenkins:jenkins <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <i class="conum" data-value="7"></i><b>(7)</b>
-<span class="nb">sudo chown </span>jenkins:jenkins <span class="nv">$JENKINS_HOME</span>/selenium-drivers/<span class="k">*</span></code></pre>
+<span class="nb">sudo chown </span>jenkins:jenkins <span class="nv">$JENKINS_HOME</span>/selenium-drivers/<span class="k">*</span>
+</pre></td></tr></tbody></table></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -776,13 +789,15 @@ wget https://chromedriver.storage.googleapis.com/102.0.5005.61/chromedriver_linu
 <ol class="arabic" start="2">
 <li>
 <p>Instala <code>firefox</code> en tu máquina Jenkins. También deberás instalar <code>xvfb</code> que hace de <a href="http://elementalselenium.com/tips/38-headless">entorno de visualización simulado</a> para ejecutar los tests <em>headeless</em> de Selenium. Recuerda que la maquina Jenkins no tiene una interfaz gráfica, así que aunque firefox se va a ejecutar en modo <em>headless</em>, es necesario tener un entorno de visualización simulado, y esto lo proporciona <code>xvfb</code>.</p>
-<div class="literalblock">
-<div class="content">
-<pre>sudo apt-get install -y  xvfb firefox</pre>
-</div>
-</div>
 </li>
 </ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="bash"><table class="linenotable"><tbody><tr><td class="linenos gl"><pre class="lineno">1
+</pre></td><td class="code"><pre><span class="nb">sudo </span>apt-get <span class="nb">install</span> <span class="nt">-y</span>  xvfb firefox
+</pre></td></tr></tbody></table></code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -968,7 +983,7 @@ Sin embargo, el diseño de clases JUnit y uso de los distintos drivers tiene var
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-06-03 10:33:13 +0200
+Last updated 2022-06-03 14:01:59 +0200
 </div>
 </div>
 </body>
