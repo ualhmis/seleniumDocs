@@ -19,17 +19,15 @@ _Version_ *{page-component-display-version}*
 
 . link:{sectionPath}/selenium-ide-ejercicios-crud.html[Ejercicios Parte 1 - Proyecto Aplicación Web con base de datos]
 
-. *Tutoriales (adaptados) de Aplicacion Web con Base de datos* para los Ejercicios Parte 1.
+. *Tutoriales de Aplicacion Web con Base de datos* para los Ejercicios Parte 1 (adaptados de los https://learn.microsoft.com/es-es/azure/app-service/tutorial-dotnetcore-sqldb-app[tutoriales de Azure])
 +
 :section: tutorial-dotnetcore-sql
 :sectionPath: modules/{section}/pages
-.. link:{sectionPath}/tutorial-dotnetcore.html[Aplicación Web DotNet Core con Base de datos SQL en Azure]
+.. link:{sectionPath}/tutorial-dotnetcore.html[Aplicación Web DotNet Core con Base de datos SQL en Azure] <- RECOMENDADO !!!
 
++
 [start=2]
-[loweralpha]
-:section: tutorial-aspnet-sql
-:sectionPath: modules/{section}/pages
-. link:{sectionPath}/tutorial-aspnet.html[Aplicación Web ASP.NET con Base de datos SQL en Azure]
+.. link:modules/tutorial-aspnet-sql/pages/tutorial-aspnet.html[Aplicación Web ASP.NET con Base de datos SQL en Azure]
 [start=3]
 .. Aplicación Web PHP con MySQL en Azure
 

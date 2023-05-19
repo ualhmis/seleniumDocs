@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.17">
+<meta name="generator" content="Asciidoctor 2.0.18">
 <meta name="author" content="Herramientas y Métodos en Ingeniería del Software">
 <title>Tutorial – Aplicación Web DotNet Core con Base de datos SQL en Azure</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -85,10 +85,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -438,7 +438,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="book toc2 toc-right">
+<body class="book toc2 toc-right doc">
 <div id="header">
 <h1>Tutorial – Aplicación Web DotNet Core con Base de datos SQL en Azure</h1>
 <div class="details">
@@ -603,7 +603,7 @@ cd msdocs-app-service-sqldb-dotnetcore</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az webapp create \
-    --name msdocs-core-sql-2022-jjcanada \ <i class="conum" data-value="1"></i><b>(1)</b>
+    --name msdocs-core-sql-2023-jjcanada \ <i class="conum" data-value="1"></i><b>(1)</b>
     --runtime "DOTNET|6.0" \ <i class="conum" data-value="2"></i><b>(2)</b>
     --plan msdocs-core-sql-plan-f1  \
     --resource-group msdocs-core-sql</code></pre>
@@ -793,7 +793,7 @@ cd msdocs-app-service-sqldb-dotnetcore</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az webapp deployment source config-local-git \
-    --name msdocs-core-sql-2022-jjcanada \ <i class="conum" data-value="1"></i><b>(1)</b>
+    --name msdocs-core-sql-2023-jjcanada \ <i class="conum" data-value="1"></i><b>(1)</b>
     --resource-group msdocs-core-sql</code></pre>
 </div>
 </div>
@@ -815,7 +815,7 @@ cd msdocs-app-service-sqldb-dotnetcore</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az webapp deployment list-publishing-credentials \
-        --name msdocs-core-sql-2022-jjcanada \ <i class="conum" data-value="1"></i><b>(1)</b>
+        --name msdocs-core-sql-2023-jjcanada \ <i class="conum" data-value="1"></i><b>(1)</b>
         --resource-group msdocs-core-sql \
         --query "{Username:publishingUserName, Password:publishingPassword}"</code></pre>
 </div>
@@ -834,7 +834,7 @@ cd msdocs-app-service-sqldb-dotnetcore</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">"Password": "wqdZ3jqv6RasdfasdfasdfasdfasdfX0hGfBae4uEhoW",
-"Username": "$msdocs-core-sql-2022-jjcanada"</code></pre>
+"Username": "$msdocs-core-sql-2023-jjcanada"</code></pre>
 </div>
 </div>
 <div class="olist arabic">
@@ -854,7 +854,7 @@ cd msdocs-app-service-sqldb-dotnetcore</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">git remote add azure https://msdocs-core-sql-2022-jjcanada.scm.azurewebsites.net/msdocs-core-sql-2022-jjcanada.git</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">git remote add azure https://msdocs-core-sql-2023-jjcanada.scm.azurewebsites.net/msdocs-core-sql-2023-jjcanada.git</code></pre>
 </div>
 </div>
 <div class="olist arabic">
@@ -1113,14 +1113,14 @@ dotnet ef database update</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ nslookup msdocs-core-sql-2022-jjcanada.azurewebsites.net
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ nslookup msdocs-core-sql-2023-jjcanada.azurewebsites.net
 Servidor:  254.red-80-58-61.staticip.rima-tde.net
 Address:  80.58.61.254
 
 Respuesta no autoritativa:
 Nombre:  waws-prod-blu-315-02a8.eastus.cloudapp.azure.com
 Address:  20.119.8.0 <i class="conum" data-value="1"></i><b>(1)</b>
-Aliases:  msdocs-core-sql-plan-2022-jjcanada.azurewebsites.net
+Aliases:  msdocs-core-sql-plan-2023-jjcanada.azurewebsites.net
           waws-prod-blu-315.sip.azurewebsites.windows.net</code></pre>
 </div>
 </div>
@@ -1166,8 +1166,102 @@ Aliases:  msdocs-core-sql-plan-2022-jjcanada.azurewebsites.net
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-06-02 14:36:03 +0200
+Last updated 2023-05-08 10:58:11 +0200
 </div>
 </div>
+<style>
+    .doc .listingblock > .content {
+      position: relative;
+    }
+
+    .doc .listingblock code[data-lang]::before {
+      content: none;
+    }
+
+    .doc .source-toolbox {
+      display: flex;
+      position: absolute;
+      visibility: hidden;
+      top: 0.25rem;
+      right: 0.5rem;
+      color: #808080;
+      white-space: nowrap;
+      font-size: 0.85em;
+    }
+
+    .doc .listingblock:hover .source-toolbox {
+      visibility: visible;
+    }
+
+    .doc .source-toolbox .source-lang {
+      font-family: "Droid Sans Mono", "DejaVu Sans Mono", monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.075em;
+    }
+
+    .doc .source-toolbox > :not(:last-child)::after {
+      content: "|";
+      letter-spacing: 0;
+      padding: 0 1ch;
+    }
+
+    .doc .source-toolbox .copy-button {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: none;
+      border: none;
+      color: inherit;
+      outline: none;
+      padding: 0;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      width: 1em;
+      height: 1em;
+    }
+
+    .doc .source-toolbox .copy-icon {
+      flex: none;
+      width: inherit;
+      height: inherit;
+      filter: invert(50.2%);
+      margin-top: 0.05em;
+    }
+
+    .doc .source-toolbox .copy-toast {
+      flex: none;
+      position: relative;
+      display: inline-flex;
+      justify-content: center;
+      margin-top: 1em;
+      border-radius: 0.25em;
+      padding: 0.5em;
+      cursor: auto;
+      opacity: 0;
+      transition: opacity 0.5s ease 0.75s;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+    }
+
+    .doc .source-toolbox .copy-toast::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 1em;
+      height: 1em;
+      border: 0.55em solid transparent;
+      border-left-color: rgba(0, 0, 0, 0.8);
+      transform: rotate(-90deg) translateX(50%) translateY(50%);
+      transform-origin: left;
+    }
+
+    .doc .source-toolbox .copy-button.clicked .copy-toast {
+      opacity: 1;
+      transition: none;
+    }
+    </style>
+    <script src="copy-to-clipboard.js"></script>
 </body>
 </html>

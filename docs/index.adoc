@@ -33,7 +33,7 @@ ifdef::backend-pdf[]
 :toc!:
 endif::[]
 
-:page-component-display-version: curso.2022
+:page-component-display-version: curso.2023
 
 // :leveloffset: 1
 

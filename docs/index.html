@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.17">
+<meta name="generator" content="Asciidoctor 2.0.18">
 <meta name="keywords" content="HMIS Selenium">
 <title>Pruebas de aceptación con Selenium</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -85,10 +85,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -444,7 +444,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="paragraph">
-<p><em>Version</em> <strong>curso.2022</strong></p>
+<p><em>Version</em> <strong>curso.2023</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -455,23 +455,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><a href="modules/ROOT/pages/selenium-ide-ejercicios-crud.html">Ejercicios Parte 1 - Proyecto Aplicación Web con base de datos</a></p>
 </li>
 <li>
-<p><strong>Tutoriales (adaptados) de Aplicacion Web con Base de datos</strong> para los Ejercicios Parte 1.</p>
+<p><strong>Tutoriales de Aplicacion Web con Base de datos</strong> para los Ejercicios Parte 1 (adaptados de los <a href="https://learn.microsoft.com/es-es/azure/app-service/tutorial-dotnetcore-sqldb-app">tutoriales de Azure</a>)</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p><a href="modules/tutorial-dotnetcore-sql/pages/tutorial-dotnetcore.html">Aplicación Web DotNet Core con Base de datos SQL en Azure</a></p>
+<p><a href="modules/tutorial-dotnetcore-sql/pages/tutorial-dotnetcore.html">Aplicación Web DotNet Core con Base de datos SQL en Azure</a> &#8592; RECOMENDADO !!!</p>
 </li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a" start="2">
 <li>
 <p><a href="modules/tutorial-aspnet-sql/pages/tutorial-aspnet.html">Aplicación Web ASP.NET con Base de datos SQL en Azure</a></p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a" start="3">
+</li>
 <li>
 <p>Aplicación Web PHP con MySQL en Azure</p>
 </li>
