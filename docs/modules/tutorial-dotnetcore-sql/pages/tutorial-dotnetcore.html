@@ -579,7 +579,15 @@ cd msdocs-app-service-sqldb-dotnetcore</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p>A continuación, crea un plan de App Service con el comando <code>az appservice plan create</code>. El parámetro <code>--sku</code> define el tamaño (CPU, memoria) y el costo del plan de App Service. En este ejemplo se usa el plan de servicio F1 (Gratis).</p>
+<p>Comprueba que se ha creado correctamente el grupo de recursos en el Portal de Azure, o bien usando el comando de CLI en Cloud Shell:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az group list -o table</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A continuación, crea un plan de App Service con el comando <code>az appservice plan create</code>. El parámetro <code>--sku</code> define el tamaño (CPU, memoria) y el costo del plan de App Service. En este ejemplo se usa el plan de servicio <strong>F1 (Gratis)</strong>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -598,7 +606,7 @@ cd msdocs-app-service-sqldb-dotnetcore</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p>Por último, cree la aplicación web de App Service mediante el comando <code>az webapp create</code>.</p>
+<p>Por último, crea la aplicación web de App Service mediante el comando <code>az webapp create</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -870,6 +878,9 @@ cd msdocs-app-service-sqldb-dotnetcore</code></pre>
 </div>
 </div>
 <div class="paragraph">
+<p>Te pedirá las credenciales del respositorio, obtenidas en el paso anterior.</p>
+</div>
+<div class="paragraph">
 <p>Si todo ha ido bien, en tu Web App ya está subido el código de la aplicación que estamos usando. Pero aun no funcionará, faltaría configurar la conexión a la base de datos que hemos creado.</p>
 </div>
 </div>
@@ -934,49 +945,137 @@ cd msdocs-app-service-sqldb-dotnetcore</code></pre>
 <h2 id="_generación_del_esquema_de_la_base_de_datos">8. Generación del esquema de la base de datos</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Para generar el esquema de la base de datos, es preciso configurar una regla de firewall en nuestro servidor de bases de datos, para que la base de datos SQL de Azure nos permita acceder a ella desde nuestra máquina local. Para este paso, deberá conocer la dirección IP de su equipo local. Para obtener más información sobre cómo buscar la dirección IP, consulte <a href="https://www.whatismyip.com/es/" target="_blank" rel="noopener">aquí</a>.</p>
+<p>Para generar el esquema de la base de datos, es preciso configurar las <a href="https://learn.microsoft.com/en-us/azure/azure-sql/database/connectivity-settings?view=azuresql&amp;tabs=azure-cli">propiedades de acceso al servidor</a> mediante una regla de firewall en nuestro servidor de bases de datos, para que la base de datos SQL de Azure nos permita acceder a ella desde nuestra máquina local. Para este paso, deberá conocer la dirección IP de su equipo local.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Para obtener su dirección IP, puede usar el comando <code>curl</code> en <strong>Cloud Shell</strong> para obtenerla. Ejecute el comando siguiente en <strong>Cloud Shell</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">curl ifconfig.me -s</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Ejecute en <strong>Cloud Shell</strong> el comando <code>az sql server firewall-rule create</code> para agregar una regla de firewall a la instancia de SQL Server, usando el nombre de su servidor SQL, y su dirección IP tanto en el parámetro <code>start-ip-address</code>, como el parámetro <code>end-ip-address</code></p>
+<p>Ejecuta en <strong>Cloud Shell</strong> el  comando <code>az sql server show</code> para ver las propiedades de acceso a la red pública del servidor SQL.</p>
 </li>
 </ol>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az sql server firewall-rule create --resource-group msdocs-core-sql --server &lt;yoursqlserver&gt; --name LocalAccess --start-ip-address &lt;your-ip&gt; --end-ip-address &lt;your-ip&gt;</code></pre>
+<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI"># Get current setting for Public Network Access
+az sql server show \
+  --name &lt;sql-server-name&gt; \
+  --resource-group msdocs-core-sql \
+  --query "publicNetworkAccess"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El resultado será <code>Disabled</code>. Activalo con el comando siguiente:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI"># Update setting for Public Network Access
+az sql server update \
+  --name &lt;sql-server-name&gt; \
+  --resource-group msdocs-core-sql \
+  --set publicNetworkAccess="Enabled"</code></pre>
 </div>
 </div>
 <div class="olist arabic">
 <ol class="arabic" start="2">
 <li>
-<p>A continuación, actualice el archivo <code>appsettings.json</code> en el código de la aplicación en su máquina local con la cadena de conexión de la base de datos de Azure SQL Database. Para ello, abra en su IDE Visual Studio Code el archivo <code>appsettings.json</code> que se encuentra en la carpeta donde ha clonado el proyecto al inicio del tutorial.</p>
+<p>Ejecuta en <strong>Cloud Shell</strong> el comando <code>az sql server firewall-rule create</code> para agregar una regla de firewall a la instancia de SQL Server, usando el nombre de su servidor SQL, y su dirección IP tanto en el parámetro <code>start-ip-address</code>, como el parámetro <code>end-ip-address</code></p>
 </li>
 </ol>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az sql server firewall-rule create \
+	--resource-group msdocs-core-sql \
+	--server &lt;yoursqlserver&gt; \
+	--name LocalAccess \
+	--start-ip-address &lt;your-ip&gt; \ <i class="conum" data-value="1"></i><b>(1)</b>
+	--end-ip-address &lt;your-ip&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Reemplaza la dirección IP por la que has obtenido en el paso anterior.</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>A continuación, actualice el archivo <code>appsettings.json</code> en el código de la aplicación en su repositorio con la cadena de conexión de la base de datos de Azure SQL Database. Para ello:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Si está trabajando en su máquina local, abra en su IDE Visual Studio Code el archivo <code>appsettings.json</code> que se encuentra en la carpeta donde ha clonado el proyecto al inicio del tutorial.</p>
+</li>
+<li>
+<p>Si está trabajando en <strong>Cloud Shell</strong>, haz clic en el icono <code>{}</code> para abrir un editor de texto en el navegador.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/images/cloudshell-editor-appsettings.png" alt="cloudshell editor appsettings">
+</div>
+<div class="title">Figura 11. Edicion del archivo <code>appsettings.json</code> en Cloud Shell</div>
+</div>
 <div class="paragraph">
-<p>El texto sería algo así, reemplazando el nombre de usuario y contraseña por los valores que elegiste al crear la base de datos.</p>
+<p>El nuevo texto de la propiedad <code>ConnectionStrings</code> sería algo así:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-JSON" data-lang="JSON"> "ConnectionStrings": {
-    "MyDbConnection": "Server=tcp:coredbserver456.database.windows.net,1433;
+    "MyDbConnection": "Server=tcp:&lt;servidorSQL&gt;.database.windows.net,1433; <i class="conum" data-value="1"></i><b>(1)</b>
         Initial Catalog=coredb;
         Persist Security Info=False;
-        User ID=&lt;username&gt;;Password=&lt;password&gt;;
+        User ID=&lt;username&gt;;Password=&lt;password&gt<i class="conum" data-value="2"></i><b>(2)</b>
         Encrypt=True;
         TrustServerCertificate=False;"
   }</code></pre>
 </div>
 </div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Reemplaza el nombre del servidor de base de datos por el que has creado, dejando el resto de la cadena de conexión tal cual. En mi caso sería <code>dotnetcore-tutorial-jjcanada.database.windows.net,1433;</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Reemplaza el nombre de usuario y contraseña por los valores que elegiste al crear la base de datos.</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Antes de guardar, deja la cadena de conexión <strong>en una sola linea</strong>, eliminando los saltos de linea.</p>
 </div>
 <div class="olist arabic">
-<ol class="arabic" start="3">
+<ol class="arabic" start="4">
 <li>
-<p>Por último, debes ejecutar en tu máquina local varios comandos de <code>dotnet</code> por lo que debes tener instalado DotNet SDK. Para comprobarlo, en el terminal de tu equipo local ejecuta <code>dotnet --info</code></p>
+<p>Por último, debes ejecutar varios comandos de <code>dotnet</code> por lo que debes tener instalado DotNet SDK. En Cloud Shell está instalado. Para comprobarlo, en el terminal ejecuta <code>dotnet --info</code></p>
 </li>
 </ol>
 </div>
@@ -988,8 +1087,8 @@ cd msdocs-app-service-sqldb-dotnetcore</code></pre>
 <pre class="highlight"><code class="language-bash" data-lang="bash">$ dotnet --info
 
 Host (useful for support):
-  Version: 6.0.2
-  Commit:  839cdfb0ec
+  Version: 6.0.408
+  Commit:  0c3669d367
 
 .NET SDKs installed:
   No SDKs were found.  <i class="conum" data-value="1"></i><b>(1)</b>
@@ -1020,7 +1119,7 @@ To install additional .NET runtimes or SDKs:
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Para instalar DotNet SDK, puedes hacerlo desde <a href="https://aka.ms/dotnet-download" class="bare">https://aka.ms/dotnet-download</a>, o incluso Visual Studio Code puede que te muestre un aviso para instalarlo. En cualquier caso, es recomendable usar un gestor de paquetes, y para Windows el más utilzado es <a href="https://chocolatey.org/">Chocolatey</a>.</p>
+<p>Si estás trabajando en tu máquina local, para instalar DotNet SDK, puedes hacerlo desde <a href="https://aka.ms/dotnet-download" class="bare">https://aka.ms/dotnet-download</a>, o incluso Visual Studio Code puede que te muestre un aviso para instalarlo. En cualquier caso, es recomendable usar un gestor de paquetes, y para Windows el más utilzado es <a href="https://chocolatey.org/">Chocolatey</a>.</p>
 </div>
 <div class="paragraph">
 <p>Si optas por usar Chocolatey, <a href="https://chocolatey.org/install">instalalo</a> siguiendo las instrucciones de la sección <strong>Install Chocolatey for Individual Use</strong>. Luego, abre una ventana de comandos (CMD) <strong>como administrador</strong> e instala DotNet SDK:</p>
@@ -1035,7 +1134,7 @@ To install additional .NET runtimes or SDKs:
 </table>
 </div>
 <div class="paragraph">
-<p>Una vez hayas instalado DotNet Core en tu PC, instala en el proyecto las herramientas CLI necesarias para Entity Framework Core, ejecutando estos comandos en su PC local, <strong>uno a uno</strong>, desde la carpeta del proyecto clonado, para actualizar la base de datos:</p>
+<p>Una vez hayas completado la instalación de DotNet Core, instala las herramientas CLI necesarias para Entity Framework Core, ejecutando estos comandos, <strong>uno a uno</strong>, desde la carpeta del proyecto clonado, para actualizar la base de datos:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1052,10 +1151,10 @@ dotnet ef database update</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Los comandos <code>dotnet ef migrations</code> y <code>dotnet ef database update</code> <strong>crean las tablas necesarias sobre la base de datos</strong>, que hasta este momento aun estaba vacía. Para ello, atacan al servidor de base de datos en Azure, en el <strong>puerto 1433</strong>, configurado mediante la cadena de conexión <code>"MyDbConnection": "Server=tcp:coredbserver456.database.windows.net,1433</code>.</p>
+<p>Los comandos <code>dotnet ef migrations</code> y <code>dotnet ef database update</code> <strong>crean las tablas necesarias sobre la base de datos</strong>, que hasta este momento aun estaba vacía. Para ello, atacan al servidor de base de datos en Azure, en el <strong>puerto 1433</strong>, configurado mediante la cadena de conexión <code>"MyDbConnection": "Server=tcp:&lt;servidorSQL&gt;.database.windows.net,1433</code>.</p>
 </div>
 <div class="paragraph">
-<p>Pues bien, el <strong>perfil wifi de estudiante</strong> de la UAL tiene <strong>capados el acceso a todos los puertos</strong> de cualquier IP del Internet público, excepto los habituales: <em>22, 80, 443, 8080</em>. Por tanto, <strong>desde tu portátil conectado a la wifi de la UAL no podrás acceder al puerto 1433 del servidor de base de datos en Azure</strong>, y los comandos previos no se ejecutarán correctamente.</p>
+<p>Si estás lanzándolos desde Cloud Shell no hay problema. Pero si estás ejecutándolo desde tu PC local, el <strong>perfil wifi de estudiante</strong> de la UAL tiene <strong>capados el acceso a todos los puertos</strong> de cualquier IP del Internet público, excepto los habituales: <em>22, 80, 443, 8080</em>. Por tanto, <strong>desde tu portátil conectado a la wifi de la UAL no podrás acceder al puerto 1433 del servidor de base de datos en Azure</strong>, y los comandos previos no se ejecutarán correctamente.</p>
 </div>
 <div class="paragraph">
 <p>Para resolverlo, puedes conectar temporalmente a la tarifa de datos de tu móvil compartiendo la wifi del móvil, y ejecutar los comandos anteriores. Tras ello, puedes volver a conectar a la wifi de la UAL.</p>
@@ -1076,7 +1175,7 @@ dotnet ef database update</code></pre>
 <div class="content">
 <img src="../images/MyTodoListApp-empty.png" alt="MyTodoListApp empty">
 </div>
-<div class="title">Figura 11. Aplicación funcionando en el web app</div>
+<div class="title">Figura 12. Aplicación funcionando en el web app</div>
 </div>
 <div class="paragraph">
 <p>Prueba a crear una nueva tarea. Si te aparece algún error, revisa la siguiente sección.</p>
@@ -1094,7 +1193,7 @@ dotnet ef database update</code></pre>
 <div class="content">
 <img src="../images/web-app-variable-configuracion.png" alt="web app variable configuracion">
 </div>
-<div class="title">Figura 12. Creación de una variable de configuración</div>
+<div class="title">Figura 13. Creación de una variable de configuración</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic" start="2">
@@ -1119,7 +1218,7 @@ Address:  80.58.61.254
 
 Respuesta no autoritativa:
 Nombre:  waws-prod-blu-315-02a8.eastus.cloudapp.azure.com
-Address:  20.119.8.0 <i class="conum" data-value="1"></i><b>(1)</b>
+Address:  20.119.0.40 <i class="conum" data-value="1"></i><b>(1)</b>
 Aliases:  msdocs-core-sql-plan-2023-jjcanada.azurewebsites.net
           waws-prod-blu-315.sip.azurewebsites.windows.net</code></pre>
 </div>
@@ -1133,12 +1232,25 @@ Aliases:  msdocs-core-sql-plan-2023-jjcanada.azurewebsites.net
 </table>
 </div>
 <div class="paragraph">
-<p>Crea la regla en Cloud Shell, personalizando el nombre de tu servidor SQL y la IP de tu Web App:</p>
+<p>Crea la nueva regla para acceso público a tu servidor SQL, llamada <code>webAppAccess</code>, personalizando el nombre de tu servidor SQL y la IP de tu Web App:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az sql server firewall-rule create --resource-group msdocs-core-sql --server dotnetcore-tutorial-jjcanada --name webAppAccess --start-ip-address 20.119.8.0 --end-ip-address 20.119.8.0</code></pre>
+<pre class="highlight"><code class="language-Azure CLI" data-lang="Azure CLI">az sql server firewall-rule create \
+	--resource-group msdocs-core-sql \
+	--server dotnetcore-tutorial-jjcanada \
+	--name webAppAccess  \ <i class="conum" data-value="1"></i><b>(1)</b>
+	--start-ip-address 20.119.0.40 \
+	--end-ip-address 20.119.0.40</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>El nombre de la regla debe ser único para el servidor SQL.</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Para listar todas las reglas de firewall para la BBDD SQL:</p>
@@ -1147,6 +1259,15 @@ Aliases:  msdocs-core-sql-plan-2023-jjcanada.azurewebsites.net
 <div class="content">
 <pre>az sql server firewall-rule list  --resource-group msdocs-core-sql --server dotnetcore-tutorial-jjcanada</pre>
 </div>
+</div>
+<div class="paragraph">
+<p>El resultado, la aplicación web debe permitir crear, actualizar y eliminar tareas.</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/TodoListApp.png" alt="TodoListApp">
+</div>
+<div class="title">Figura 14. Aplicación funcionando en el web app</div>
 </div>
 </div>
 </div>
@@ -1166,7 +1287,7 @@ Aliases:  msdocs-core-sql-plan-2023-jjcanada.azurewebsites.net
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-05-08 10:58:11 +0200
+Last updated 2023-05-19 12:17:51 +0200
 </div>
 </div>
 <style>
