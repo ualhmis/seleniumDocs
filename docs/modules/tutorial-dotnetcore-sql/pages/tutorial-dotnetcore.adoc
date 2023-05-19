@@ -28,7 +28,7 @@ Joaquín Cañadas <jjcanada@ual.es>
 :example-caption!: 
 
 
-:page-component-display-version: curso.2022
+:page-component-display-version: curso.2023
 _Version_ *{page-component-display-version}*
 
 
@@ -400,8 +400,14 @@ Una vez hayas completado la instalación de DotNet Core, instala las herramienta
 
 [source,bash]
 ----
-dotnet tool install -g dotnet-ef \
-dotnet ef migrations add InitialCreate \
+dotnet tool install -g dotnet-ef 
+----
+[source,bash]
+----
+dotnet ef migrations add InitialCreate 
+----
+[source,bash]
+----
 dotnet ef database update
 ----
 
@@ -414,6 +420,17 @@ Si estás lanzándolos desde Cloud Shell no hay problema. Pero si estás ejecut�
 Para resolverlo, puedes conectar temporalmente a la tarifa de datos de tu móvil compartiendo la wifi del móvil, y ejecutar los comandos anteriores. Tras ello, puedes volver a conectar a la wifi de la UAL.
 ====
 
+[WARNING]
+====
+Si la ejecución del segundo y tercer comando te da un error como los siguientes, no te preocupes, vuelve a lanzarlos por segunda vez y funcionará.
+
+.Ejemplo de ejecución con errores
+image::ef-migrations-error.png[role="thumb", align="center"]
+
+.Ejecución correcta
+image::ef-migrations-ok.png[role="thumb", align="center"]
+====
+
 
 
 == Prueba de la aplicación desplegada
@@ -423,18 +440,26 @@ Navega a la URL de tu web app. Ahora mismo la bbdd debe estar vacía, por lo que
 .Aplicación funcionando en el web app
 image::MyTodoListApp-empty.png[role="thumb", align="center"]
 
+El resultado, la aplicación web debe permitir crear, actualizar y eliminar tareas.
+
+.Aplicación funcionando en el web app
+image::TodoListApp.png[role="thumb", align="center"]
+
 Prueba a crear una nueva tarea. Si te aparece algún error, revisa la siguiente sección.
 
 
-=== Troubleshooting
+== Troubleshooting
 
-. Prueba a crear una nueva tarea. Si al guardar te aparece un error *ASPNETCORE_ENVIRONMENT* debe ser valor *Development*, crear esa variable en la configuración de la web app: 
+=== Variable de configuracion
+
+Prueba a crear una nueva tarea. Si al guardar te aparece un error *ASPNETCORE_ENVIRONMENT* debe ser valor *Development*, crear esa variable en la configuración de la web app: 
 
 .Creación de una variable de configuración
 image::web-app-variable-configuracion.png[role="thumb", align="center"]
 
-[start=2]
-. Si al guardar te aparece un error de que _no existe regla para acceder a la base de datos_, debes crear la para que acceda la WebApp. Para ello, primero consulta la IP que usa la web app, mediante este comando:
+=== Regla de acceso a BBDD
+
+Si al guardar te aparece un error de que _no existe regla para acceder a la base de datos_, debes crear la para que acceda la WebApp. Para ello, primero consulta la IP que usa la web app, mediante este comando:
 
  nslookup <app_name>.azurewebsites.net
 
@@ -471,10 +496,23 @@ Para listar todas las reglas de firewall para la BBDD SQL:
 
  az sql server firewall-rule list  --resource-group msdocs-core-sql --server dotnetcore-tutorial-jjcanada
 
-El resultado, la aplicación web debe permitir crear, actualizar y eliminar tareas.
+=== URL baneada
 
-.Aplicación funcionando en el web app
-image::TodoListApp.png[role="thumb", align="center"]
+La URL de la web app puede estar baneada por el cortafuegos de la UAL.
+
+.URL baneada
+image::url-baneada.png[role="thumb", align="center"]
+
+Si te ocurre este problema, puedes probar a acceder desde fuera de la UAL. También debes enviarme un correo indicando el problema para que yo solicite el desbaneo de la URL al STIC.
+
+=== Conexción no privada
+
+Si se muestra un error de conexión no privada, es porque la URL de la web app ha perdido el certificado SSL.
+
+.Conexión no privada
+image::conexion-no-privada.png[role="thumb", align="center"]
+
+Para resolverlo... [_en construcción_]
 
 [bibliography]
 == Referencias

@@ -456,9 +456,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_despliegue_en_app_service">6. Despliegue en App Service</a></li>
 <li><a href="#_conexión_de_la_aplicación_a_la_base_de_datos">7. Conexión de la aplicación a la base de datos</a></li>
 <li><a href="#_generación_del_esquema_de_la_base_de_datos">8. Generación del esquema de la base de datos</a></li>
-<li><a href="#_prueba_de_la_aplicación_desplegada">9. Prueba de la aplicación desplegada</a>
+<li><a href="#_prueba_de_la_aplicación_desplegada">9. Prueba de la aplicación desplegada</a></li>
+<li><a href="#_troubleshooting">10. Troubleshooting</a>
 <ul class="sectlevel2">
-<li><a href="#_troubleshooting">9.1. Troubleshooting</a></li>
+<li><a href="#_variable_de_configuracion">10.1. Variable de configuracion</a></li>
+<li><a href="#_regla_de_acceso_a_bbdd">10.2. Regla de acceso a BBDD</a></li>
+<li><a href="#_url_baneada">10.3. URL baneada</a></li>
+<li><a href="#_conexción_no_privada">10.4. Conexción no privada</a></li>
 </ul>
 </li>
 <li><a href="#_referencias">Referencias</a></li>
@@ -469,7 +473,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>Version</em> <strong>curso.2022</strong></p>
+<p><em>Version</em> <strong>curso.2023</strong></p>
 </div>
 </div>
 </div>
@@ -1138,9 +1142,17 @@ To install additional .NET runtimes or SDKs:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">dotnet tool install -g dotnet-ef \
-dotnet ef migrations add InitialCreate \
-dotnet ef database update</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">dotnet tool install -g dotnet-ef</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">dotnet ef migrations add InitialCreate</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">dotnet ef database update</code></pre>
 </div>
 </div>
 <div class="admonitionblock important">
@@ -1163,6 +1175,32 @@ dotnet ef database update</code></pre>
 </tr>
 </table>
 </div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Si la ejecución del segundo y tercer comando te da un error como los siguientes, no te preocupes, vuelve a lanzarlos por segunda vez y funcionará.</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/ef-migrations-error.png" alt="ef migrations error">
+</div>
+<div class="title">Figura 12. Ejemplo de ejecución con errores</div>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/ef-migrations-ok.png" alt="ef migrations ok">
+</div>
+<div class="title">Figura 13. Ejecución correcta</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1175,37 +1213,46 @@ dotnet ef database update</code></pre>
 <div class="content">
 <img src="../images/MyTodoListApp-empty.png" alt="MyTodoListApp empty">
 </div>
-<div class="title">Figura 12. Aplicación funcionando en el web app</div>
+<div class="title">Figura 14. Aplicación funcionando en el web app</div>
+</div>
+<div class="paragraph">
+<p>El resultado, la aplicación web debe permitir crear, actualizar y eliminar tareas.</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/TodoListApp.png" alt="TodoListApp">
+</div>
+<div class="title">Figura 15. Aplicación funcionando en el web app</div>
 </div>
 <div class="paragraph">
 <p>Prueba a crear una nueva tarea. Si te aparece algún error, revisa la siguiente sección.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_troubleshooting">10. Troubleshooting</h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="_troubleshooting">9.1. Troubleshooting</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
+<h3 id="_variable_de_configuracion">10.1. Variable de configuracion</h3>
+<div class="paragraph">
 <p>Prueba a crear una nueva tarea. Si al guardar te aparece un error <strong>ASPNETCORE_ENVIRONMENT</strong> debe ser valor <strong>Development</strong>, crear esa variable en la configuración de la web app:</p>
-</li>
-</ol>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
 <img src="../images/web-app-variable-configuracion.png" alt="web app variable configuracion">
 </div>
-<div class="title">Figura 13. Creación de una variable de configuración</div>
+<div class="title">Figura 16. Creación de una variable de configuración</div>
 </div>
-<div class="olist arabic">
-<ol class="arabic" start="2">
-<li>
+</div>
+<div class="sect2">
+<h3 id="_regla_de_acceso_a_bbdd">10.2. Regla de acceso a BBDD</h3>
+<div class="paragraph">
 <p>Si al guardar te aparece un error de que <em>no existe regla para acceder a la base de datos</em>, debes crear la para que acceda la WebApp. Para ello, primero consulta la IP que usa la web app, mediante este comando:</p>
+</div>
 <div class="literalblock">
 <div class="content">
 <pre>nslookup &lt;app_name&gt;.azurewebsites.net</pre>
 </div>
-</div>
-</li>
-</ol>
 </div>
 <div class="paragraph">
 <p>El resultado debe ser algo así:</p>
@@ -1260,14 +1307,35 @@ Aliases:  msdocs-core-sql-plan-2023-jjcanada.azurewebsites.net
 <pre>az sql server firewall-rule list  --resource-group msdocs-core-sql --server dotnetcore-tutorial-jjcanada</pre>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_url_baneada">10.3. URL baneada</h3>
 <div class="paragraph">
-<p>El resultado, la aplicación web debe permitir crear, actualizar y eliminar tareas.</p>
+<p>La URL de la web app puede estar baneada por el cortafuegos de la UAL.</p>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
-<img src="../images/TodoListApp.png" alt="TodoListApp">
+<img src="../images/url-baneada.png" alt="url baneada">
 </div>
-<div class="title">Figura 14. Aplicación funcionando en el web app</div>
+<div class="title">Figura 17. URL baneada</div>
+</div>
+<div class="paragraph">
+<p>Si te ocurre este problema, puedes probar a acceder desde fuera de la UAL. También debes enviarme un correo indicando el problema para que yo solicite el desbaneo de la URL al STIC.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_conexción_no_privada">10.4. Conexción no privada</h3>
+<div class="paragraph">
+<p>Si se muestra un error de conexión no privada, es porque la URL de la web app ha perdido el certificado SSL.</p>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/conexion-no-privada.png" alt="conexion no privada">
+</div>
+<div class="title">Figura 18. Conexión no privada</div>
+</div>
+<div class="paragraph">
+<p>Para resolverlo&#8230;&#8203; [<em>en construcción</em>]</p>
 </div>
 </div>
 </div>
@@ -1287,7 +1355,7 @@ Aliases:  msdocs-core-sql-plan-2023-jjcanada.azurewebsites.net
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-05-19 12:17:51 +0200
+Last updated 2023-05-19 12:54:52 +0200
 </div>
 </div>
 <style>
