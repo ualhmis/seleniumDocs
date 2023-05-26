@@ -120,6 +120,11 @@ Puesto que para realizar una prueba exhaustiva, cubriendo todos los posibles esc
 
 Para *equipos de 3 personas*, se pide elegir dos tecnologías y crear los tests de selenium para los dos proyectos. Al ser más carga de trabajo, en este caso se deja como optativo los tests de _Modificación de una tarea_.
 
+[WARNING]
+====
+Como *alternativa a la segunda tecnología* para los equipos de 3 personas, y evitar el gasto Azure, se puede probar el sitio demo disponible en https://opensource-demo.orangehrmlive.com, que es una aplicación web de gestión de recursos humanos. En este caso, se pide crear los tests de Selenium para las funcionalidades de _Login_, y _Change password_ para el usuario logueado.
+====
+
 == Funciones avanzadas de Selenium IDE
 
 Ciertos pasos de algunos casos de prueba no se podrán grabar grabar con Selenium IDE, sino que habrá que modificarlos manualmente. A continuación, se ponen algunos ejemplos.
