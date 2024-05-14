@@ -23,7 +23,7 @@ ifdef::env-github[]
 :figure-caption: Figura
 endif::[]
 
-:page-component-display-version: curso.2022
+:page-component-display-version: curso.2024
 _Version_ *{page-component-display-version}*
 
 [abstract]
@@ -54,7 +54,7 @@ La realización de estas actividades se realizará *en equipo*. La entrega será
 
 Realiza con Selenium IDE los tests de la web del equipo de la sesión 04 que verifiquen que la web incorpora todos los elementos que se pedían que se incluyeran en la misma. 
 
-Como siempre, crea un repositorio (privado) en GitHub para guardar los archivos creados. Se trata de una actividad en equipo, así que aplica el método de colaboración fork + pull request. Comparte el repositorio con el profesor para que pueda tener acceso al mismo.
+Como siempre, crea un repositorio (privado) en GitHub para guardar los archivos creados. Se trata de una actividad en equipo, así que aplica el método de colaboración habitual. Comparte el repositorio con el profesor para que pueda tener acceso al mismo.
 
 
 == Aplicación web con base de datos
@@ -64,51 +64,43 @@ Desde ahora hasta el final de la asignatura vamos a iniciar un proyecto de equip
 
 === Elige una plantilla 
 
-Os dejo aquí en enlace a la documentación oficial de https://docs.microsoft.com/es-es/azure/app-service/[Azure Web apps, window=_blank] varios ejemplos de plantillas de *aplicación web con base de datos*, en distintas tecnologías, que básicamente implementan una aplicación que permite crear tareas, listarlas, modificarlas y eliminarlas. Podrás encontralas en el menú _Tutoriales_ / _Aplicación con base de datos_.
+*Vaadin*: 
+- Registro de usuarios
+- Login de usuarios
+- CRUD
 
-.Tutoriales de Aplicación Web con base de datos
-image::azure-tutoriales-basededatos.png[role="thumb", align="center"]
-
-.Proyecto TO-DO - Opciones
-****
-Elige la tecnología que prefieras, os animo a elegir una que tengáis curiosidad por aprender. Seguramente seguirás usando esa tecnología para el proyecto hasta el final de la asignatura, así que tomad la decisión en equipo. En cualquier caso, si más adelante quieres cambiar de tecnología para alguna de las siguientes prácticas, no habrá problema. 
-
-Como alternativa, si lo deseas, puedes usar alguna otra plantilla que conozcas que no esté entre los tutoriales de Azure, incluso en otra tecnología (por ejemplo, Go). En ese caso, comentádmelo antes para validar que implemente la funcionalidad básica requerida (CRUD).
-
-****
-
-Sique las instrucciones del tutorial elegido, pero antes ten en cuenta lo siguiente:
-
-- En la mayoría de los tutoriales te indicará los pasos para probar que la aplicación funciona _en local_ antes de subirla a la Web App de Azure. Cuando sea necesario, el tutorial te indicará unos *Prerrequitos* que tendrás que tener en tu PC local, y ofrecerá dos opciones:
-
-    * Use el entorno de Bash en https://docs.microsoft.com/es-es/azure/cloud-shell/quickstart[Azure Cloud Shell, window=_blank]: tiene la ventaja de que todo el software necesario ya está instalado en la Cloud Shell, por lo que no necesitarás instalar nada en local. 
-
-    * Si prefieres ejecutar la aplicación localmente, esta opción implica que debes instalar todo el software indicado como prerrequisitos que aun no tengas en tu PC (php, node, python, etc).
-
-- Comprueba el gasto que vas a realizar con la creación de la Web App y la base de datos del tutorial que elijas. El consumo de la Web App dependerá del tipo de SKU que crea tutorial. Los pasos para crear una web app gratuita (SKU Free) están buen detallados en el apartado https://docs.microsoft.com/es-es/azure/app-service/tutorial-dotnetcore-sqldb-app?tabs=azure-portal%2Cvisualstudio-deploy%2Cdeploy-instructions-azure-portal%2Cazure-portal-logs%2Cazure-portal-resources#2---create-the-app-service[2. Creación de la instancia de App Service] del tutorial de DotNet Core, así que consultalos si es necesario. 
-
-- Los comandos que aparencen en los tutoriales que comienzan por `az` permiten interactuar con los servicios Azure utilizando la CLI (Command Line Interface) de Azure. Básicamente, la CLI es una alternativa a usar el Portal de Azure, de manera que en lugar de operar forma interactiva sobre la interfaz web del Portal Azure, utilizarás los comandos de la CLI para crear y configurar los servicios. Los comandos `az` los podrás ejecutar https://docs.microsoft.com/es-es/azure/cloud-shell/quickstart[Azure Cloud Shell, window=_blank] (recomendado) o bien en local, y en este último caso (https://docs.microsoft.com/es-ES/cli/azure/install-azure-cli[instale la CLI de Azure, window=_blank]). 
+Azure deploy
+consulta la siguiente documentación para desplegar la aplicación en Azure: https://vaadin.com/docs/latest/production/cloud-providers/azure 
 
 
 === Usa tu propio proyecto
 Como alternativa, si ya has desarrollado o estás desarrollando un proyecto similar en alguna tecnología que conozcas, y que implemente: 
 
-- la funcionalidad de listado, creación, modificación y eliminación (CRUD) sobre al menos una determinada entidad (por ejemplo: tareas, usuarios, eventos, etc.)
+- Debe incluir la funcionalidad de registro y login de usuarios.
+- La funcionalidad de listado, creación, modificación y eliminación (CRUD) sobre al menos una determinada entidad (por ejemplo: tareas, usuarios, eventos, etc.)
+
 
 Pero asegúrate de que tu proyecto es *funcional*, es decir, implementa las características indicadas y estas funcionan, ya que el objetivo es probarlas con Selenium. Y además tu proyecto debe implementar los casos de error mediante los mensajes de validación oportunos. Si tu proyecto no es funcional, o no implementa esas características o los casos de error, entonces mejor usa una plantilla de las propuestas. 
 
 == Creación de los tests Selenium
 
-Crear en Selenium los test cases necesarios para probar, tanto escenarios correctos como escenarios de error, de las siguientes funcionalidades:
+Crear en Selenium los test cases necesarios para probar, tanto escenarios correctos como escenarios de error, de las siguientes funcionalidades CRUD sobre la entidad elegida:
 ****
-- Listado de tareas (Caso correcto)
-- Listado de tareas (Casos incorrectos)
-- Creación de una tarea (Caso correcto)
-- Creación de una tareas (Casos incorrectos)
-- Modificación de una tarea (caso correcto)
-- Modificación de una tarea (casos incorrectos)
-- Eliminación de una tarea (caso correcto)
-- Eliminación de una tarea (casos incorrectos)
+- Registro de usuarios (caso correcto)
+- Registro de usuarios (casos incorrectos)
+- Login (caso correcto)
+- Login (casos incorrectos)
+
+CRUD sobre una entidad (por ejemplo, tareas, usuarios, eventos, etc.):
+
+    - Listado  (Caso correcto)
+    - Listado  (Casos incorrectos)
+    - Creación  (Caso correcto)
+    - Creación  (Casos incorrectos)
+    - Modificación  (caso correcto)
+    - Modificación  (casos incorrectos)
+    - Eliminación  (caso correcto)
+    - Eliminación  (casos incorrectos)
 ****
 [NOTE]
 ====
@@ -118,11 +110,10 @@ Guardar los test cases en una test suite (formato `.side`).
 
 Puesto que para realizar una prueba exhaustiva, cubriendo todos los posibles escenarios, el número de casos de prueba es elevado, la forma de trabajar es dividir las funcionalidades entre los miembros del equipo y así repartir el trabajo: Una persona que haga los tests de las dos primeras funcionalidades, y otra el resto. 
 
-Para *equipos de 3 personas*, se pide elegir dos tecnologías y crear los tests de selenium para los dos proyectos. Al ser más carga de trabajo, en este caso se deja como optativo los tests de _Modificación de una tarea_.
 
 [WARNING]
 ====
-Como *alternativa a la segunda tecnología* para los equipos de 3 personas, y evitar el gasto Azure, se puede probar el sitio demo disponible en https://opensource-demo.orangehrmlive.com, que es una aplicación web de gestión de recursos humanos. En este caso, se pide crear los tests de Selenium para las funcionalidades de _Login_, y _Change password_ para el usuario logueado.
+Para *equipos de 3 personas*, se puede probar el sitio demo disponible en https://opensource-demo.orangehrmlive.com, que es una aplicación web de gestión de recursos humanos. En este caso, se pide crear los tests de Selenium para las funcionalidades de _Login_, y _Change password_ para el usuario logueado.
 ====
 
 == Funciones avanzadas de Selenium IDE
