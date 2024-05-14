@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="generator" content="Asciidoctor 2.0.17">
 <meta name="author" content="Herramientas y Métodos en Ingeniería del Software">
 <title>Tutorial – Aplicación Web DotNet Core con Base de datos SQL en Azure</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -85,10 +85,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
-ul.square{list-style-type:square}
-ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -486,7 +486,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>Usar una aplicacion de base de datos con DotNet Core y SQL Database de Azure basada en un proyecto existente</p>
+<p>Usar una aplicación de base de datos con DotNet Core y SQL Database de Azure basada en un proyecto existente</p>
 </li>
 <li>
 <p>Desplegar la aplicación en Azure en Web App con un coste mínimo.</p>
@@ -534,7 +534,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_configuración_de_la_aplicación_de_ejemplo">3. Configuración de la aplicación de ejemplo</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Para seguir este tutorial, usa el proyecto disponible en el repositorio <a href="https://github.com/Azure-Samples/msdocs-app-service-sqldb-dotnetcore" class="bare">https://github.com/Azure-Samples/msdocs-app-service-sqldb-dotnetcore</a>. Clona el respositorio en tu máquina local para poder realizar cambios sobre el mismo, mediante el siguiente comando de Git. Si lo deseas, puedes hacer un <em>fork</em> para permitir hacer guardar en remoto tus modificaciones al mismo.</p>
+<p>Para seguir este tutorial, usa el proyecto disponible en el repositorio <a href="https://github.com/Azure-Samples/msdocs-app-service-sqldb-dotnetcore" class="bare">https://github.com/Azure-Samples/msdocs-app-service-sqldb-dotnetcore</a>. Clona el repositorio en tu máquina local para poder realizar cambios sobre el mismo, mediante el siguiente comando de Git. Si lo deseas, puedes hacer un <em>fork</em> para permitir hacer guardar en remoto tus modificaciones al mismo.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -565,7 +565,7 @@ cd msdocs-app-service-sqldb-dotnetcore</code></pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>En primer lugar, crea un grupo de recursos con el comando <code>az group create</code>. El grupo de recursos actua como contenedor de todos los recursos de Azure relacionados con esta aplicación. Crea el grupo de recursos en la región Este de EEUU, con nombre <code>msdocs-core-sql</code>:</p>
+<p>En primer lugar, crea un grupo de recursos con el comando <code>az group create</code>. El grupo de recursos actúa como contenedor de todos los recursos de Azure relacionados con esta aplicación. Crea el grupo de recursos en la región Este de EEUU, con nombre <code>msdocs-core-sql</code>:</p>
 </li>
 </ol>
 </div>
@@ -578,7 +578,7 @@ cd msdocs-app-service-sqldb-dotnetcore</code></pre>
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Recuerda el nombre que has dado al grupo de recursos recien creado, <code>msdocs-core-sql</code>, y úsalo siempre con ese nombre cuando tengas que indicar, como argumento, el nombre del grupo de recursos, que serán los comandos en los que aparezca lo siguiente: <code>--resource-group msdocs-core-sql</code></td>
+<td>Recuerda el nombre que has dado al grupo de recursos recién creado, <code>msdocs-core-sql</code>, y úsalo siempre con ese nombre cuando tengas que indicar, como argumento, el nombre del grupo de recursos, que serán los comandos en los que aparezca lo siguiente: <code>--resource-group msdocs-core-sql</code></td>
 </tr>
 </table>
 </div>
@@ -605,7 +605,7 @@ cd msdocs-app-service-sqldb-dotnetcore</code></pre>
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Recuerda el nombre que has dado al plan de App Service recien creado, <code>msdocs-core-sql-plan-f1</code>, y úsalo siempre con ese nombre cuando tengas que indicar, como argumento, el nombre del plan de App Service, que serán los comandos en los que aparezca lo siguiente: <code>--plan msdocs-core-sql-plan-f1</code></td>
+<td>Recuerda el nombre que has dado al plan de App Service recién creado, <code>msdocs-core-sql-plan-f1</code>, y úsalo siempre con ese nombre cuando tengas que indicar, como argumento, el nombre del plan de App Service, que serán los comandos en los que aparezca lo siguiente: <code>--plan msdocs-core-sql-plan-f1</code></td>
 </tr>
 </table>
 </div>
@@ -732,7 +732,7 @@ cd msdocs-app-service-sqldb-dotnetcore</code></pre>
 <div class="olist arabic">
 <ol class="arabic" start="5">
 <li>
-<p>Una vez creado el servidor, más abajo, en la creación de la BBDD, selecciona "Configurar base de datos". Este paso es <strong>muy importante</strong>, porque la base de datos predeterminada es una G5 con 2 nucleos que tiene un precio superior a los 300€ mensuales.</p>
+<p>Una vez creado el servidor, más abajo, en la creación de la BBDD, selecciona "Configurar base de datos". Este paso es <strong>muy importante</strong>, porque la base de datos predeterminada es una G5 con 2 núcleos que tiene un precio superior a los 300€ mensuales.</p>
 </li>
 </ol>
 </div>
@@ -882,7 +882,7 @@ cd msdocs-app-service-sqldb-dotnetcore</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Te pedirá las credenciales del respositorio, obtenidas en el paso anterior.</p>
+<p>Te pedirá las credenciales del repositorio, obtenidas en el paso anterior.</p>
 </div>
 <div class="paragraph">
 <p>Si todo ha ido bien, en tu Web App ya está subido el código de la aplicación que estamos usando. Pero aun no funcionará, faltaría configurar la conexión a la base de datos que hemos creado.</p>
@@ -1042,7 +1042,7 @@ az sql server update \
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
-<img src="../images/images/cloudshell-editor-appsettings.png" alt="cloudshell editor appsettings">
+<img src="../images/cloudshell-editor-appsettings.png" alt="cloudshell editor appsettings">
 </div>
 <div class="title">Figura 11. Edicion del archivo <code>appsettings.json</code> en Cloud Shell</div>
 </div>
@@ -1123,7 +1123,7 @@ To install additional .NET runtimes or SDKs:
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Si estás trabajando en tu máquina local, para instalar DotNet SDK, puedes hacerlo desde <a href="https://aka.ms/dotnet-download" class="bare">https://aka.ms/dotnet-download</a>, o incluso Visual Studio Code puede que te muestre un aviso para instalarlo. En cualquier caso, es recomendable usar un gestor de paquetes, y para Windows el más utilzado es <a href="https://chocolatey.org/">Chocolatey</a>.</p>
+<p>Si estás trabajando en tu máquina local, para instalar DotNet SDK, puedes hacerlo desde <a href="https://aka.ms/dotnet-download" class="bare">https://aka.ms/dotnet-download</a>, o incluso Visual Studio Code puede que te muestre un aviso para instalarlo. En cualquier caso, es recomendable usar un gestor de paquetes, y para Windows el más utilizado es <a href="https://chocolatey.org/">Chocolatey</a>.</p>
 </div>
 <div class="paragraph">
 <p>Si optas por usar Chocolatey, <a href="https://chocolatey.org/install">instalalo</a> siguiendo las instrucciones de la sección <strong>Install Chocolatey for Individual Use</strong>. Luego, abre una ventana de comandos (CMD) <strong>como administrador</strong> e instala DotNet SDK:</p>
@@ -1207,7 +1207,7 @@ To install additional .NET runtimes or SDKs:
 <h2 id="_prueba_de_la_aplicación_desplegada">9. Prueba de la aplicación desplegada</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Navega a la URL de tu web app. Ahora mismo la bbdd debe estar vacía, por lo que no se verán tareas.</p>
+<p>Navega a la URL de tu web app. Ahora mismo la BBDD debe estar vacía, por lo que no se verán tareas.</p>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
@@ -1355,7 +1355,7 @@ Aliases:  msdocs-core-sql-plan-2023-jjcanada.azurewebsites.net
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-05-19 12:54:52 +0200
+Last updated 2023-05-26 19:34:52 +0200
 </div>
 </div>
 <style>

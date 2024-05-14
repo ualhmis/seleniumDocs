@@ -42,7 +42,7 @@ COLOCA A CONTINUACION LOS OBJETIVOS
 ////
 .Objetivos
 ====
-* Usar una aplicacion de base de datos con DotNet Core y SQL Database de Azure basada en un proyecto existente
+* Usar una aplicación de base de datos con DotNet Core y SQL Database de Azure basada en un proyecto existente
 * Desplegar la aplicación en Azure en Web App con un coste mínimo. 
 ====
 
@@ -65,7 +65,7 @@ image::cloud-shell-azure.png[role="thumb", align="center"]
 
 ==  Configuración de la aplicación de ejemplo
 
-Para seguir este tutorial, usa el proyecto disponible en el repositorio https://github.com/Azure-Samples/msdocs-app-service-sqldb-dotnetcore. Clona el respositorio en tu máquina local para poder realizar cambios sobre el mismo, mediante el siguiente comando de Git. Si lo deseas, puedes hacer un _fork_ para permitir hacer guardar en remoto tus modificaciones al mismo. 
+Para seguir este tutorial, usa el proyecto disponible en el repositorio https://github.com/Azure-Samples/msdocs-app-service-sqldb-dotnetcore. Clona el repositorio en tu máquina local para poder realizar cambios sobre el mismo, mediante el siguiente comando de Git. Si lo deseas, puedes hacer un _fork_ para permitir hacer guardar en remoto tus modificaciones al mismo. 
 
 [source,bash]
 ----
@@ -85,13 +85,13 @@ En primer lugar, vamos a crear la instancia de Azure App Service que hospede nue
 
 Se recomienda usar los siguientes comandos de la CLI de Azure, que deberás *ejecutar en Cloud Shell* (link:#cloudShell[Figura 1]). 
 
-. En primer lugar, crea un grupo de recursos con el comando `az group create`. El grupo de recursos actua como contenedor de todos los recursos de Azure relacionados con esta aplicación. Crea el grupo de recursos en la región Este de EEUU, con nombre `msdocs-core-sql`:
+. En primer lugar, crea un grupo de recursos con el comando `az group create`. El grupo de recursos actúa como contenedor de todos los recursos de Azure relacionados con esta aplicación. Crea el grupo de recursos en la región Este de EEUU, con nombre `msdocs-core-sql`:
 
 [source,Azure CLI]
 ----
 az group create --location eastus --name msdocs-core-sql <1>
 ----
-<1> Recuerda el nombre que has dado al grupo de recursos recien creado, `msdocs-core-sql`, y úsalo siempre con ese nombre cuando tengas que indicar, como argumento, el nombre del grupo de recursos, que serán los comandos en los que aparezca lo siguiente: `--resource-group msdocs-core-sql`
+<1> Recuerda el nombre que has dado al grupo de recursos recién creado, `msdocs-core-sql`, y úsalo siempre con ese nombre cuando tengas que indicar, como argumento, el nombre del grupo de recursos, que serán los comandos en los que aparezca lo siguiente: `--resource-group msdocs-core-sql`
 
 Comprueba que se ha creado correctamente el grupo de recursos en el Portal de Azure, o bien usando el comando de CLI en Cloud Shell: 
 
@@ -109,7 +109,7 @@ az appservice plan create \
     --resource-group msdocs-core-sql \
     --sku F1
 ----
-<1> Recuerda el nombre que has dado al plan de App Service recien creado, `msdocs-core-sql-plan-f1`, y úsalo siempre con ese nombre cuando tengas que indicar, como argumento, el nombre del plan de App Service, que serán los comandos en los que aparezca lo siguiente: `--plan msdocs-core-sql-plan-f1`
+<1> Recuerda el nombre que has dado al plan de App Service recién creado, `msdocs-core-sql-plan-f1`, y úsalo siempre con ese nombre cuando tengas que indicar, como argumento, el nombre del plan de App Service, que serán los comandos en los que aparezca lo siguiente: `--plan msdocs-core-sql-plan-f1`
 
 Por último, crea la aplicación web de App Service mediante el comando `az webapp create`.
 
@@ -164,7 +164,7 @@ Apunta bien estos datos porque los necesitarás más adelante.
 image::dotnetcore-database4.png[role="thumb", align="center"]
 
 [start=5]
-. Una vez creado el servidor, más abajo, en la creación de la BBDD, selecciona "Configurar base de datos". Este paso es *muy importante*, porque la base de datos predeterminada es una G5 con 2 nucleos que tiene un precio superior a los 300€ mensuales.
+. Una vez creado el servidor, más abajo, en la creación de la BBDD, selecciona "Configurar base de datos". Este paso es *muy importante*, porque la base de datos predeterminada es una G5 con 2 núcleos que tiene un precio superior a los 300€ mensuales.
 
 .Configurar la base de datos
 image::dotnetcore-database5.png[role="thumb", align="center"]
@@ -248,7 +248,7 @@ git remote add azure https://msdocs-core-sql-2023-jjcanada.scm.azurewebsites.net
 git push azure main:master
 ----
 
-Te pedirá las credenciales del respositorio, obtenidas en el paso anterior.
+Te pedirá las credenciales del repositorio, obtenidas en el paso anterior.
 
 Si todo ha ido bien, en tu Web App ya está subido el código de la aplicación que estamos usando. Pero aun no funcionará, faltaría configurar la conexión a la base de datos que hemos creado. 
 
@@ -341,7 +341,7 @@ az sql server firewall-rule create \
 - Si está trabajando en *Cloud Shell*, haz clic en el icono `{}` para abrir un editor de texto en el navegador.
 
 .Edicion del archivo `appsettings.json` en Cloud Shell
-image::images/cloudshell-editor-appsettings.png[role="thumb", align="center"]
+image::cloudshell-editor-appsettings.png[role="thumb", align="center"]
 
 El nuevo texto de la propiedad `ConnectionStrings` sería algo así: 
 [source,JSON]
@@ -389,7 +389,7 @@ To install additional .NET runtimes or SDKs:
 
 [NOTE]
 ====
-Si estás trabajando en tu máquina local, para instalar DotNet SDK, puedes hacerlo desde https://aka.ms/dotnet-download, o incluso Visual Studio Code puede que te muestre un aviso para instalarlo. En cualquier caso, es recomendable usar un gestor de paquetes, y para Windows el más utilzado es https://chocolatey.org/[Chocolatey].  
+Si estás trabajando en tu máquina local, para instalar DotNet SDK, puedes hacerlo desde https://aka.ms/dotnet-download, o incluso Visual Studio Code puede que te muestre un aviso para instalarlo. En cualquier caso, es recomendable usar un gestor de paquetes, y para Windows el más utilizado es https://chocolatey.org/[Chocolatey].  
 
 Si optas por usar Chocolatey, https://chocolatey.org/install[instalalo] siguiendo las instrucciones de la sección *Install Chocolatey for Individual Use*. Luego, abre una ventana de comandos (CMD) *como administrador* e instala DotNet SDK: 
 
@@ -435,7 +435,7 @@ image::ef-migrations-ok.png[role="thumb", align="center"]
 
 == Prueba de la aplicación desplegada
 
-Navega a la URL de tu web app. Ahora mismo la bbdd debe estar vacía, por lo que no se verán tareas.
+Navega a la URL de tu web app. Ahora mismo la BBDD debe estar vacía, por lo que no se verán tareas.
 
 .Aplicación funcionando en el web app
 image::MyTodoListApp-empty.png[role="thumb", align="center"]
