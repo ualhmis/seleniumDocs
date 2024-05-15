@@ -1,6 +1,6 @@
-name: eda2-practica2
-title: Práctica 2
-version: v.2022
+name: hmis
+title: Prácticas
+version: v.2024
 # prerelease: -beta.1
 nav:
 - modules/ROOT/nav.adoc

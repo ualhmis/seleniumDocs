@@ -452,7 +452,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_aplicación_web_con_base_de_datos">2. Aplicación web con base de datos</a>
 <ul class="sectlevel2">
 <li><a href="#_elige_una_plantilla">2.1. Elige una plantilla</a></li>
-<li><a href="#_usa_tu_propio_proyecto">2.2. Usa tu propio proyecto</a></li>
+<li><a href="#_plantillas_vaadin">2.2. Plantillas Vaadin</a></li>
+<li><a href="#_usa_tu_propio_proyecto">2.3. Usa tu propio proyecto</a></li>
 </ul>
 </li>
 <li><a href="#_creación_de_los_tests_selenium">3. Creación de los tests Selenium</a></li>
@@ -481,6 +482,9 @@ Ejercicios de tests de aceptación con Selenium.
 <div class="ulist">
 <div class="title">Objetivos</div>
 <ul>
+<li>
+<p>Desplegar una plantilla de proyecto web con base de datos en Azure.</p>
+</li>
 <li>
 <p>Comenzar a crear tests de aceptación de aplicaciones web con Selenium IDE.</p>
 </li>
@@ -516,33 +520,131 @@ Ejercicios de tests de aceptación con Selenium.
 <div class="sect2">
 <h3 id="_elige_una_plantilla">2.1. Elige una plantilla</h3>
 <div class="paragraph">
-<p><strong>Vaadin</strong>:
-- Registro de usuarios
-- Login de usuarios
-- CRUD</p>
-</div>
-<div class="paragraph">
-<p>Azure deploy
-consulta la siguiente documentación para desplegar la aplicación en Azure: <a href="https://vaadin.com/docs/latest/production/cloud-providers/azure" class="bare">https://vaadin.com/docs/latest/production/cloud-providers/azure</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_usa_tu_propio_proyecto">2.2. Usa tu propio proyecto</h3>
-<div class="paragraph">
-<p>Como alternativa, si ya has desarrollado o estás desarrollando un proyecto similar en alguna tecnología que conozcas, y que implemente:</p>
+<p>El objetivo de esta práctica es diseñar e implementar pruebas de aceptación con Selenium IDE para una aplicación web que sea funcional y que implemente, al menos, las siguientes funcionalidades:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Debe incluir la funcionalidad de registro y login de usuarios.</p>
+<p>Registro de usuarios</p>
 </li>
 <li>
-<p>La funcionalidad de listado, creación, modificación y eliminación (CRUD) sobre al menos una determinada entidad (por ejemplo: tareas, usuarios, eventos, etc.)</p>
+<p>Login de usuarios</p>
+</li>
+<li>
+<p>CRUD (Create, Read, Update, Delete) sobre una entidad (por ejemplo, tareas, usuarios, eventos, etc).</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Pero asegúrate de que tu proyecto es <strong>funcional</strong>, es decir, implementa las características indicadas y estas funcionan, ya que el objetivo es probarlas con Selenium. Y además tu proyecto debe implementar los casos de error mediante los mensajes de validación oportunos. Si tu proyecto no es funcional, o no implementa esas características o los casos de error, entonces mejor usa una plantilla de las propuestas.</p>
+<p>Para ello, puedes elegir una (o varias) plantilla(s) de proyecto que ya implemente(n) estas funcionalidades. Es indiferente en que lenguaje esté implementada. Lo que sí es importante es que, además de ejecutar la aplicación web en tu entorno de desarrollo local, también debes desplegar la aplicación en Azure. Por tanto, sea cual sea la plantilla que elijas, asegúrate de que podrás desplegarla en Azure.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_plantillas_vaadin">2.2. Plantillas Vaadin</h3>
+<div class="paragraph">
+<p>Como propuesta, os dejo algunos ejemplos en <strong>Vaadin</strong>, que es un framework que conocéis de la asignatura MDS2. Además, estas plantillas usan una base de datos H2 en memoria, lo que facilita el despliegue y reduce los gastos de Azure.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Vaadin</strong> Registro de usuarios: <a href="https://github.com/vaadin/vaadin-form-example">Project example for creating a signup form with Vaadin Flow</a></p>
+</li>
+<li>
+<p><strong>Vaadin</strong> Login de usuarios y CRUD:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Inicia <a href="https://start.vaadin.com/" class="bare">https://start.vaadin.com/</a>. Sobre un proyecto en blanco añade una vista de tipo Java / <em>Master-Detail</em>.</p>
+</li>
+<li>
+<p>En las propiedades, elige tu entidad favorita entre las 3 disponibles.</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/vaadin-starter-app-master-detail-entity.png" alt="vaadin starter app master detail entity" width="40%">
+</div>
+<div class="title">Figura 1. Nueva vista <em>Master-detail</em></div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>En la propiedad <em>View access</em> elige <em>Users who have logged in</em>. Esto te añadirá una página de Login.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/vaadin-starter-app-login.png" alt="vaadin starter app login" width="40%">
+</div>
+<div class="title">Figura 2. Añadir Login</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="4">
+<li>
+<p>Guarda el proyecto y descárgalo. Elije <strong>Java 17</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/vaadin-starter-app-downloadProject.png" alt="vaadin starter app downloadProject" width="40%">
+</div>
+<div class="title">Figura 3. Guardar proyecto</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Esta plantilla no implementa la eliminación. Puedes usarla en cualquier caso.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Despliegue en Azure</strong></p>
+</div>
+<div class="paragraph">
+<p>Si has elegido una plantilla de Vaadin, puedes seguir la siguiente documentación: <a href="https://vaadin.com/docs/latest/production/cloud-providers/azure">Azure deploy</a>. Durante la ejecución del asistente, elije <strong>Java 17</strong>. Asegúrate que usa la capa <strong>F1</strong> (gratis).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_usa_tu_propio_proyecto">2.3. Usa tu propio proyecto</h3>
+<div class="paragraph">
+<p>Como alternativa, si ya has desarrollado o estás desarrollando un proyecto similar en alguna tecnología que conozcas, y que implemente las funcionalidades indicadas, puedes usar tu propio proyecto.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Asegúrate de que tu proyecto es <strong>funcional</strong>, es decir, implementa las características indicadas y estas funcionan, ya que el objetivo es probarlas con Selenium. Y además tu proyecto debe implementar los casos de error mediante los mensajes de validación oportunos. Si tu proyecto no es funcional, o no implementa esas características o los casos de error, entonces mejor usa alguna de las plantillas propuestas.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Despliegue en Azure</strong></p>
+</div>
+<div class="paragraph">
+<p>En la documentación de Azure existen diversos <a href="https://learn.microsoft.com/es-es/azure/app-service/tutorial-dotnetcore-sqldb-app">tutoriales</a> que describen como desplegar en Azure aplicaciones web con base de datos implementadas en distintas tecnologías. Estos tutoriales pueden servir de orientación para el despliegue de tu propio proyecto, aunque hay que tener cuidado al seguirlos paso a paso porque las instrucciones crean recursos relacionados con las bases de datos <strong>de elevado coste</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Por ello se recomienda que, si decides usar tu proyecto personal, configures una base de datos en memoria como H2 o SQLite.</p>
+</div>
+<div class="paragraph">
+<p>En caso de duda consulta al profesor.</p>
 </div>
 </div>
 </div>
@@ -612,7 +714,7 @@ consulta la siguiente documentación para desplegar la aplicación en Azure: <a 
 </td>
 <td class="content">
 <div class="paragraph">
-<p>En función de la tecnología que hayas elegido, tu plantilla de aplicación web tendrá todas estas funcionalidades, alguna de las indicadas anteriormente no estará implementada, o bien incorporará alguna funcionalidad adicional. En caso de que falte alguna, no te preocupes, crea los tests de las funcionalidades que estén incorporadas. Y si por el contrario la plantilla ofrece alguna funcionalidad adicional, puedes crear los tests de esa funcionalidad adicional de forma <em>optativa</em>.</p>
+<p>En función de la tecnología que hayas elegido, tu plantilla de aplicación web tendrá todas estas funcionalidades, alguna de las indicadas anteriormente <strong>no estará implementada</strong>, o bien incorporará alguna funcionalidad adicional. En caso de que falte alguna, <strong>no te preocupes</strong>, crea los tests de las funcionalidades que estén incorporadas. Y si por el contrario la plantilla ofrece alguna funcionalidad adicional, puedes crear los tests de esa funcionalidad adicional de forma <em>optativa</em>.</p>
 </div>
 </td>
 </tr>
@@ -632,7 +734,7 @@ consulta la siguiente documentación para desplegar la aplicación en Azure: <a 
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Para <strong>equipos de 3 personas</strong>, se puede probar el sitio demo disponible en <a href="https://opensource-demo.orangehrmlive.com" class="bare">https://opensource-demo.orangehrmlive.com</a>, que es una aplicación web de gestión de recursos humanos. En este caso, se pide crear los tests de Selenium para las funcionalidades de <em>Login</em>, y <em>Change password</em> para el usuario logueado.</p>
+<p>Para <strong>equipos de 3 personas</strong>, como actividad adicional se pide probar el sitio demo disponible en <a href="https://opensource-demo.orangehrmlive.com" class="bare">https://opensource-demo.orangehrmlive.com</a>, que es una aplicación web de gestión de recursos humanos. En este caso, se pide crear los tests de Selenium para las funcionalidades de <em>Login</em>, y <em>Change password</em> para el usuario logueado.</p>
 </div>
 </td>
 </tr>
@@ -644,12 +746,12 @@ consulta la siguiente documentación para desplegar la aplicación en Azure: <a 
 <h2 id="_funciones_avanzadas_de_selenium_ide">4. Funciones avanzadas de Selenium IDE</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Ciertos pasos de algunos casos de prueba no se podrán grabar grabar con Selenium IDE, sino que habrá que modificarlos manualmente. A continuación, se ponen algunos ejemplos.</p>
+<p>Ciertos pasos de algunos casos de prueba no se podrán grabar grabar con Selenium IDE, sino que habrá que modificarlos manualmente. A continuación, se ponen algunos ejemplos, que pueden serte útiles. Dependiendo de tu proyecto necesitarás utilizarlos o no.</p>
 </div>
 <div class="sect2">
 <h3 id="_creación_de_una_tarea_ya_existente_caso_correcto">4.1. Creación de una tarea ya existente (Caso correcto)</h3>
 <div class="paragraph">
-<p>Para que el test de creación de una tarea, si suponemos que el nombre de la tarea es un identificador único, no debería permitir crear una nueva tarea con el nombre de una tarea ya existente. La plantilla que estés usando puede que valide esta restricción o no. Si lo hace, para poder ejecutar este test repetidamente sin que de el error de "tarea ya existe", tenemos que usar un texto aleatorio en cada ejecución del test. Eso se consigue definiendo una variable en Selenium, llamado al comando <code>execute script</code>, escribiendo la función de JavaScript que genere ese valor te texto, por ejemplo un email aleatorio, y guardándolo en una variable que luego usaremos en en paso que escribe el valor en el campo <em>tarea</em> del formulario de creación.</p>
+<p>Para que el test de creación de una tarea, si suponemos que el nombre de la tarea es un <strong>identificador único</strong>, no debería permitir crear una nueva tarea con el nombre de una tarea ya existente. La plantilla que estés usando puede que valide esta restricción o no. Si lo hace, para poder ejecutar este test repetidamente sin que de el error de "tarea ya existe", tenemos que usar un texto aleatorio en cada ejecución del test. Eso se consigue definiendo una variable en Selenium, llamado al comando <code>execute script</code>, escribiendo la función de JavaScript que genere ese valor te texto, por ejemplo un email aleatorio, y guardándolo en una variable que luego usaremos en en paso que escribe el valor en el campo <em>tarea</em> del formulario de creación.</p>
 </div>
 <div class="paragraph">
 <p>El paso sería del test case de Selenium IDE es:</p>
@@ -671,7 +773,7 @@ consulta la siguiente documentación para desplegar la aplicación en Azure: <a 
 <div class="content">
 <img src="../images/register-email-ramdon.png" alt="register email ramdon">
 </div>
-<div class="title">Figura 1. Generación de un email aleatorio</div>
+<div class="title">Figura 4. Generación de un email aleatorio</div>
 </div>
 </div>
 <div class="sect2">
@@ -683,7 +785,7 @@ consulta la siguiente documentación para desplegar la aplicación en Azure: <a 
 <div class="content">
 <img src="../images/selenium-ide-email-incorrecto.png" alt="selenium ide email incorrecto" width="70%">
 </div>
-<div class="title">Figura 2. Pop-up de validación en HTML5: email incorrecto</div>
+<div class="title">Figura 5. Pop-up de validación en HTML5: email incorrecto</div>
 </div>
 <div class="paragraph">
 <p>Para ello, tras hacer click sobre el botón de <em>enviar</em>, debemos usar el comando <code>execute script</code> de Selenium IDE para que guarde el valor del atributo <code>validationMessage</code> del campo tipo email en una variable, y a continuación comprobamos el valor almacenado en esa variable. El resultado sería tal que así:</p>
@@ -692,7 +794,7 @@ consulta la siguiente documentación para desplegar la aplicación en Azure: <a 
 <div class="content">
 <img src="../images/selenium-ide-email-incorrecto-commands.png" alt="selenium ide email incorrecto commands">
 </div>
-<div class="title">Figura 3. Comandos en Selenium IDE para validar el mensaje de email incorrecto.</div>
+<div class="title">Figura 6. Comandos en Selenium IDE para validar el mensaje de email incorrecto.</div>
 </div>
 <div class="colist arabic">
 <table>
@@ -739,28 +841,28 @@ consulta la siguiente documentación para desplegar la aplicación en Azure: <a 
 <div class="content">
 <img src="../images/selenium-ide-contraseña-requerida.png" alt="selenium ide contraseña requerida" width="60%">
 </div>
-<div class="title">Figura 4. Pop-up de validación en HTML5: contraseña requerida</div>
+<div class="title">Figura 7. Pop-up de validación en HTML5: contraseña requerida</div>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
 <img src="../images/selenium-ide-contraseña-requerida-assert.png" alt="selenium ide contraseña requerida assert" width="90%">
 </div>
-<div class="title">Figura 5. Comandos en Selenium IDE para validar contraseña vacía.</div>
+<div class="title">Figura 8. Comandos en Selenium IDE para validar contraseña vacía.</div>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
 <img src="../images/selenium-ide-contraseña-incorrecta.png" alt="selenium ide contraseña incorrecta" width="60%">
 </div>
-<div class="title">Figura 6. Pop-up de validación en HTML5: contraseña demasiado corta</div>
+<div class="title">Figura 9. Pop-up de validación en HTML5: contraseña demasiado corta</div>
 </div>
 <div class="paragraph">
 <p>Otro ejemplo son los campos de fecha definidos como <code>&lt;input type="date" &#8230;&#8203;&gt;</code></p>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
-<img src="https://mdn.mozillademos.org/files/14913/date-picker-chrome-error-message.png" alt="date picker chrome error message">
+<img src="../images/date-picker-chrome-error-message.png" alt="date picker chrome error message" width="80%">
 </div>
-<div class="title">Figura 7. Pop-up de validación en HTML5: fecha incorrecta</div>
+<div class="title">Figura 10. Pop-up de validación en HTML5: fecha incorrecta</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -820,7 +922,7 @@ end            |</code></pre>
 <div class="content">
 <img src="../images/selenium-ide-conditional-navigators.png" alt="selenium ide conditional navigators" width="100%">
 </div>
-<div class="title">Figura 8. Uso de condicional para distinguir entre navegadores</div>
+<div class="title">Figura 11. Uso de condicional para distinguir entre navegadores</div>
 </div>
 <div class="paragraph">
 <p>De igual forma, la propiedad <code>navigator.language</code> puede ayudarnos a identificar el idioma del navegador: <code>es_ES</code> para español, <code>en_GB</code> para inglés.</p>
@@ -845,7 +947,7 @@ end            |</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-14 11:07:39 +0200
+Last updated 2024-05-15 14:23:54 +0200
 </div>
 </div>
 </body>

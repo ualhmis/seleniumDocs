@@ -36,6 +36,7 @@ Ejercicios de tests de aceptación con Selenium.
 COLOCA A CONTINUACIÓN LOS OBJETIVOS
 ////
 .Objetivos
+* Desplegar una plantilla de proyecto web con base de datos en Azure.
 * Comenzar a crear tests de aceptación de aplicaciones web con Selenium IDE.
 
 .Realización y entrega
@@ -45,7 +46,6 @@ La realización de estas actividades se realizará *en equipo*. La entrega será
 
 // Entrar en modo numerado de apartados
 :numbered:
-
 
 
 // == Ejercicios Parte 1: Selenium IDE
@@ -64,23 +64,67 @@ Desde ahora hasta el final de la asignatura vamos a iniciar un proyecto de equip
 
 === Elige una plantilla 
 
-*Vaadin*: 
+El objetivo de esta práctica es diseñar e implementar pruebas de aceptación con Selenium IDE para una aplicación web que sea funcional y que implemente, al menos, las siguientes funcionalidades:
+
 - Registro de usuarios
 - Login de usuarios
-- CRUD
+- CRUD (Create, Read, Update, Delete) sobre una entidad (por ejemplo, tareas, usuarios, eventos, etc).
 
-Azure deploy
-consulta la siguiente documentación para desplegar la aplicación en Azure: https://vaadin.com/docs/latest/production/cloud-providers/azure 
+Para ello, puedes elegir una (o varias) plantilla(s) de proyecto que ya implemente(n) estas funcionalidades. Es indiferente en que lenguaje esté implementada. Lo que sí es importante es que, además de ejecutar la aplicación web en tu entorno de desarrollo local, también debes desplegar la aplicación en Azure. Por tanto, sea cual sea la plantilla que elijas, asegúrate de que podrás desplegarla en Azure.
+
+=== Plantillas Vaadin 
+
+Como propuesta, os dejo algunos ejemplos en *Vaadin*, que es un framework que conocéis de la asignatura MDS2. Además, estas plantillas usan una base de datos H2 en memoria, lo que facilita el despliegue y reduce los gastos de Azure.
+
+- *Vaadin* Registro de usuarios: https://github.com/vaadin/vaadin-form-example[Project example for creating a signup form with Vaadin Flow]
+- *Vaadin* Login de usuarios y CRUD: 
+
+
+. Inicia https://start.vaadin.com/. Sobre un proyecto en blanco añade una vista de tipo Java / _Master-Detail_. 
+
+. En las propiedades, elige tu entidad favorita entre las 3 disponibles. 
+
+.Nueva vista _Master-detail_
+image::vaadin-starter-app-master-detail-entity.png[role="thumb", align="center", width=40%]
+
+[start=3]
+. En la propiedad _View access_ elige _Users who have logged in_. Esto te añadirá una página de Login.
+
+.Añadir Login
+image::vaadin-starter-app-login.png[role="thumb", align="center", width=40%]
+
+[start=4]
+. Guarda el proyecto y descárgalo. Elije *Java 17*.
+
+.Guardar proyecto
+image::vaadin-starter-app-downloadProject.png[role="thumb", align="center", width=40%]
+
+
+NOTE: Esta plantilla no implementa la eliminación. Puedes usarla en cualquier caso.
+
+
+*Despliegue en Azure*
+
+Si has elegido una plantilla de Vaadin, puedes seguir la siguiente documentación: https://vaadin.com/docs/latest/production/cloud-providers/azure[Azure deploy]. Durante la ejecución del asistente, elije *Java 17*. Asegúrate que usa la capa *F1* (gratis).
 
 
 === Usa tu propio proyecto
-Como alternativa, si ya has desarrollado o estás desarrollando un proyecto similar en alguna tecnología que conozcas, y que implemente: 
-
-- Debe incluir la funcionalidad de registro y login de usuarios.
-- La funcionalidad de listado, creación, modificación y eliminación (CRUD) sobre al menos una determinada entidad (por ejemplo: tareas, usuarios, eventos, etc.)
+Como alternativa, si ya has desarrollado o estás desarrollando un proyecto similar en alguna tecnología que conozcas, y que implemente las funcionalidades indicadas, puedes usar tu propio proyecto.
 
 
-Pero asegúrate de que tu proyecto es *funcional*, es decir, implementa las características indicadas y estas funcionan, ya que el objetivo es probarlas con Selenium. Y además tu proyecto debe implementar los casos de error mediante los mensajes de validación oportunos. Si tu proyecto no es funcional, o no implementa esas características o los casos de error, entonces mejor usa una plantilla de las propuestas. 
+[IMPORTANT]
+====
+Asegúrate de que tu proyecto es *funcional*, es decir, implementa las características indicadas y estas funcionan, ya que el objetivo es probarlas con Selenium. Y además tu proyecto debe implementar los casos de error mediante los mensajes de validación oportunos. Si tu proyecto no es funcional, o no implementa esas características o los casos de error, entonces mejor usa alguna de las plantillas propuestas. 
+====
+
+*Despliegue en Azure*
+
+En la documentación de Azure existen diversos https://learn.microsoft.com/es-es/azure/app-service/tutorial-dotnetcore-sqldb-app[tutoriales] que describen como desplegar en Azure aplicaciones web con base de datos implementadas en distintas tecnologías. Estos tutoriales pueden servir de orientación para el despliegue de tu propio proyecto, aunque hay que tener cuidado al seguirlos paso a paso porque las instrucciones crean recursos relacionados con las bases de datos *de elevado coste*. 
+
+Por ello se recomienda que, si decides usar tu proyecto personal, configures una base de datos en memoria como H2 o SQLite. 
+
+En caso de duda consulta al profesor.
+
 
 == Creación de los tests Selenium
 
@@ -104,8 +148,9 @@ CRUD sobre una entidad (por ejemplo, tareas, usuarios, eventos, etc.):
 ****
 [NOTE]
 ====
-En función de la tecnología que hayas elegido, tu plantilla de aplicación web tendrá todas estas funcionalidades, alguna de las indicadas anteriormente no estará implementada, o bien incorporará alguna funcionalidad adicional. En caso de que falte alguna, no te preocupes, crea los tests de las funcionalidades que estén incorporadas. Y si por el contrario la plantilla ofrece alguna funcionalidad adicional, puedes crear los tests de esa funcionalidad adicional de forma _optativa_.
+En función de la tecnología que hayas elegido, tu plantilla de aplicación web tendrá todas estas funcionalidades, alguna de las indicadas anteriormente *no estará implementada*, o bien incorporará alguna funcionalidad adicional. En caso de que falte alguna, *no te preocupes*, crea los tests de las funcionalidades que estén incorporadas. Y si por el contrario la plantilla ofrece alguna funcionalidad adicional, puedes crear los tests de esa funcionalidad adicional de forma _optativa_.
 ====
+
 Guardar los test cases en una test suite (formato `.side`).
 
 Puesto que para realizar una prueba exhaustiva, cubriendo todos los posibles escenarios, el número de casos de prueba es elevado, la forma de trabajar es dividir las funcionalidades entre los miembros del equipo y así repartir el trabajo: Una persona que haga los tests de las dos primeras funcionalidades, y otra el resto. 
@@ -113,16 +158,16 @@ Puesto que para realizar una prueba exhaustiva, cubriendo todos los posibles esc
 
 [WARNING]
 ====
-Para *equipos de 3 personas*, se puede probar el sitio demo disponible en https://opensource-demo.orangehrmlive.com, que es una aplicación web de gestión de recursos humanos. En este caso, se pide crear los tests de Selenium para las funcionalidades de _Login_, y _Change password_ para el usuario logueado.
+Para *equipos de 3 personas*, como actividad adicional se pide probar el sitio demo disponible en https://opensource-demo.orangehrmlive.com, que es una aplicación web de gestión de recursos humanos. En este caso, se pide crear los tests de Selenium para las funcionalidades de _Login_, y _Change password_ para el usuario logueado.
 ====
 
 == Funciones avanzadas de Selenium IDE
 
-Ciertos pasos de algunos casos de prueba no se podrán grabar grabar con Selenium IDE, sino que habrá que modificarlos manualmente. A continuación, se ponen algunos ejemplos.
+Ciertos pasos de algunos casos de prueba no se podrán grabar grabar con Selenium IDE, sino que habrá que modificarlos manualmente. A continuación, se ponen algunos ejemplos, que pueden serte útiles. Dependiendo de tu proyecto necesitarás utilizarlos o no. 
 
 === Creación de una tarea ya existente (Caso correcto)
 
-Para que el test de creación de una tarea, si suponemos que el nombre de la tarea es un identificador único, no debería permitir crear una nueva tarea con el nombre de una tarea ya existente. La plantilla que estés usando puede que valide esta restricción o no. Si lo hace, para poder ejecutar este test repetidamente sin que de el error de "tarea ya existe", tenemos que usar un texto aleatorio en cada ejecución del test. Eso se consigue definiendo una variable en Selenium, llamado al comando `execute script`, escribiendo la función de JavaScript que genere ese valor te texto, por ejemplo un email aleatorio, y guardándolo en una variable que luego usaremos en en paso que escribe el valor en el campo _tarea_ del formulario de creación. 
+Para que el test de creación de una tarea, si suponemos que el nombre de la tarea es un *identificador único*, no debería permitir crear una nueva tarea con el nombre de una tarea ya existente. La plantilla que estés usando puede que valide esta restricción o no. Si lo hace, para poder ejecutar este test repetidamente sin que de el error de "tarea ya existe", tenemos que usar un texto aleatorio en cada ejecución del test. Eso se consigue definiendo una variable en Selenium, llamado al comando `execute script`, escribiendo la función de JavaScript que genere ese valor te texto, por ejemplo un email aleatorio, y guardándolo en una variable que luego usaremos en en paso que escribe el valor en el campo _tarea_ del formulario de creación. 
 
 
 El paso sería del test case de Selenium IDE es: 
@@ -173,7 +218,7 @@ image::selenium-ide-contraseña-incorrecta.png[role="thumb", align="center", wid
 Otro ejemplo son los campos de fecha definidos como `<input type="date" ...>`
 
 .Pop-up de validación en HTML5: fecha incorrecta
-image::https://mdn.mozillademos.org/files/14913/date-picker-chrome-error-message.png[role="thumb", align="center"]
+image::date-picker-chrome-error-message.png[role="thumb", align="center", width=80%]
 
 [NOTE]
 ====
