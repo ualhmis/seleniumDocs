@@ -614,6 +614,62 @@ Esta plantilla no implementa la eliminación. Puedes usarla en cualquier caso.
 <div class="paragraph">
 <p>Si has elegido una plantilla de Vaadin, puedes seguir la siguiente documentación: <a href="https://vaadin.com/docs/latest/production/cloud-providers/azure">Azure deploy</a>. Durante la ejecución del asistente, elije <strong>Java 17</strong>. Asegúrate que usa la capa <strong>F1</strong> (gratis).</p>
 </div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/azure-webapp-config.png" alt="azure webapp config" width="60%">
+</div>
+<div class="title">Figura 4. Asistente para despliegue en Azure</div>
+</div>
+<div class="paragraph">
+<p>La ejecución del asistente modifica automáticamente el archivo <code>pom.xml</code> para añadir la configuración necesaria para desplegar en Azure.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">            &lt;plugin&gt;
+                &lt;groupId&gt;com.microsoft.azure&lt;/groupId&gt;
+                &lt;artifactId&gt;azure-webapp-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.13.0&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;schemaVersion&gt;v2&lt;/schemaVersion&gt;
+                    &lt;resourceGroup&gt;my-app-1715855750474-rg&lt;/resourceGroup&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+                    &lt;appName&gt;my-app-1715855750474&lt;/appName&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+                    &lt;pricingTier&gt;F1&lt;/pricingTier&gt;
+                    &lt;region&gt;centralus&lt;/region&gt; <i class="conum" data-value="3"></i><b>(3)</b>
+                    &lt;runtime&gt;
+                        &lt;os&gt;Linux&lt;/os&gt;
+                        &lt;javaVersion&gt;Java 17&lt;/javaVersion&gt;
+                        &lt;webContainer&gt;Java SE&lt;/webContainer&gt;
+                    &lt;/runtime&gt;
+                    &lt;deployment&gt;
+                        &lt;resources&gt;
+                            &lt;resource&gt;
+                                &lt;directory&gt;${project.basedir}/target&lt;/directory&gt;
+                                &lt;includes&gt;
+                                    &lt;include&gt;*.jar&lt;/include&gt;
+                                &lt;/includes&gt;
+                            &lt;/resource&gt;
+                        &lt;/resources&gt;
+                    &lt;/deployment&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Puedes editar el nombre del grupo de recursos si lo deseas.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Puedes editar el nombre de la aplicación si lo deseas.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Puedes editar la región si lo deseas.</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_usa_tu_propio_proyecto">2.3. Usa tu propio proyecto</h3>
@@ -638,7 +694,7 @@ Esta plantilla no implementa la eliminación. Puedes usarla en cualquier caso.
 <p><strong>Despliegue en Azure</strong></p>
 </div>
 <div class="paragraph">
-<p>En la documentación de Azure existen diversos <a href="https://learn.microsoft.com/es-es/azure/app-service/tutorial-dotnetcore-sqldb-app">tutoriales</a> que describen como desplegar en Azure aplicaciones web con base de datos implementadas en distintas tecnologías. Estos tutoriales pueden servir de orientación para el despliegue de tu propio proyecto, aunque hay que tener cuidado al seguirlos paso a paso porque las instrucciones crean recursos relacionados con las bases de datos <strong>de elevado coste</strong>.</p>
+<p>En la documentación de Azure existen diversos <a href="https://learn.microsoft.com/es-es/azure/app-service/tutorial-dotnetcore-sqldb-app">tutoriales</a> que describen como desplegar en Azure aplicaciones web con base de datos implementadas en distintas tecnologías. También dispones de ejemplos de <a href="https://learn.microsoft.com/en-us/azure/app-service/quickstart-java?tabs=springboot&amp;pivots=java-maven-javase">despliegue en webapps</a>. Estos tutoriales pueden servir de orientación para el despliegue de tu propio proyecto, aunque hay que tener cuidado al seguirlos paso a paso porque las instrucciones crean recursos relacionados con las bases de datos <strong>de elevado coste</strong>.</p>
 </div>
 <div class="paragraph">
 <p>Por ello se recomienda que, si decides usar tu proyecto personal, configures una base de datos en memoria como H2 o SQLite.</p>
@@ -773,7 +829,7 @@ Esta plantilla no implementa la eliminación. Puedes usarla en cualquier caso.
 <div class="content">
 <img src="../images/register-email-ramdon.png" alt="register email ramdon">
 </div>
-<div class="title">Figura 4. Generación de un email aleatorio</div>
+<div class="title">Figura 5. Generación de un email aleatorio</div>
 </div>
 </div>
 <div class="sect2">
@@ -785,7 +841,7 @@ Esta plantilla no implementa la eliminación. Puedes usarla en cualquier caso.
 <div class="content">
 <img src="../images/selenium-ide-email-incorrecto.png" alt="selenium ide email incorrecto" width="70%">
 </div>
-<div class="title">Figura 5. Pop-up de validación en HTML5: email incorrecto</div>
+<div class="title">Figura 6. Pop-up de validación en HTML5: email incorrecto</div>
 </div>
 <div class="paragraph">
 <p>Para ello, tras hacer click sobre el botón de <em>enviar</em>, debemos usar el comando <code>execute script</code> de Selenium IDE para que guarde el valor del atributo <code>validationMessage</code> del campo tipo email en una variable, y a continuación comprobamos el valor almacenado en esa variable. El resultado sería tal que así:</p>
@@ -794,7 +850,7 @@ Esta plantilla no implementa la eliminación. Puedes usarla en cualquier caso.
 <div class="content">
 <img src="../images/selenium-ide-email-incorrecto-commands.png" alt="selenium ide email incorrecto commands">
 </div>
-<div class="title">Figura 6. Comandos en Selenium IDE para validar el mensaje de email incorrecto.</div>
+<div class="title">Figura 7. Comandos en Selenium IDE para validar el mensaje de email incorrecto.</div>
 </div>
 <div class="colist arabic">
 <table>
@@ -841,19 +897,19 @@ Esta plantilla no implementa la eliminación. Puedes usarla en cualquier caso.
 <div class="content">
 <img src="../images/selenium-ide-contraseña-requerida.png" alt="selenium ide contraseña requerida" width="60%">
 </div>
-<div class="title">Figura 7. Pop-up de validación en HTML5: contraseña requerida</div>
+<div class="title">Figura 8. Pop-up de validación en HTML5: contraseña requerida</div>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
 <img src="../images/selenium-ide-contraseña-requerida-assert.png" alt="selenium ide contraseña requerida assert" width="90%">
 </div>
-<div class="title">Figura 8. Comandos en Selenium IDE para validar contraseña vacía.</div>
+<div class="title">Figura 9. Comandos en Selenium IDE para validar contraseña vacía.</div>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
 <img src="../images/selenium-ide-contraseña-incorrecta.png" alt="selenium ide contraseña incorrecta" width="60%">
 </div>
-<div class="title">Figura 9. Pop-up de validación en HTML5: contraseña demasiado corta</div>
+<div class="title">Figura 10. Pop-up de validación en HTML5: contraseña demasiado corta</div>
 </div>
 <div class="paragraph">
 <p>Otro ejemplo son los campos de fecha definidos como <code>&lt;input type="date" &#8230;&#8203;&gt;</code></p>
@@ -862,7 +918,7 @@ Esta plantilla no implementa la eliminación. Puedes usarla en cualquier caso.
 <div class="content">
 <img src="../images/date-picker-chrome-error-message.png" alt="date picker chrome error message" width="80%">
 </div>
-<div class="title">Figura 10. Pop-up de validación en HTML5: fecha incorrecta</div>
+<div class="title">Figura 11. Pop-up de validación en HTML5: fecha incorrecta</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -922,7 +978,7 @@ end            |</code></pre>
 <div class="content">
 <img src="../images/selenium-ide-conditional-navigators.png" alt="selenium ide conditional navigators" width="100%">
 </div>
-<div class="title">Figura 11. Uso de condicional para distinguir entre navegadores</div>
+<div class="title">Figura 12. Uso de condicional para distinguir entre navegadores</div>
 </div>
 <div class="paragraph">
 <p>De igual forma, la propiedad <code>navigator.language</code> puede ayudarnos a identificar el idioma del navegador: <code>es_ES</code> para español, <code>en_GB</code> para inglés.</p>
@@ -947,7 +1003,7 @@ end            |</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-15 14:23:54 +0200
+Last updated 2024-05-16 12:44:34 +0200
 </div>
 </div>
 </body>

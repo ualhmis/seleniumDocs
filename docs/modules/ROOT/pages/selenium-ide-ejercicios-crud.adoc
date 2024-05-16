@@ -107,6 +107,44 @@ NOTE: Esta plantilla no implementa la eliminación. Puedes usarla en cualquier c
 
 Si has elegido una plantilla de Vaadin, puedes seguir la siguiente documentación: https://vaadin.com/docs/latest/production/cloud-providers/azure[Azure deploy]. Durante la ejecución del asistente, elije *Java 17*. Asegúrate que usa la capa *F1* (gratis).
 
+.Asistente para despliegue en Azure
+image::azure-webapp-config.png[role="thumb", align="center", width=60%]
+
+La ejecución del asistente modifica automáticamente el archivo `pom.xml` para añadir la configuración necesaria para desplegar en Azure.
+
+[source,xml]
+----
+            <plugin>
+                <groupId>com.microsoft.azure</groupId>
+                <artifactId>azure-webapp-maven-plugin</artifactId>
+                <version>2.13.0</version>
+                <configuration>
+                    <schemaVersion>v2</schemaVersion>
+                    <resourceGroup>my-app-1715855750474-rg</resourceGroup> <1>
+                    <appName>my-app-1715855750474</appName> <2>
+                    <pricingTier>F1</pricingTier>
+                    <region>centralus</region> <3>
+                    <runtime>
+                        <os>Linux</os>
+                        <javaVersion>Java 17</javaVersion>
+                        <webContainer>Java SE</webContainer>
+                    </runtime>
+                    <deployment>
+                        <resources>
+                            <resource>
+                                <directory>${project.basedir}/target</directory>
+                                <includes>
+                                    <include>*.jar</include>
+                                </includes>
+                            </resource>
+                        </resources>
+                    </deployment>
+                </configuration>
+            </plugin>
+----
+<1> Puedes editar el nombre del grupo de recursos si lo deseas.
+<2> Puedes editar el nombre de la aplicación si lo deseas.
+<3> Puedes editar la región si lo deseas.
 
 === Usa tu propio proyecto
 Como alternativa, si ya has desarrollado o estás desarrollando un proyecto similar en alguna tecnología que conozcas, y que implemente las funcionalidades indicadas, puedes usar tu propio proyecto.
@@ -119,7 +157,7 @@ Asegúrate de que tu proyecto es *funcional*, es decir, implementa las caracter�
 
 *Despliegue en Azure*
 
-En la documentación de Azure existen diversos https://learn.microsoft.com/es-es/azure/app-service/tutorial-dotnetcore-sqldb-app[tutoriales] que describen como desplegar en Azure aplicaciones web con base de datos implementadas en distintas tecnologías. Estos tutoriales pueden servir de orientación para el despliegue de tu propio proyecto, aunque hay que tener cuidado al seguirlos paso a paso porque las instrucciones crean recursos relacionados con las bases de datos *de elevado coste*. 
+En la documentación de Azure existen diversos https://learn.microsoft.com/es-es/azure/app-service/tutorial-dotnetcore-sqldb-app[tutoriales] que describen como desplegar en Azure aplicaciones web con base de datos implementadas en distintas tecnologías. También dispones de ejemplos de https://learn.microsoft.com/en-us/azure/app-service/quickstart-java?tabs=springboot&pivots=java-maven-javase[despliegue en webapps]. Estos tutoriales pueden servir de orientación para el despliegue de tu propio proyecto, aunque hay que tener cuidado al seguirlos paso a paso porque las instrucciones crean recursos relacionados con las bases de datos *de elevado coste*. 
 
 Por ello se recomienda que, si decides usar tu proyecto personal, configures una base de datos en memoria como H2 o SQLite. 
 
@@ -143,8 +181,8 @@ CRUD sobre una entidad (por ejemplo, tareas, usuarios, eventos, etc.):
     - Creación  (Casos incorrectos)
     - Modificación  (caso correcto)
     - Modificación  (casos incorrectos)
-    - Eliminación  (caso correcto)
-    - Eliminación  (casos incorrectos)
+    - Eliminación  (caso correcto)  (_en caso de que la plantilla lo permita_)
+    - Eliminación  (casos incorrectos)  (_en caso de que la plantilla lo permita_)
 ****
 [NOTE]
 ====
