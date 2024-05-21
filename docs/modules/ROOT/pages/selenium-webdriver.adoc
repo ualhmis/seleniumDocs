@@ -27,7 +27,7 @@ Nombre y título del trabajo
 ////
 = Pruebas de aceptación con Selenium WebDriver
 
-Version curso.2022, Mayo-2022.
+Version curso.2024.
 Joaquín Cañadas <jjcanada@ual.es>
 
 // Entrar en modo no numerado de apartados
@@ -83,7 +83,7 @@ Verás que aparecen muchos errores de compilación porque aun no hemos añadido 
 .Convertir proyecto a Maven
 image::eclipse-convert-to-maven-project.png[role="thumb", align="center"]
 
-Deja las opciones predeterminadas. Al mavenizar el proyecto se crea el archivo `pom.xml` que va a contener toda la configuración necesaria para la construcción automatizada del proyecto, así como las dependencias (librarías) necesarias. Para añadir las dependencias a JUnit 4 y a Selenium Webdriver, edita el archivo `pom.xml` seleccionando la pestaña para ver el código fuente xml.
+Deja las opciones predeterminadas. Al mavenizar el proyecto se crea el archivo `pom.xml` que va a contener toda la configuración necesaria para la construcción automatizada del proyecto, así como las dependencias (librerías) necesarias. Para añadir las dependencias a JUnit 4 y a Selenium Webdriver, edita el archivo `pom.xml` seleccionando la pestaña para ver el código fuente xml.
 
 .Editar el `pom.xml`
 image::eclipse-edit-pom.png[role="thumb", align="center"]
@@ -103,25 +103,25 @@ A continuación, añade las siguientes 4 dependencias en un nuevo bloque con la 
   	<dependency> <2>
   		<groupId>org.seleniumhq.selenium</groupId>
   		<artifactId>selenium-java</artifactId>
-  		<version>4.1.4</version>
+  		<version>4.21.0</version>
   	</dependency>
   	<dependency> <3>
   		<groupId>org.seleniumhq.selenium</groupId>
   		<artifactId>selenium-firefox-driver</artifactId>
-  		<version>4.1.4</version>
+  		<version>4.21.0</version>
   	</dependency>
   	<dependency> <4>
   		<groupId>org.seleniumhq.selenium</groupId>
   		<artifactId>selenium-chrome-driver</artifactId>
-  		<version>4.1.4</version>
+  		<version>4.21.0</version>
   	</dependency>
   </dependencies>
 </project>
 ----
 <1> JUnit 4. 
-<2> Selenium-Java, librería básica de Selenium Webdriver. You can see all available versions on https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java[Selenium Java on Maven Repository,window=_blank]
-<3> Selenium Firefox Driver, librería con el driver de Firefox para poder ejecutar los tests en este navegador. You can see all available versions on https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-firefox-driver[Selenium Firefox Driver on Maven Repository,window=_blank]
-<4> Selenium Chrome Driver, librería con el driver de Chrome para poder ejecutar los tests en este navegador. You can see all available versions on https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver[Selenium Chrome Driver on Maven Repository,window=_blank]
+<2> Selenium-Java, librería básica de Selenium Webdriver. Puedes ver la última versión disponible aquí: https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java[Selenium Java on Maven Repository,window=_blank]
+<3> Selenium Firefox Driver, librería con el driver de Firefox para poder ejecutar los tests en este navegador. Puedes ver la última versión disponible aquí: https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-firefox-driver[Selenium Firefox Driver on Maven Repository,window=_blank]
+<4> Selenium Chrome Driver, librería con el driver de Chrome para poder ejecutar los tests en este navegador. Puedes ver la última versión disponible aquí: https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver[Selenium Chrome Driver on Maven Repository,window=_blank]
 
 Una vez guardados los cambios, los errores de compilación en tu clase `.java` con los test exportados de Selenium deberían desaparecer.
 
