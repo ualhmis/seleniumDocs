@@ -158,7 +158,7 @@ Es importante que los drivers específicos de los navegadores no se guarden en e
 . En esa carpeta descarga los drivers de los navegadores Firefox y Chrome. Para ello: 
 .. Descarga y descomprime Firefox driver (Gecko Driver) de https://github.com/mozilla/geckodriver/releases eligiendo la versión adecuada para tu sistema.
 .. Descarga y descomprime Chrome driver de https://sites.google.com/chromium.org/driver/downloads eligiendo la versión adecuada para tu sistema y la versión de Chrome que tengas instalado.
-.. Con estos dos drivers es suficiente como prueba de concepto, pero puedes ver como descargar los drivers de otros navegadores aquí: https://www.selenium.dev/documentation/en/webdriver/driver_requirements/#quick-reference[Driver requirements].
+.. Con estos dos drivers es suficiente como prueba de concepto, pero puedes ver como descargar los drivers de otros navegadores aquí: https://www.selenium.dev/documentation/en/webdriver/driver_requirements/#quick-reference[Driver requirements], y aquí https://www.selenium.dev/ecosystem/[Selenium Webdriver Ecosystem].
 
 [start=3]
 . De la sección anterior, deberás tener el un paquete en la carpeta test de nombre `org.ual.hmis.nombreEquipo` (sustituyendo `nombreEquipo` por el nombre de tu equipo), y ahí estarán  archivos `.java` exportados de Selenium IDE. Si has forkeado el proyecto de referencia, elimina los paquetes que contienen tests de ejemplo.
