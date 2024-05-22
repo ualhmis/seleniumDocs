@@ -251,7 +251,7 @@ image::chrome-driver-125.png[role="thumb", align="center"]
 
     	System.setProperty("webdriver.gecko.driver",  "drivers/geckodriver.exe");
     	FirefoxOptions firefoxOptions = new FirefoxOptions();
-    	if (headless) firefoxOptions.setHeadless(headless);
+    	if (headless) firefoxOptions.addArguments("--headless"); // .setHeadless(headless);
     	driver = new FirefoxDriver(firefoxOptions);
 
     	break;
@@ -262,7 +262,7 @@ image::chrome-driver-125.png[role="thumb", align="center"]
 
     	System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
     	ChromeOptions chromeOptions = new ChromeOptions();
-    	if (headless) chromeOptions.setHeadless(headless);
+    	if (headless) chromeOptionschromeOptions.addArguments("--headless=new"); // .setHeadless(headless);
     	chromeOptions.addArguments("window-size=1920,1080");
     	driver = new ChromeDriver(chromeOptions);
 

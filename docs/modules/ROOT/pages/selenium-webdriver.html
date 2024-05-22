@@ -843,7 +843,7 @@ Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</
 
     	System.setProperty("webdriver.gecko.driver",  "drivers/geckodriver.exe");
     	FirefoxOptions firefoxOptions = new FirefoxOptions();
-    	if (headless) firefoxOptions.setHeadless(headless);
+    	if (headless) firefoxOptions.addArguments("--headless"); // .setHeadless(headless);
     	driver = new FirefoxDriver(firefoxOptions);
 
     	break;
@@ -854,7 +854,7 @@ Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</
 
     	System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
     	ChromeOptions chromeOptions = new ChromeOptions();
-    	if (headless) chromeOptions.setHeadless(headless);
+    	if (headless) chromeOptionschromeOptions.addArguments("--headless=new"); // .setHeadless(headless);
     	chromeOptions.addArguments("window-size=1920,1080");
     	driver = new ChromeDriver(chromeOptions);
 
@@ -1285,7 +1285,7 @@ Cuando falla la ejecución de un test de Selenium WebDriver en modo headless, el
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-22 14:27:55 +0200
+Last updated 2024-05-22 14:35:04 +0200
 </div>
 </div>
 <style>
