@@ -438,7 +438,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="book toc2 toc-right">
+<body class="book toc2 toc-right doc">
 <div id="header">
 <h1>Pruebas de aceptación con Selenium WebDriver</h1>
 <div id="toc" class="toc2">
@@ -522,7 +522,7 @@ Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</
 <div class="title">Figura 2. Exportar formato JUnit</div>
 </div>
 <div class="paragraph">
-<p>Al exportar, marca las dos opciones que permiten que se guarde como comentarios el comando de Selenium IDE que da origen a cada instrucción de WebDriver. Guarda los archivos <code>.java</code> en una carpeta. A continuación los importaremos en Eclipse.</p>
+<p>Al exportar, marca las dos opciones que permiten que se guarde como comentarios el comando de Selenium IDE que da origen a cada instrucción de WebDriver. Guarda los archivos <code>.java</code> en una carpeta cualquiera, los necesitarás más adelante. A continuación los importaremos en Eclipse.</p>
 </div>
 </div>
 <div class="sect2">
@@ -530,26 +530,86 @@ Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</
 <div class="paragraph">
 <p>En el momento de escribir este documento, Selenium IDE exporta los tests en formato JUnit 4. Veamos a continuación los pasos necesarios para su ejecución.</p>
 </div>
-<div class="paragraph">
-<p>En Eclipse, crea un nuevo proyecto Java. Crea la carpeta fuente <code>test</code>. Crea un nuevo paquete en la carpeta test de nombre <code>org.ual.hmis.nombreEquipo</code> (sustituyendo <code>nombreEquipo</code> por el nombre de tu equipo). Ahí guarda los archivos <code>.java</code> exportados de Selenium IDE.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>En Eclipse, crea un nuevo proyecto <strong>Maven</strong>. Selecciona la opción <em>Create a simple project (skip archetype selection)</em></p>
+</li>
+</ol>
 </div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/eclipse-new-maven-project.png" alt="eclipse new maven project" width="50%">
+</div>
+<div class="title">Figura 3. Nuevo proyecto Maven</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Introduce los datos para el proyecto Maven:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Group Id: <code>org.ual.hmis</code></p>
+</li>
+<li>
+<p>Artifact Id: <code>nombreEquipo</code> (sustituye <code>nombreEquipo</code> por el nombre de tu equipo)</p>
+</li>
+<li>
+<p>Name: <code>seleniumWebDriver</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/eclipse-new-maven-project-artifactid.png" alt="eclipse new maven project artifactid" width="50%">
+</div>
+<div class="title">Figura 4. Datos del proyecto Maven</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>En la carpeta <code>test</code> crea un nuevo paquete en la carpeta test de nombre <code>org.ual.hmis.nombreEquipo</code> (sustituyendo <code>nombreEquipo</code> por el nombre de tu equipo). Ahí guarda los archivos <code>.java</code> exportados de Selenium IDE.</p>
+</li>
+<li>
+<p>Verás que aparecen muchos errores de compilación porque aun no hemos añadido las librerías necesarias de JUnit 4 y Selenium Webdriver. Para hacerlo, vamos a apoyarnos en Maven.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>Verás que aparecen muchos errores de compilación porque aun no hemos añadido las librerías necesarias de JUnit 4 y Selenium Webdriver. Para hacerlo, vamos a apoyarnos en Maven. A continuación, convierte el proyecto en un proyecto Maven: Sobre el nombre del proyecto, botón derecho, Configure &gt; Convert to Maven project</p>
+<p>Solamente si inicialmente habías creado el proyecto de tipo Java en lugar de Maven, a continuación convierte el proyecto en un proyecto Maven: Sobre el nombre del proyecto, botón derecho, Configure &gt; Convert to Maven project</p>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
 <img src="../images/eclipse-convert-to-maven-project.png" alt="eclipse convert to maven project">
 </div>
-<div class="title">Figura 3. Convertir proyecto a Maven</div>
+<div class="title">Figura 5. Convertir proyecto a Maven</div>
 </div>
 <div class="paragraph">
-<p>Deja las opciones predeterminadas. Al mavenizar el proyecto se crea el archivo <code>pom.xml</code> que va a contener toda la configuración necesaria para la construcción automatizada del proyecto, así como las dependencias (librerías) necesarias. Para añadir las dependencias a JUnit 4 y a Selenium Webdriver, edita el archivo <code>pom.xml</code> seleccionando la pestaña para ver el código fuente xml.</p>
+<p>Deja las opciones predeterminadas. Al mavenizar el proyecto, se crea el archivo <code>pom.xml</code> que va a contener toda la configuración necesaria para la construcción automatizada del proyecto, así como las dependencias (librerías) necesarias.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Para añadir las dependencias a JUnit 4 y a Selenium Webdriver, edita el archivo <code>pom.xml</code> seleccionando la pestaña para ver el código fuente xml.</p>
 </div>
 <div class="imageblock text-center thumb">
 <div class="content">
-<img src="../images/eclipse-edit-pom.png" alt="eclipse edit pom">
+<img src="../images/eclipse-edit-pom.png" alt="eclipse edit pom" width="50%">
 </div>
-<div class="title">Figura 4. Editar el <code>pom.xml</code></div>
+<div class="title">Figura 6. Editar el <code>pom.xml</code></div>
 </div>
 <div class="paragraph">
 <p>A continuación, añade las siguientes 4 dependencias en un nuevo bloque con la etiqueta <code>&lt;dependencies&gt;</code>, tras el bloque <code>&lt;build&gt;&#8230;&#8203;&lt;/build&gt;</code>:</p>
@@ -658,7 +718,7 @@ Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Es importante que los drivers específicos de los navegadores no se guarden en el repositorio, ya que son archivos ejecutables (dependencias) específicos de la plataforma, que no deben versionarse. Cuando los necesites, tendrás que descargarlos.</p>
+<p>Es importante que los drivers específicos de los navegadores <strong>no se guarden</strong> en el repositorio, ya que son archivos ejecutables (dependencias) específicos de la plataforma, que no deben versionarse. Cuando los necesites, tendrás que descargarlos de la fuente adecuada.</p>
 </div>
 </td>
 </tr>
@@ -676,11 +736,21 @@ Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</
 <li>
 <p>Descarga y descomprime Chrome driver de <a href="https://sites.google.com/chromium.org/driver/downloads" class="bare">https://sites.google.com/chromium.org/driver/downloads</a> eligiendo la versión adecuada para tu sistema y la versión de Chrome que tengas instalado.</p>
 </li>
-<li>
-<p>Con estos dos drivers es suficiente como prueba de concepto, pero puedes ver como descargar los drivers de otros navegadores aquí: <a href="https://www.selenium.dev/documentation/en/webdriver/driver_requirements/#quick-reference">Driver requirements</a>, y aquí <a href="https://www.selenium.dev/ecosystem/">Selenium Webdriver Ecosystem</a>.</p>
+</ol>
+</div>
 </li>
 </ol>
 </div>
+<div class="imageblock text-center thumb">
+<div class="content">
+<img src="../images/chrome-driver-125.png" alt="chrome driver 125">
+</div>
+<div class="title">Figura 7. Descarga chrome driver</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Con estos dos drivers es suficiente como prueba de concepto, pero puedes ver como descargar los drivers de otros navegadores aquí: <a href="https://www.selenium.dev/documentation/en/webdriver/driver_requirements/#quick-reference">Driver requirements</a>, y aquí <a href="https://www.selenium.dev/ecosystem/">Selenium Webdriver Ecosystem</a>.</p>
 </li>
 </ol>
 </div>
@@ -816,7 +886,7 @@ Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</
 <div class="content">
 <img src="../images/selenium-ide-change-selector-xpath.png" alt="selenium ide change selector xpath">
 </div>
-<div class="title">Figura 5. Cambiar el selector de un elemento de la página</div>
+<div class="title">Figura 8. Cambiar el selector de un elemento de la página</div>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -874,7 +944,7 @@ En Selenium IDE existe el comando <a href="https://www.selenium.dev/selenium-ide
 <div class="content">
 <img src="../images/selenium-ide-waitForElementVisible.png" alt="selenium ide waitForElementVisible">
 </div>
-<div class="title">Figura 6. Comando <code>waitForElementVisible</code></div>
+<div class="title">Figura 9. Comando <code>waitForElementVisible</code></div>
 </div>
 <div class="paragraph">
 <p>En JUnit se convierte en:</p>
@@ -883,7 +953,7 @@ En Selenium IDE existe el comando <a href="https://www.selenium.dev/selenium-ide
 <div class="content">
 <img src="../images/selenium-webdriver-waitForElementVisible.png" alt="selenium webdriver waitForElementVisible">
 </div>
-<div class="title">Figura 7. Código JUnit para <code>waitForElementVisible</code></div>
+<div class="title">Figura 10. Código JUnit para <code>waitForElementVisible</code></div>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1113,7 +1183,7 @@ Cuando un test de Selenium trata de actualizar el valor de un campo de texto que
 <div class="content">
 <img src="../images/login-app-update-profile-ide-commands.png" alt="login app update profile ide commands">
 </div>
-<div class="title">Figura 8. Comandos Selenium IDE para actualizar el email</div>
+<div class="title">Figura 11. Comandos Selenium IDE para actualizar el email</div>
 </div>
 <div class="colist arabic">
 <table>
@@ -1130,7 +1200,7 @@ Cuando un test de Selenium trata de actualizar el valor de un campo de texto que
 <div class="content">
 <img src="../images/login-app-update-profile.png" alt="login app update profile">
 </div>
-<div class="title">Figura 9. Vista de la app web para actualizar el email (se muestra el valor antiguo)</div>
+<div class="title">Figura 12. Vista de la app web para actualizar el email (se muestra el valor antiguo)</div>
 </div>
 <div class="paragraph">
 <p>El problema se produce al exportar a JUnit el comando <code>type</code>, se traduce en una llamada al método <code>sendkeys("nuevoValor")</code>. Por ejemplo:</p>
@@ -1184,7 +1254,7 @@ Cuando falla la ejecución de un test de Selenium WebDriver en modo headless, el
 <div class="content">
 <img src="../images/google-chrome-procesos-sin-morir.png" alt="google chrome procesos sin morir">
 </div>
-<div class="title">Figura 10. Decenas de procesos sin morir del navegador en modo headless</div>
+<div class="title">Figura 13. Decenas de procesos sin morir del navegador en modo headless</div>
 </div>
 <div class="paragraph">
 <p>Es necesario revisar los procesos tanto en nuestra máquina local como en Jenkins y matarlos para evitar que queden ejecutándose consumiendo recursos.</p>
@@ -1215,8 +1285,102 @@ Cuando falla la ejecución de un test de Selenium WebDriver en modo headless, el
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-21 10:54:01 +0200
+Last updated 2024-05-22 14:27:55 +0200
 </div>
 </div>
+<style>
+    .doc .listingblock > .content {
+      position: relative;
+    }
+
+    .doc .listingblock code[data-lang]::before {
+      content: none;
+    }
+
+    .doc .source-toolbox {
+      display: flex;
+      position: absolute;
+      visibility: hidden;
+      top: 0.25rem;
+      right: 0.5rem;
+      color: #808080;
+      white-space: nowrap;
+      font-size: 0.85em;
+    }
+
+    .doc .listingblock:hover .source-toolbox {
+      visibility: visible;
+    }
+
+    .doc .source-toolbox .source-lang {
+      font-family: "Droid Sans Mono", "DejaVu Sans Mono", monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.075em;
+    }
+
+    .doc .source-toolbox > :not(:last-child)::after {
+      content: "|";
+      letter-spacing: 0;
+      padding: 0 1ch;
+    }
+
+    .doc .source-toolbox .copy-button {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: none;
+      border: none;
+      color: inherit;
+      outline: none;
+      padding: 0;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      width: 1em;
+      height: 1em;
+    }
+
+    .doc .source-toolbox .copy-icon {
+      flex: none;
+      width: inherit;
+      height: inherit;
+      filter: invert(50.2%);
+      margin-top: 0.05em;
+    }
+
+    .doc .source-toolbox .copy-toast {
+      flex: none;
+      position: relative;
+      display: inline-flex;
+      justify-content: center;
+      margin-top: 1em;
+      border-radius: 0.25em;
+      padding: 0.5em;
+      cursor: auto;
+      opacity: 0;
+      transition: opacity 0.5s ease 0.75s;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+    }
+
+    .doc .source-toolbox .copy-toast::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 1em;
+      height: 1em;
+      border: 0.55em solid transparent;
+      border-left-color: rgba(0, 0, 0, 0.8);
+      transform: rotate(-90deg) translateX(50%) translateY(50%);
+      transform-origin: left;
+    }
+
+    .doc .source-toolbox .copy-button.clicked .copy-toast {
+      opacity: 1;
+      transition: none;
+    }
+    </style>
+    <script src="copy-to-clipboard.js"></script>
 </body>
 </html>

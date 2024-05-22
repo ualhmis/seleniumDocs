@@ -10,6 +10,13 @@ Codificación, idioma, tabla de contenidos, tipo de documento
 :icons: font
 
 ////
+///  Copy button on code blocks
+////
+[.doc]
+
+:docinfo: shared-footer
+
+////
 /// activar btn:
 ////
 :experimental:
@@ -70,23 +77,46 @@ image::selenium-ide-export-test.png[role="thumb", align="center"]
 .Exportar formato JUnit
 image::selenium-ide-export-test-junit.png[role="thumb", align="center"]
 
-Al exportar, marca las dos opciones que permiten que se guarde como comentarios el comando de Selenium IDE que da origen a cada instrucción de WebDriver. Guarda los archivos `.java` en una carpeta. A continuación los importaremos en Eclipse.
+Al exportar, marca las dos opciones que permiten que se guarde como comentarios el comando de Selenium IDE que da origen a cada instrucción de WebDriver. Guarda los archivos `.java` en una carpeta cualquiera, los necesitarás más adelante. A continuación los importaremos en Eclipse.
 
 === Creación del proyecto en Eclipse
 
 En el momento de escribir este documento, Selenium IDE exporta los tests en formato JUnit 4. Veamos a continuación los pasos necesarios para su ejecución.
 
-En Eclipse, crea un nuevo proyecto Java. Crea la carpeta fuente `test`. Crea un nuevo paquete en la carpeta test de nombre `org.ual.hmis.nombreEquipo` (sustituyendo `nombreEquipo` por el nombre de tu equipo). Ahí guarda los archivos `.java` exportados de Selenium IDE. 
+. En Eclipse, crea un nuevo proyecto *Maven*. Selecciona la opción _Create a simple project (skip archetype selection)_
 
-Verás que aparecen muchos errores de compilación porque aun no hemos añadido las librerías necesarias de JUnit 4 y Selenium Webdriver. Para hacerlo, vamos a apoyarnos en Maven. A continuación, convierte el proyecto en un proyecto Maven: Sobre el nombre del proyecto, botón derecho, Configure > Convert to Maven project
+.Nuevo proyecto Maven
+image::eclipse-new-maven-project.png[role="thumb", align="center", width="50%"]
+
+[start=2]
+. Introduce los datos para el proyecto Maven: 
+- Group Id: `org.ual.hmis`
+- Artifact Id: `nombreEquipo` (sustituye `nombreEquipo` por el nombre de tu equipo)
+- Name: `seleniumWebDriver`
+
+.Datos del proyecto Maven
+image::eclipse-new-maven-project-artifactid.png[role="thumb", align="center", width="50%"]
+
+[start=3]
+. En la carpeta `test` crea un nuevo paquete en la carpeta test de nombre `org.ual.hmis.nombreEquipo` (sustituyendo `nombreEquipo` por el nombre de tu equipo). Ahí guarda los archivos `.java` exportados de Selenium IDE. 
+
+
+. Verás que aparecen muchos errores de compilación porque aun no hemos añadido las librerías necesarias de JUnit 4 y Selenium Webdriver. Para hacerlo, vamos a apoyarnos en Maven. 
+
+[NOTE]
+====
+Solamente si inicialmente habías creado el proyecto de tipo Java en lugar de Maven, a continuación convierte el proyecto en un proyecto Maven: Sobre el nombre del proyecto, botón derecho, Configure > Convert to Maven project
 
 .Convertir proyecto a Maven
 image::eclipse-convert-to-maven-project.png[role="thumb", align="center"]
 
-Deja las opciones predeterminadas. Al mavenizar el proyecto se crea el archivo `pom.xml` que va a contener toda la configuración necesaria para la construcción automatizada del proyecto, así como las dependencias (librerías) necesarias. Para añadir las dependencias a JUnit 4 y a Selenium Webdriver, edita el archivo `pom.xml` seleccionando la pestaña para ver el código fuente xml.
+Deja las opciones predeterminadas. Al mavenizar el proyecto, se crea el archivo `pom.xml` que va a contener toda la configuración necesaria para la construcción automatizada del proyecto, así como las dependencias (librerías) necesarias.
+====
+
+Para añadir las dependencias a JUnit 4 y a Selenium Webdriver, edita el archivo `pom.xml` seleccionando la pestaña para ver el código fuente xml.
 
 .Editar el `pom.xml`
-image::eclipse-edit-pom.png[role="thumb", align="center"]
+image::eclipse-edit-pom.png[role="thumb", align="center", width="50%"]
 
 A continuación, añade las siguientes 4 dependencias en un nuevo bloque con la etiqueta `<dependencies>`, tras el bloque `<build>...</build>`:
 
@@ -151,14 +181,18 @@ https://developer.mozilla.org/es/docs/Learn/Herramientas_y_pruebas/Cross_browser
 
 [WARNING]
 ====
-Es importante que los drivers específicos de los navegadores no se guarden en el repositorio, ya que son archivos ejecutables (dependencias) específicos de la plataforma, que no deben versionarse. Cuando los necesites, tendrás que descargarlos. 
+Es importante que los drivers específicos de los navegadores *no se guarden* en el repositorio, ya que son archivos ejecutables (dependencias) específicos de la plataforma, que no deben versionarse. Cuando los necesites, tendrás que descargarlos de la fuente adecuada. 
 ====
 
 [start=2]
 . En esa carpeta descarga los drivers de los navegadores Firefox y Chrome. Para ello: 
 .. Descarga y descomprime Firefox driver (Gecko Driver) de https://github.com/mozilla/geckodriver/releases eligiendo la versión adecuada para tu sistema.
 .. Descarga y descomprime Chrome driver de https://sites.google.com/chromium.org/driver/downloads eligiendo la versión adecuada para tu sistema y la versión de Chrome que tengas instalado.
-.. Con estos dos drivers es suficiente como prueba de concepto, pero puedes ver como descargar los drivers de otros navegadores aquí: https://www.selenium.dev/documentation/en/webdriver/driver_requirements/#quick-reference[Driver requirements], y aquí https://www.selenium.dev/ecosystem/[Selenium Webdriver Ecosystem].
+
+.Descarga chrome driver
+image::chrome-driver-125.png[role="thumb", align="center"]
+
+  .. Con estos dos drivers es suficiente como prueba de concepto, pero puedes ver como descargar los drivers de otros navegadores aquí: https://www.selenium.dev/documentation/en/webdriver/driver_requirements/#quick-reference[Driver requirements], y aquí https://www.selenium.dev/ecosystem/[Selenium Webdriver Ecosystem].
 
 [start=3]
 . De la sección anterior, deberás tener el un paquete en la carpeta test de nombre `org.ual.hmis.nombreEquipo` (sustituyendo `nombreEquipo` por el nombre de tu equipo), y ahí estarán  archivos `.java` exportados de Selenium IDE. Si has forkeado el proyecto de referencia, elimina los paquetes que contienen tests de ejemplo.
