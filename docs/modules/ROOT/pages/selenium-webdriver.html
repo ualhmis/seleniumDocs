@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.17">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="keywords" content="Selenium end-to-end testing">
 <title>Pruebas de aceptación con Selenium WebDriver</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -85,10 +85,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -141,7 +141,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -163,6 +163,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -209,13 +210,10 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -331,7 +329,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -394,7 +392,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -437,6 +435,120 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge, pre.rouge .w {
+  color: #24292f;
+  background-color: #f6f8fa;
+}
+pre.rouge .k, pre.rouge .kd, pre.rouge .kn, pre.rouge .kp, pre.rouge .kr, pre.rouge .kt, pre.rouge .kv {
+  color: #cf222e;
+}
+pre.rouge .gr {
+  color: #f6f8fa;
+}
+pre.rouge .gd {
+  color: #82071e;
+  background-color: #ffebe9;
+}
+pre.rouge .nb {
+  color: #953800;
+}
+pre.rouge .nc {
+  color: #953800;
+}
+pre.rouge .no {
+  color: #953800;
+}
+pre.rouge .nn {
+  color: #953800;
+}
+pre.rouge .sr {
+  color: #116329;
+}
+pre.rouge .na {
+  color: #116329;
+}
+pre.rouge .nt {
+  color: #116329;
+}
+pre.rouge .gi {
+  color: #116329;
+  background-color: #dafbe1;
+}
+pre.rouge .kc {
+  color: #0550ae;
+}
+pre.rouge .l, pre.rouge .ld, pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
+  color: #0550ae;
+}
+pre.rouge .sb {
+  color: #0550ae;
+}
+pre.rouge .bp {
+  color: #0550ae;
+}
+pre.rouge .ne {
+  color: #0550ae;
+}
+pre.rouge .nl {
+  color: #0550ae;
+}
+pre.rouge .py {
+  color: #0550ae;
+}
+pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
+  color: #0550ae;
+}
+pre.rouge .o, pre.rouge .ow {
+  color: #0550ae;
+}
+pre.rouge .gh {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .s, pre.rouge .sa, pre.rouge .sc, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .se, pre.rouge .sh, pre.rouge .sx, pre.rouge .s1, pre.rouge .ss {
+  color: #0a3069;
+}
+pre.rouge .nd {
+  color: #8250df;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #8250df;
+}
+pre.rouge .err {
+  color: #f6f8fa;
+  background-color: #82071e;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cp, pre.rouge .cpf, pre.rouge .c1, pre.rouge .cs {
+  color: #6e7781;
+}
+pre.rouge .gl {
+  color: #6e7781;
+}
+pre.rouge .gt {
+  color: #6e7781;
+}
+pre.rouge .ni {
+  color: #24292f;
+}
+pre.rouge .si {
+  color: #24292f;
+}
+pre.rouge .ge {
+  color: #24292f;
+  font-style: italic;
+}
+pre.rouge .gs {
+  color: #24292f;
+  font-weight: bold;
+}
+</style>
 </head>
 <body class="book toc2 toc-right doc">
 <div id="header">
@@ -616,31 +728,31 @@ Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">  ...
-  &lt;/build&gt;
-  &lt;dependencies&gt;
-  	&lt;dependency&gt; <i class="conum" data-value="1"></i><b>(1)</b>
-  		&lt;groupId&gt;junit&lt;/groupId&gt;
-  		&lt;artifactId&gt;junit&lt;/artifactId&gt;
-  		&lt;version&gt;4.13.2&lt;/version&gt;
-  	&lt;/dependency&gt;
-  	&lt;dependency&gt; <i class="conum" data-value="2"></i><b>(2)</b>
-  		&lt;groupId&gt;org.seleniumhq.selenium&lt;/groupId&gt;
-  		&lt;artifactId&gt;selenium-java&lt;/artifactId&gt;
-  		&lt;version&gt;4.21.0&lt;/version&gt;
-  	&lt;/dependency&gt;
-  	&lt;dependency&gt; <i class="conum" data-value="3"></i><b>(3)</b>
-  		&lt;groupId&gt;org.seleniumhq.selenium&lt;/groupId&gt;
-  		&lt;artifactId&gt;selenium-firefox-driver&lt;/artifactId&gt;
-  		&lt;version&gt;4.21.0&lt;/version&gt;
-  	&lt;/dependency&gt;
-  	&lt;dependency&gt; <i class="conum" data-value="4"></i><b>(4)</b>
-  		&lt;groupId&gt;org.seleniumhq.selenium&lt;/groupId&gt;
-  		&lt;artifactId&gt;selenium-chrome-driver&lt;/artifactId&gt;
-  		&lt;version&gt;4.21.0&lt;/version&gt;
-  	&lt;/dependency&gt;
-  &lt;/dependencies&gt;
-&lt;/project&gt;</code></pre>
+<pre class="rouge highlight"><code data-lang="xml">  ...
+  <span class="nt">&lt;/build&gt;</span>
+  <span class="nt">&lt;dependencies&gt;</span>
+  	<span class="nt">&lt;dependency&gt;</span> <i class="conum" data-value="1"></i><b>(1)</b>
+  		<span class="nt">&lt;groupId&gt;</span>junit<span class="nt">&lt;/groupId&gt;</span>
+  		<span class="nt">&lt;artifactId&gt;</span>junit<span class="nt">&lt;/artifactId&gt;</span>
+  		<span class="nt">&lt;version&gt;</span>4.13.2<span class="nt">&lt;/version&gt;</span>
+  	<span class="nt">&lt;/dependency&gt;</span>
+  	<span class="nt">&lt;dependency&gt;</span> <i class="conum" data-value="2"></i><b>(2)</b>
+  		<span class="nt">&lt;groupId&gt;</span>org.seleniumhq.selenium<span class="nt">&lt;/groupId&gt;</span>
+  		<span class="nt">&lt;artifactId&gt;</span>selenium-java<span class="nt">&lt;/artifactId&gt;</span>
+  		<span class="nt">&lt;version&gt;</span>4.21.0<span class="nt">&lt;/version&gt;</span>
+  	<span class="nt">&lt;/dependency&gt;</span>
+  	<span class="nt">&lt;dependency&gt;</span> <i class="conum" data-value="3"></i><b>(3)</b>
+  		<span class="nt">&lt;groupId&gt;</span>org.seleniumhq.selenium<span class="nt">&lt;/groupId&gt;</span>
+  		<span class="nt">&lt;artifactId&gt;</span>selenium-firefox-driver<span class="nt">&lt;/artifactId&gt;</span>
+  		<span class="nt">&lt;version&gt;</span>4.21.0<span class="nt">&lt;/version&gt;</span>
+  	<span class="nt">&lt;/dependency&gt;</span>
+  	<span class="nt">&lt;dependency&gt;</span> <i class="conum" data-value="4"></i><b>(4)</b>
+  		<span class="nt">&lt;groupId&gt;</span>org.seleniumhq.selenium<span class="nt">&lt;/groupId&gt;</span>
+  		<span class="nt">&lt;artifactId&gt;</span>selenium-chrome-driver<span class="nt">&lt;/artifactId&gt;</span>
+  		<span class="nt">&lt;version&gt;</span>4.21.0<span class="nt">&lt;/version&gt;</span>
+  	<span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;/dependencies&gt;</span>
+<span class="nt">&lt;/project&gt;</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -705,7 +817,7 @@ Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</
 <div class="listingblock">
 <div class="title">.gitignore</div>
 <div class="content">
-<pre class="highlight"><code>**/bin
+<pre class="rouge highlight"><code>**/bin
 **/target
 **/drivers</code></pre>
 </div>
@@ -734,7 +846,7 @@ Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</
 <p>Descarga y descomprime Firefox driver (Gecko Driver) de <a href="https://github.com/mozilla/geckodriver/releases" class="bare">https://github.com/mozilla/geckodriver/releases</a> eligiendo la versión adecuada para tu sistema.</p>
 </li>
 <li>
-<p>Descarga y descomprime Chrome driver de <a href="https://sites.google.com/chromium.org/driver/downloads" class="bare">https://sites.google.com/chromium.org/driver/downloads</a> eligiendo la versión adecuada para tu sistema y la versión de Chrome que tengas instalado.</p>
+<p>Descarga y descomprime Chrome driver de <a href="https://googlechromelabs.github.io/chrome-for-testing/" class="bare">https://googlechromelabs.github.io/chrome-for-testing/</a> eligiendo la versión adecuada para tu sistema y la versión de Chrome que tengas instalada. Por ejemplo, para Windows descarga el archivo <code>chromedriver-win64.zip</code> y descomprímelo en la carpeta <code>drivers</code> del proyecto en Eclipse.</p>
 </li>
 </ol>
 </div>
@@ -747,17 +859,13 @@ Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</
 </div>
 <div class="title">Figura 7. Descarga chrome driver</div>
 </div>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Con estos dos drivers es suficiente como prueba de concepto, pero puedes ver como descargar los drivers de otros navegadores aquí: <a href="https://www.selenium.dev/documentation/en/webdriver/driver_requirements/#quick-reference">Driver requirements</a>, y aquí <a href="https://www.selenium.dev/ecosystem/">Selenium Webdriver Ecosystem</a>.</p>
-</li>
-</ol>
+<div class="paragraph">
+<p>Con estos dos drivers es suficiente como prueba de concepto, pero puedes ver como descargar los drivers de otros navegadores aquí: <a href="https://www.selenium.dev/documentation/webdriver/browsers/">Supported Browsers</a>; y aquí <a href="https://www.selenium.dev/ecosystem/">Selenium Webdriver Ecosystem</a>.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic" start="3">
 <li>
-<p>De la sección anterior, deberás tener el un paquete en la carpeta test de nombre <code>org.ual.hmis.nombreEquipo</code> (sustituyendo <code>nombreEquipo</code> por el nombre de tu equipo), y ahí estarán  archivos <code>.java</code> exportados de Selenium IDE. Si has forkeado el proyecto de referencia, elimina los paquetes que contienen tests de ejemplo.</p>
+<p>De la sección anterior, deberás tener un paquete en la carpeta test de nombre <code>org.ual.hmis.nombreEquipo</code> (sustituyendo <code>nombreEquipo</code> por el nombre de tu equipo), y ahí estarán  archivos <code>.java</code> exportados de Selenium IDE. Si has forkeado el proyecto de referencia, elimina los paquetes que contienen tests de ejemplo.</p>
 </li>
 <li>
 <p>A continuación se indican unas mínimas modificaciones que hay que realizar a cada archivo fuente <code>.java</code> exportado de Selenium IDE:</p>
@@ -776,12 +884,12 @@ Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">  @Before
-  public void setUp() throws Exception {
-    System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe"); <i class="conum" data-value="1"></i><b>(1)</b>
-    System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe"); <i class="conum" data-value="2"></i><b>(2)</b>
-    ...
-  }</code></pre>
+<pre class="rouge highlight"><code data-lang="java">  <span class="nd">@Before</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"webdriver.gecko.driver"</span><span class="o">,</span> <span class="s">"drivers/geckodriver.exe"</span><span class="o">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="nc">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"webdriver.chrome.driver"</span><span class="o">,</span> <span class="s">"drivers/chromedriver.exe"</span><span class="o">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="o">...</span>
+  <span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -799,7 +907,7 @@ Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</
 <div class="olist arabic">
 <ol class="arabic" start="5">
 <li>
-<p>Ejecuta los tests como JUnit Test. Verás que automáticamente se abre Firefox y ejecuta los test.</p>
+<p>Ejecuta los tests como JUnit Test. Verás que automáticamente se abre Firefox y ejecuta los test. Si los tests fallan, revisa el código de los mismos y aplica las recomendaciones de la sección "Corrigiendo errores habituales" de este documento.</p>
 </li>
 <li>
 <p>A continuación vamos a probar en otro navegador, haciendo así lo que se denomina <a href="https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Introduction"><em>cross-browser testing</a></em>. En los archivos <code>.java</code> cambia el driver a Chrome:</p>
@@ -808,13 +916,13 @@ Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">  @Before
-  public void setUp() throws Exception {
-    ...
-    // driver = new FirefoxDriver();
-    driver = new ChromeDriver();
-    ...
-  }</code></pre>
+<pre class="rouge highlight"><code data-lang="java">  <span class="nd">@Before</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="c1">// driver = new FirefoxDriver();</span>
+    <span class="n">driver</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ChromeDriver</span><span class="o">();</span>
+    <span class="o">...</span>
+  <span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="olist arabic">
@@ -829,44 +937,44 @@ Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">  @Before
-  public void setUp() {
-    // Browser selector
-    int browser= 0; // 0: firefox, 1: chrome,...
-    Boolean headless = false;
+<pre class="rouge highlight"><code data-lang="java">  <span class="nd">@Before</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// Browser selector</span>
+    <span class="kt">int</span> <span class="n">browser</span><span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="c1">// 0: firefox, 1: chrome,...</span>
+    <span class="nc">Boolean</span> <span class="n">headless</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
 
-    switch (browser) {
-    case 0:  // firefox
-    	// Firefox
-    	// Descargar geckodriver de https://github.com/mozilla/geckodriver/releases
-    	// Descomprimir el archivo geckodriver.exe en la carpeta drivers
+    <span class="k">switch</span> <span class="o">(</span><span class="n">browser</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>  <span class="c1">// firefox</span>
+    	<span class="c1">// Firefox</span>
+    	<span class="c1">// Descargar geckodriver de https://github.com/mozilla/geckodriver/releases</span>
+    	<span class="c1">// Descomprimir el archivo geckodriver.exe en la carpeta drivers</span>
 
-    	System.setProperty("webdriver.gecko.driver",  "drivers/geckodriver.exe");
-    	FirefoxOptions firefoxOptions = new FirefoxOptions();
-    	if (headless) firefoxOptions.addArguments("--headless"); // .setHeadless(headless);
-    	driver = new FirefoxDriver(firefoxOptions);
+    	<span class="nc">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"webdriver.gecko.driver"</span><span class="o">,</span>  <span class="s">"drivers/geckodriver.exe"</span><span class="o">);</span>
+    	<span class="nc">FirefoxOptions</span> <span class="n">firefoxOptions</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FirefoxOptions</span><span class="o">();</span>
+    	<span class="k">if</span> <span class="o">(</span><span class="n">headless</span><span class="o">)</span> <span class="n">firefoxOptions</span><span class="o">.</span><span class="na">addArguments</span><span class="o">(</span><span class="s">"--headless"</span><span class="o">);</span> <span class="c1">// .setHeadless(headless);</span>
+    	<span class="n">driver</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FirefoxDriver</span><span class="o">(</span><span class="n">firefoxOptions</span><span class="o">);</span>
 
-    	break;
-    case 1: // chrome
-    	// Chrome
-    	// Descargar Chromedriver de https://chromedriver.chromium.org/downloads
-    	// Descomprimir el archivo chromedriver.exe en la carpeta drivers
+    	<span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="c1">// chrome</span>
+    	<span class="c1">// Chrome</span>
+    	<span class="c1">// Descargar Chromedriver de https://chromedriver.chromium.org/downloads</span>
+    	<span class="c1">// Descomprimir el archivo chromedriver.exe en la carpeta drivers</span>
 
-    	System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
-    	ChromeOptions chromeOptions = new ChromeOptions();
-    	if (headless) chromeOptionschromeOptions.addArguments("--headless=new"); // .setHeadless(headless);
-    	chromeOptions.addArguments("window-size=1920,1080");
-    	driver = new ChromeDriver(chromeOptions);
+    	<span class="nc">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"webdriver.chrome.driver"</span><span class="o">,</span> <span class="s">"drivers/chromedriver.exe"</span><span class="o">);</span>
+    	<span class="nc">ChromeOptions</span> <span class="n">chromeOptions</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ChromeOptions</span><span class="o">();</span>
+    	<span class="k">if</span> <span class="o">(</span><span class="n">headless</span><span class="o">)</span> <span class="n">chromeOptionschromeOptions</span><span class="o">.</span><span class="na">addArguments</span><span class="o">(</span><span class="s">"--headless=new"</span><span class="o">);</span> <span class="c1">// .setHeadless(headless);</span>
+    	<span class="n">chromeOptions</span><span class="o">.</span><span class="na">addArguments</span><span class="o">(</span><span class="s">"window-size=1920,1080"</span><span class="o">);</span>
+    	<span class="n">driver</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ChromeDriver</span><span class="o">(</span><span class="n">chromeOptions</span><span class="o">);</span>
 
-    	break;
+    	<span class="k">break</span><span class="o">;</span>
 
-    default:
-    	fail("Please select a browser");
-    	break;
-    }
-    js = (JavascriptExecutor) driver;
-    vars = new HashMap&lt;String, Object&gt;();
-  }</code></pre>
+    <span class="k">default</span><span class="o">:</span>
+    	<span class="n">fail</span><span class="o">(</span><span class="s">"Please select a browser"</span><span class="o">);</span>
+    	<span class="k">break</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="n">js</span> <span class="o">=</span> <span class="o">(</span><span class="nc">JavascriptExecutor</span><span class="o">)</span> <span class="n">driver</span><span class="o">;</span>
+    <span class="n">vars</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;();</span>
+  <span class="o">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -925,11 +1033,11 @@ Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</
 <div class="listingblock">
 <div class="title">Añade una espera de tiempo fijo de 1 segundo (1000 mls)</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">	    try {
-	        Thread.sleep(1000);
-	      } catch (InterruptedException e) {
-	        e.printStackTrace();
-	      }</code></pre>
+<pre class="rouge highlight"><code data-lang="java">	    <span class="k">try</span> <span class="o">{</span>
+	        <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+	      <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+	        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+	      <span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -957,11 +1065,11 @@ En Selenium IDE existe el comando <a href="https://www.selenium.dev/selenium-ide
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">// 9 | waitForElementVisible | xpath="//h2[contains(.,\'Ingeniería y Arquitectura\')]" | 30000
-{
-  WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-  wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(.,\'Ingeniería y Arquitectura\')]")));
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="c1">// 9 | waitForElementVisible | xpath="//h2[contains(.,\'Ingeniería y Arquitectura\')]" | 30000</span>
+<span class="o">{</span>
+  <span class="nc">WebDriverWait</span> <span class="n">wait</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">WebDriverWait</span><span class="o">(</span><span class="n">driver</span><span class="o">,</span> <span class="nc">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="mi">30</span><span class="o">));</span>
+  <span class="n">wait</span><span class="o">.</span><span class="na">until</span><span class="o">(</span><span class="nc">ExpectedConditions</span><span class="o">.</span><span class="na">visibilityOfElementLocated</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">xpath</span><span class="o">(</span><span class="s">"//h2[contains(.,\'Ingeniería y Arquitectura\')]"</span><span class="o">)));</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -969,11 +1077,11 @@ En Selenium IDE existe el comando <a href="https://www.selenium.dev/selenium-ide
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">// 9 | waitForElementVisible | xpath="//h2[contains(.,\'Ingeniería y Arquitectura\')]" | 30000
-{
-  WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-  wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h2[contains(.,\'Ingeniería y Arquitectura\')]")));
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="c1">// 9 | waitForElementVisible | xpath="//h2[contains(.,\'Ingeniería y Arquitectura\')]" | 30000</span>
+<span class="o">{</span>
+  <span class="nc">WebDriverWait</span> <span class="n">wait</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">WebDriverWait</span><span class="o">(</span><span class="n">driver</span><span class="o">,</span> <span class="nc">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="mi">30</span><span class="o">));</span>
+  <span class="n">wait</span><span class="o">.</span><span class="na">until</span><span class="o">(</span><span class="nc">ExpectedConditions</span><span class="o">.</span><span class="na">elementToBeClickable</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">xpath</span><span class="o">(</span><span class="s">"//h2[contains(.,\'Ingeniería y Arquitectura\')]"</span><span class="o">)));</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1033,14 +1141,14 @@ En Selenium IDE existe el comando <a href="https://www.selenium.dev/selenium-ide
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">  @Before
-  public void setUp() throws Exception {
-    ...
-    FirefoxOptions firefoxOptions = new FirefoxOptions(); <i class="conum" data-value="1"></i><b>(1)</b>
-    firefoxOptions.setHeadless(true); <i class="conum" data-value="2"></i><b>(2)</b>
-    driver = new FirefoxDriver(firefoxOptions);
-    ...
-  }</code></pre>
+<pre class="rouge highlight"><code data-lang="java">  <span class="nd">@Before</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="nc">FirefoxOptions</span> <span class="n">firefoxOptions</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FirefoxOptions</span><span class="o">();</span> <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="n">firefoxOptions</span><span class="o">.</span><span class="na">setHeadless</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="n">driver</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FirefoxDriver</span><span class="o">(</span><span class="n">firefoxOptions</span><span class="o">);</span>
+    <span class="o">...</span>
+  <span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1091,14 +1199,14 @@ En Selenium IDE existe el comando <a href="https://www.selenium.dev/selenium-ide
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">  @Before
-  public void setUp() throws Exception {
-    ...
-    ChromeOptions chromeOptions = new ChromeOptions(); <i class="conum" data-value="1"></i><b>(1)</b>
-    chromeOptions.setHeadless(true); <i class="conum" data-value="2"></i><b>(2)</b>
-    driver = new ChromeDriver(chromeOptions);
-    ...
-  }</code></pre>
+<pre class="rouge highlight"><code data-lang="java">  <span class="nd">@Before</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="nc">ChromeOptions</span> <span class="n">chromeOptions</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ChromeOptions</span><span class="o">();</span> <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="n">chromeOptions</span><span class="o">.</span><span class="na">setHeadless</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="n">driver</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ChromeDriver</span><span class="o">(</span><span class="n">chromeOptions</span><span class="o">);</span>
+    <span class="o">...</span>
+  <span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1135,11 +1243,11 @@ En Selenium IDE existe el comando <a href="https://www.selenium.dev/selenium-ide
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
-    &lt;groupId&gt;org.seleniumhq.selenium&lt;/groupId&gt;
-    &lt;artifactId&gt;htmlunit-driver&lt;/artifactId&gt;
-    &lt;version&gt;3.61.0&lt;/version&gt;
-&lt;/dependency&gt;</code></pre>
+<pre class="rouge highlight"><code data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.seleniumhq.selenium<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>htmlunit-driver<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>3.61.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1150,16 +1258,16 @@ En Selenium IDE existe el comando <a href="https://www.selenium.dev/selenium-ide
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import com.gargoylesoftware.htmlunit.BrowserVersion;
+<pre class="rouge highlight"><code data-lang="java"><span class="kn">import</span> <span class="nn">org.openqa.selenium.htmlunit.HtmlUnitDriver</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.gargoylesoftware.htmlunit.BrowserVersion</span><span class="o">;</span>
 
-  @Before
-  public void setUp() throws Exception {
-    ...
-    // simple case - javascript support enabled
-    WebDriver driver = new HtmlUnitDriver(BrowserVersion.FIREFOX, true);
-    ...
-  }</code></pre>
+  <span class="nd">@Before</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="c1">// simple case - javascript support enabled</span>
+    <span class="nc">WebDriver</span> <span class="n">driver</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HtmlUnitDriver</span><span class="o">(</span><span class="nc">BrowserVersion</span><span class="o">.</span><span class="na">FIREFOX</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+    <span class="o">...</span>
+  <span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1207,7 +1315,7 @@ Cuando un test de Selenium trata de actualizar el valor de un campo de texto que
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">  driver.findElement(By.Id("email-address")).sendKeys("ualkk000@ual.es");</code></pre>
+<pre class="rouge highlight"><code data-lang="java">  <span class="n">driver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">Id</span><span class="o">(</span><span class="s">"email-address"</span><span class="o">)).</span><span class="na">sendKeys</span><span class="o">(</span><span class="s">"ualkk000@ual.es"</span><span class="o">);</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1216,8 +1324,8 @@ Para solucionar este problema simplemente hay que llamar al método <code>clear(
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">  driver.findElement(By.Id("email-address")).clear(); <i class="conum" data-value="1"></i><b>(1)</b>
-  driver.findElement(By.Id("email-address")).sendKeys("ualkk000@ual.es");</code></pre>
+<pre class="rouge highlight"><code data-lang="java">  <span class="n">driver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">Id</span><span class="o">(</span><span class="s">"email-address"</span><span class="o">)).</span><span class="na">clear</span><span class="o">();</span> <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="n">driver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">Id</span><span class="o">(</span><span class="s">"email-address"</span><span class="o">)).</span><span class="na">sendKeys</span><span class="o">(</span><span class="s">"ualkk000@ual.es"</span><span class="o">);</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1236,10 +1344,10 @@ Para solucionar este problema simplemente hay que llamar al método <code>clear(
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">driver.findElement(By.Id("email-address")).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+<pre class="rouge highlight"><code data-lang="java"><span class="n">driver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">Id</span><span class="o">(</span><span class="s">"email-address"</span><span class="o">)).</span><span class="na">sendKeys</span><span class="o">(</span><span class="nc">Keys</span><span class="o">.</span><span class="na">chord</span><span class="o">(</span><span class="nc">Keys</span><span class="o">.</span><span class="na">CONTROL</span><span class="o">,</span><span class="s">"a"</span><span class="o">,</span> <span class="nc">Keys</span><span class="o">.</span><span class="na">DELETE</span><span class="o">));</span>
 
-driver.findElement(By.Id("email-address")).sendKeys(Keys.chord(Keys.CONTROL,"a"));
-driver.findElement(By.Id("email-address")).sendKeys(Keys.chord(Keys.DELETE));</code></pre>
+<span class="n">driver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">Id</span><span class="o">(</span><span class="s">"email-address"</span><span class="o">)).</span><span class="na">sendKeys</span><span class="o">(</span><span class="nc">Keys</span><span class="o">.</span><span class="na">chord</span><span class="o">(</span><span class="nc">Keys</span><span class="o">.</span><span class="na">CONTROL</span><span class="o">,</span><span class="s">"a"</span><span class="o">));</span>
+<span class="n">driver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">Id</span><span class="o">(</span><span class="s">"email-address"</span><span class="o">)).</span><span class="na">sendKeys</span><span class="o">(</span><span class="nc">Keys</span><span class="o">.</span><span class="na">chord</span><span class="o">(</span><span class="nc">Keys</span><span class="o">.</span><span class="na">DELETE</span><span class="o">));</span></code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -1285,7 +1393,6 @@ Cuando falla la ejecución de un test de Selenium WebDriver en modo headless, el
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-22 14:35:04 +0200
 </div>
 </div>
 <style>

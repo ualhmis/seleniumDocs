@@ -26,9 +26,6 @@ Codificación, idioma, tabla de contenidos, tipo de documento
 
 // :highlightjsdir: ./highlight
 
-:figure-caption: Fig.
-:imagesdir: images
-
 ////
 Nombre y título del trabajo
 ////
@@ -41,6 +38,10 @@ Joaquín Cañadas <jjcanada@ual.es>
 :numbered!: 
 :imagesdir: ../images
 :figure-caption: Figura
+
+
+// Eliminar el bloque final "last updated"
+:reproducible:      
 
 [abstract]
 ////
@@ -187,15 +188,15 @@ Es importante que los drivers específicos de los navegadores *no se guarden* en
 [start=2]
 . En esa carpeta descarga los drivers de los navegadores Firefox y Chrome. Para ello: 
 .. Descarga y descomprime Firefox driver (Gecko Driver) de https://github.com/mozilla/geckodriver/releases eligiendo la versión adecuada para tu sistema.
-.. Descarga y descomprime Chrome driver de https://sites.google.com/chromium.org/driver/downloads eligiendo la versión adecuada para tu sistema y la versión de Chrome que tengas instalado.
+.. Descarga y descomprime Chrome driver de https://googlechromelabs.github.io/chrome-for-testing/ eligiendo la versión adecuada para tu sistema y la versión de Chrome que tengas instalada. Por ejemplo, para Windows descarga el archivo `chromedriver-win64.zip` y descomprímelo en la carpeta `drivers` del proyecto en Eclipse.
 
 .Descarga chrome driver
 image::chrome-driver-125.png[role="thumb", align="center"]
 
-  .. Con estos dos drivers es suficiente como prueba de concepto, pero puedes ver como descargar los drivers de otros navegadores aquí: https://www.selenium.dev/documentation/en/webdriver/driver_requirements/#quick-reference[Driver requirements], y aquí https://www.selenium.dev/ecosystem/[Selenium Webdriver Ecosystem].
+Con estos dos drivers es suficiente como prueba de concepto, pero puedes ver como descargar los drivers de otros navegadores aquí: https://www.selenium.dev/documentation/webdriver/browsers/[Supported Browsers]; y aquí https://www.selenium.dev/ecosystem/[Selenium Webdriver Ecosystem].
 
 [start=3]
-. De la sección anterior, deberás tener el un paquete en la carpeta test de nombre `org.ual.hmis.nombreEquipo` (sustituyendo `nombreEquipo` por el nombre de tu equipo), y ahí estarán  archivos `.java` exportados de Selenium IDE. Si has forkeado el proyecto de referencia, elimina los paquetes que contienen tests de ejemplo.
+. De la sección anterior, deberás tener un paquete en la carpeta test de nombre `org.ual.hmis.nombreEquipo` (sustituyendo `nombreEquipo` por el nombre de tu equipo), y ahí estarán  archivos `.java` exportados de Selenium IDE. Si has forkeado el proyecto de referencia, elimina los paquetes que contienen tests de ejemplo.
 
 . A continuación se indican unas mínimas modificaciones que hay que realizar a cada archivo fuente `.java` exportado de Selenium IDE: 
 .. Añade el paquete a cada archivo `.java`
@@ -214,7 +215,7 @@ image::chrome-driver-125.png[role="thumb", align="center"]
 <2> Idem 
 
 [start=5]
-. Ejecuta los tests como JUnit Test. Verás que automáticamente se abre Firefox y ejecuta los test. 
+. Ejecuta los tests como JUnit Test. Verás que automáticamente se abre Firefox y ejecuta los test. Si los tests fallan, revisa el código de los mismos y aplica las recomendaciones de la sección "Corrigiendo errores habituales" de este documento.
 
 . A continuación vamos a probar en otro navegador, haciendo así lo que se denomina https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Introduction[_cross-browser testing]_. En los archivos `.java` cambia el driver a Chrome:
 
