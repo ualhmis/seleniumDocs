@@ -1,0 +1,96 @@
+////
+Codificación, idioma, tabla de contenidos, tipo de documento
+////
+:encoding: utf-8
+:lang: es
+:toc: right
+:toc-title: Tabla de contenidos
+:keywords: Selenium end-to-end testing
+
+:icons: font
+
+////
+///  Copy button on code blocks
+////
+[.doc]
+
+:docinfo: shared-footer
+
+////
+/// activar btn:
+////
+:experimental:
+
+:source-highlighter: rouge
+
+// Eliminar el bloque final "last updated" 
+:nofooter:
+
+////
+Nombre y título del trabajo
+////
+= Pruebas de syntax highlighting con Asciidoctor
+:math: asciimath
+:imagesoutdir: generated_images
+:imagesdir: images
+:stem: asciimath
+
+[source,ruby]
+----
+puts "Hello, World!"
+----
+
+
+[,java,subs=+quotes]
+----
+interface OrderRepository extends CrudRepository<Order,Long> {
+
+  *List<Order>* findByCategory(String category);
+
+  Order findById(long id);
+}
+----
+
+A matrix can be written as stem:[[[a,b\],[c,d\]\]((n),(k))].
+
+stem:[sqrt(4) = 2]
+
+Water (stem:[H_2O]) is a critical component.
+
+[stem]
+++++
+sqrt(4) = 2
+++++
+
+latexmath:[C = \alpha + \beta Y^{\gamma} + \epsilon]
+
+An e-xciting limit with LaTeX!
+[stem]
+++++
+\lim_{n \to \infty}\frac{n}{\sqrt[n]{n!}} = {\large e}
+++++
+
+WARNING: Wolpertingers are known to nest in server racks.
+Enter at your own risk.
+
+
+== Precompiled Math
+
+
+Sample example, courtesy of link:https://github.com/aledomu[@aledomu], with inspiration from link:https://github.com/philwinder[@philwinder].
+
+== Equations in normal blocks
+
+[stem]
+++++
+k_(n+1) = n^2 + k_n^2 - k_(n-1)
+++++
+
+Some useful text!
+
+Formula for quadratic root:
+
+[stem]
+++++
+x = (-b +- sqrt(b^2 - 4ac)) / (2a)
+++++

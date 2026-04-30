@@ -82,7 +82,7 @@ Al exportar, marca las dos opciones que permiten que se guarde como comentarios 
 
 === Creación del proyecto en Eclipse
 
-En el momento de escribir este documento, Selenium IDE exporta los tests en formato JUnit 4. Veamos a continuación los pasos necesarios para su ejecución.
+En el momento de escribir este documento, Selenium IDE exporta los tests en formato *JUnit 4*. Veamos a continuación los pasos necesarios para su ejecución.
 
 . En Eclipse, crea un nuevo proyecto *Maven*. Selecciona la opción _Create a simple project (skip archetype selection)_
 
@@ -188,6 +188,18 @@ Es importante que los drivers específicos de los navegadores *no se guarden* en
 [start=2]
 . En esa carpeta descarga los drivers de los navegadores Firefox y Chrome. Para ello: 
 .. Descarga y descomprime Firefox driver (Gecko Driver) de https://github.com/mozilla/geckodriver/releases eligiendo la versión adecuada para tu sistema.
+
+====
+Si estas en Windows, es importante que descargues la versión `geckodriver-vX.XX.X-win64.zip` y no la versión `geckodriver-vX.XX.X-win32.zip`, ya que esta última da problemas de ejecución.
+
+.Primero muestra todos los archivos
+image::geckodriver-64-donwload-1.png[role="thumb", align="center"]
+
+.Después selecciona la versión adecuada para tu sistema
+image::geckodriver-64-donwload-2.png[role="thumb", align="center"]
+====
+
+[start=2]
 .. Descarga y descomprime Chrome driver de https://googlechromelabs.github.io/chrome-for-testing/ eligiendo la versión adecuada para tu sistema y la versión de Chrome que tengas instalada. Por ejemplo, para Windows descarga el archivo `chromedriver-win64.zip` y descomprímelo en la carpeta `drivers` del proyecto en Eclipse.
 
 .Descarga chrome driver
