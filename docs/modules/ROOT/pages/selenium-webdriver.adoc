@@ -260,12 +260,14 @@ Con estos dos drivers es suficiente como prueba de concepto, pero puedes ver com
     case 0:  // firefox
     	// Firefox 
     	// Descargar geckodriver de https://github.com/mozilla/geckodriver/releases
+      // Asegurate de descargar la versión adecuada para tu sistema, por ejemplo `geckodriver-vX.XX.X-win64.zip` para Windows.
     	// Descomprimir el archivo geckodriver.exe en la carpeta drivers
 
     	System.setProperty("webdriver.gecko.driver",  "drivers/geckodriver.exe");
     	FirefoxOptions firefoxOptions = new FirefoxOptions();
     	if (headless) firefoxOptions.addArguments("--headless"); // .setHeadless(headless);
     	driver = new FirefoxDriver(firefoxOptions);
+      
 
     	break;
     case 1: // chrome
@@ -275,7 +277,7 @@ Con estos dos drivers es suficiente como prueba de concepto, pero puedes ver com
 
     	System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
     	ChromeOptions chromeOptions = new ChromeOptions();
-    	if (headless) chromeOptionschromeOptions.addArguments("--headless=new"); // .setHeadless(headless);
+    	if (headless) chromeOptions.addArguments("--headless=new"); // .setHeadless(headless);
     	chromeOptions.addArguments("window-size=1920,1080");
     	driver = new ChromeDriver(chromeOptions);
 
@@ -285,6 +287,7 @@ Con estos dos drivers es suficiente como prueba de concepto, pero puedes ver com
     	fail("Please select a browser");
     	break;
     }
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); // implicitlyWait 
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
   }
@@ -353,11 +356,11 @@ En caso de que siga sin funcionar, sustituye el método `visibilityOfElementLoca
 }
 ----
 
-Otro método de espera es la espera implícita, que aparece en la documentación de Selenium y en los ejemplos, sin embargo no dan el resultado esperado. Por ejemplo el método https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/WebDriver.Timeouts.html#implicitlyWait-long-java.util.concurrent.TimeUnit-[implicitlyWait]: 
+Otro método de espera es la espera implícita, que aparece en la documentación de Selenium y en los ejemplos. Por ejemplo el método https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/WebDriver.Timeouts.html#implicitlyWait-long-java.util.concurrent.TimeUnit-[implicitlyWait]: 
 
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
-Se supone que establece la cantidad de tiempo que el driver debería esperar cuando busca un elemento si este no está presente inmediatamente. Sin embargo, no funciona siempre como se espera si no se están usando las últimas versiones de las dependencias y de los navegadores, y los errores no se solucionan.
+Establece la cantidad de tiempo que el driver debería esperar cuando busca un elemento si este no está presente inmediatamente. Sin embargo, no funciona siempre como se espera si no se están usando las últimas versiones de las dependencias y de los navegadores, y los errores no se solucionan.
 
 Así que la forma más segura es *añadir manualmente esperas explícitas* en cada paso que requiera tiempo de carga de los contenidos. Puesto que añadir un `sleep()` está desaconsejado, la mejor opción entonces es añadir comandos `waitForElementVisible` y su equivalente en Webdriver `wait.until(ExpectedConditions.elementToBeClickable...)`.
 
