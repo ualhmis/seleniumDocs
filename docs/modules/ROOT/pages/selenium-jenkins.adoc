@@ -71,11 +71,11 @@ cd
 JENKINS_HOME=/var/lib/jenkins <1>
 echo $JENKINS_HOME
 sudo mkdir $JENKINS_HOME/selenium-drivers <2>
-wget https://github.com/mozilla/geckodriver/releases/download/v0.31.0/geckodriver-v0.31.0-linux64.tar.gz
+wget https://github.com/mozilla/geckodriver/releases/download/v0.36.0/geckodriver-v0.36.0-linux64.tar.gz
 sudo tar -C $JENKINS_HOME/selenium-drivers/ -xvf geckodriver*.tar.gz <3>
-wget https://chromedriver.storage.googleapis.com/102.0.5005.61/chromedriver_linux64.zip <4>
+wget https://storage.googleapis.com/chrome-for-testing-public/148.0.7778.97/linux64/chromedriver-linux64.zip <4>
 sudo apt-get install unzip -y 
-sudo unzip chromedriver_linux64.zip -d $JENKINS_HOME/selenium-drivers/ <5>
+sudo unzip chromedriver-linux64.zip -d $JENKINS_HOME/selenium-drivers/ <5>
 ls -la  $JENKINS_HOME/selenium-drivers/ <6>
 sudo chown jenkins:jenkins $JENKINS_HOME/selenium-drivers/ <7>
 sudo chown jenkins:jenkins $JENKINS_HOME/selenium-drivers/*
@@ -96,8 +96,38 @@ image::jenkins-installed-selenium-drivers.png[role="thumb", align="center"]
 
 [source%nowrap,bash,linenums]
 ----
-sudo apt-get install -y  xvfb firefox
+sudo apt-get install -y  xvfb
 ----
+
+[source%nowrap,bash,linenums]
+----
+cd /opt
+sudo wget -O firefox.tar.xz "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
+sudo tar -xf firefox.tar.xz
+sudo ln -s /opt/firefox/firefox /usr/local/bin/firefox
+----
+
+Comprueba la instalacion de firefox: 
+
+[source%nowrap,bash,linenums]
+----
+firefox --version
+sudo -u jenkins firefox --version
+----
+
+Bloquea Snap para Firefox:
+[source%nowrap,bash,linenums]4
+----
+sudo apt-mark hold firefox
+----
+
+Después de instalar, haz esta prueba:
+[source%nowrap,bash,linenums]
+----
+sudo -u jenkins firefox --headless --version
+----
+
+Debería funcionar sin errores, y mostarr la versión de Firefox instalada. Si no es así, revisa los pasos anteriores.
 
 === Creación del pipeline en Jenkins
 
@@ -114,7 +144,7 @@ El pipeline tendrá esta forma:
 pipeline {
     agent any
     environment {
-        DRIVERS_LOC = "$JENKINS_HOME/selenium-drivers/"
+        DRIVERS_LOC = "$JENKINS_HOME/selenium-drivers"
     }
     tools {
         // Usa aquí el nombre de tu instalación de Maven en Jenkins Tools
