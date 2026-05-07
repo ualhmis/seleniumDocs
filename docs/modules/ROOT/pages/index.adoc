@@ -17,7 +17,7 @@ _Version_ *{page-component-display-version}*
 
 . link:{sectionPath}/selenium-ide-intro.html[Introduccion a Selenium]
 
-. link:{sectionPath}/selenium-ide-ejercicios-crud.html[Ejercicios Parte 1 - Proyecto Aplicación Web con base de datos]
+. link:{sectionPath}/selenium-ide-ejercicios-crud.html[Ejercicios Parte 1 - Proyecto Aplicación Web con base de datos]  (Aplicar en el Proyecto de la Asignatura HMIS)
 
 [start=3]
 :section: ROOT
