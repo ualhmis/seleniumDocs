@@ -554,7 +554,7 @@ pre.rouge .gs {
 }
 </style>
 </head>
-<body class="book toc2 toc-right">
+<body class="book toc2 toc-right doc">
 <div id="header">
 <h1>Actividad. Pruebas de aceptación con Selenium</h1>
 <div id="toc" class="toc2">
@@ -562,8 +562,10 @@ pre.rouge .gs {
 <ul class="sectlevel1">
 <li><a href="#_selenium_webdriver_y_jenkins">1. Selenium WebDriver y Jenkins</a>
 <ul class="sectlevel2">
-<li><a href="#_configuración">1.1. Configuración</a></li>
+<li><a href="#_configuración_firefox">1.1. Configuración Firefox</a></li>
 <li><a href="#_creación_del_pipeline_en_jenkins">1.2. Creación del pipeline en Jenkins</a></li>
+<li><a href="#_configuración_chrome">1.3. Configuración Chrome</a></li>
+<li><a href="#_pipeline_con_navegadores_en_paralelo">1.4. Pipeline con navegadores en paralelo</a></li>
 </ul>
 </li>
 <li><a href="#_más_info">2. Más info</a></li>
@@ -575,7 +577,7 @@ pre.rouge .gs {
 <div class="sectionbody">
 <div class="paragraph">
 <p>Herramientas y Métodos en Ingeniería del Software
-Version.2022.
+Version.2026.
 Joaquín Cañadas &lt;<a href="mailto:jjcanada@ual.es">jjcanada@ual.es</a>&gt;</p>
 </div>
 <div class="quoteblock abstract">
@@ -611,7 +613,7 @@ Tests de Selenium JUnit WebDriver en Jenkins.
 <p>La ejecución de los tests de Selenium en Jenkins debe hacerse en modo <em>headless</em> ya que la máquina Jenkins no tiene instalada una interfaz gráfica, más comúnmente conocida como X o X11 en Linux. A pesar de ello, podremos hacerlo instalando un entorno de visualización simulado (<code>xvfb</code>). Veamos los pasos necesarios. Lo primero es descargar los drivers de los navegadores en la máquina de Jenkins.</p>
 </div>
 <div class="sect2">
-<h3 id="_configuración">1.1. Configuración</h3>
+<h3 id="_configuración_firefox">1.1. Configuración Firefox</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -621,29 +623,23 @@ Tests de Selenium JUnit WebDriver en Jenkins.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight nowrap"><code data-lang="bash"><table class="linenotable"><tbody><tr><td class="linenos gl"><pre class="lineno"> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
+<pre class="rouge highlight nowrap"><code data-lang="bash"><table class="linenotable"><tbody><tr><td class="linenos gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
 </pre></td><td class="code"><pre><span class="nb">cd
 </span><span class="nv">JENKINS_HOME</span><span class="o">=</span>/var/lib/jenkins <i class="conum" data-value="1"></i><b>(1)</b>
 <span class="nb">echo</span> <span class="nv">$JENKINS_HOME</span>
 <span class="nb">sudo mkdir</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers <i class="conum" data-value="2"></i><b>(2)</b>
 wget https://github.com/mozilla/geckodriver/releases/download/v0.36.0/geckodriver-v0.36.0-linux64.tar.gz
 <span class="nb">sudo tar</span> <span class="nt">-C</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <span class="nt">-xvf</span> geckodriver<span class="k">*</span>.tar.gz <i class="conum" data-value="3"></i><b>(3)</b>
-wget https://storage.googleapis.com/chrome-for-testing-public/148.0.7778.97/linux64/chromedriver-linux64.zip <i class="conum" data-value="4"></i><b>(4)</b>
-<span class="nb">sudo </span>apt-get <span class="nb">install </span>unzip <span class="nt">-y</span>
-<span class="nb">sudo </span>unzip chromedriver-linux64.zip <span class="nt">-d</span> <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <i class="conum" data-value="5"></i><b>(5)</b>
-<span class="nb">ls</span> <span class="nt">-la</span>  <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <i class="conum" data-value="6"></i><b>(6)</b>
-<span class="nb">sudo chown </span>jenkins:jenkins <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <i class="conum" data-value="7"></i><b>(7)</b>
+<span class="nb">ls</span> <span class="nt">-la</span>  <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <i class="conum" data-value="4"></i><b>(4)</b>
+<span class="nb">sudo chown </span>jenkins:jenkins <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <i class="conum" data-value="5"></i><b>(5)</b>
 <span class="nb">sudo chown </span>jenkins:jenkins <span class="nv">$JENKINS_HOME</span>/selenium-drivers/<span class="k">*</span>
 </pre></td></tr></tbody></table></code></pre>
 </div>
@@ -664,18 +660,10 @@ wget https://storage.googleapis.com/chrome-for-testing-public/148.0.7778.97/linu
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Con <code>wget</code> descarga <code>chromedriver</code> para linux en la carpeta home, pero antes revisa la <a href="https://www.ubuntuupdates.org/package/google_chrome/stable/main/base/google-chrome-stable">última versión estable</a> de Chrome para Ubuntu y usa la <a href="https://chromedriver.chromium.org/downloads">URL de descarga</a> de <code>chromedriver_linux64.zip</code> adecuada para la versión estable de Chrome</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>Con <code>unzip</code> descomprime en la carpeta deseada. Además has tenido que instalar <code>unzip</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
 <td>Lista los archivos en la carpeta <code>selenium-drivers</code>. Comprueba que los permisos no son adecuados para que Jenkins pueda lanzar los ejecutables de los drivers.</td>
 </tr>
 <tr>
-<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
 <td>Asigna el grupo <code>jenkins:jenkins</code> a la carpeta y los archivos. Como resultado los archivos deben tener los permisos correctos</td>
 </tr>
 </table>
@@ -695,22 +683,32 @@ wget https://storage.googleapis.com/chrome-for-testing-public/148.0.7778.97/linu
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight nowrap"><code data-lang="bash"><table class="linenotable"><tbody><tr><td class="linenos gl"><pre class="lineno">1
-</pre></td><td class="code"><pre><span class="nb">sudo </span>apt-get <span class="nb">install</span> <span class="nt">-y</span>  xvfb
-</pre></td></tr></tbody></table></code></pre>
+<pre class="rouge highlight nowrap"><code data-lang="bash"><span class="nb">sudo </span>apt-get <span class="nb">install</span> <span class="nt">-y</span>  xvfb</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Realiza la instalación de Firefox descargando la última versión desde la página oficial de Mozilla.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>No utilices el gestor de paquetes <code>apt</code> para instalar Firefox, ya que en algunas versiones de Ubuntu, la versión de Firefox que se instala es la versión de Snap, y esta no es compatible con Jenkins.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight nowrap"><code data-lang="bash"><table class="linenotable"><tbody><tr><td class="linenos gl"><pre class="lineno">1
-2
-3
-4
-</pre></td><td class="code"><pre><span class="nb">cd</span> /opt
+<pre class="rouge highlight nowrap"><code data-lang="bash"><span class="nb">cd</span> /opt
 <span class="nb">sudo </span>wget <span class="nt">-O</span> firefox.tar.xz <span class="s2">"https://download.mozilla.org/?product=firefox-latest&amp;os=linux64&amp;lang=en-US"</span>
 <span class="nb">sudo tar</span> <span class="nt">-xf</span> firefox.tar.xz
-<span class="nb">sudo ln</span> <span class="nt">-s</span> /opt/firefox/firefox /usr/local/bin/firefox
-</pre></td></tr></tbody></table></code></pre>
+<span class="nb">sudo ln</span> <span class="nt">-s</span> /opt/firefox/firefox /usr/local/bin/firefox</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -718,20 +716,16 @@ wget https://storage.googleapis.com/chrome-for-testing-public/148.0.7778.97/linu
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight nowrap"><code data-lang="bash"><table class="linenotable"><tbody><tr><td class="linenos gl"><pre class="lineno">1
-2
-</pre></td><td class="code"><pre>firefox <span class="nt">--version</span>
-<span class="nb">sudo</span> <span class="nt">-u</span> jenkins firefox <span class="nt">--version</span>
-</pre></td></tr></tbody></table></code></pre>
+<pre class="rouge highlight nowrap"><code data-lang="bash">firefox <span class="nt">--version</span>
+<span class="nb">sudo</span> <span class="nt">-u</span> jenkins firefox <span class="nt">--version</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Bloquea Snap para Firefox:
-[source%nowrap,bash,linenums]4</p>
+<p>Bloquea Snap para Firefox:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>sudo apt-mark hold firefox</pre>
+<pre class="rouge highlight nowrap"><code data-lang="bash"><span class="nb">sudo </span>apt-mark hold firefox</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -739,13 +733,11 @@ wget https://storage.googleapis.com/chrome-for-testing-public/148.0.7778.97/linu
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight nowrap"><code data-lang="bash"><table class="linenotable"><tbody><tr><td class="linenos gl"><pre class="lineno">1
-</pre></td><td class="code"><pre><span class="nb">sudo</span> <span class="nt">-u</span> jenkins firefox <span class="nt">--headless</span> <span class="nt">--version</span>
-</pre></td></tr></tbody></table></code></pre>
+<pre class="rouge highlight nowrap"><code data-lang="bash"><span class="nb">sudo</span> <span class="nt">-u</span> jenkins firefox <span class="nt">--headless</span> <span class="nt">--version</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Debería funcionar sin errores, y mostarr la versión de Firefox instalada. Si no es así, revisa los pasos anteriores.</p>
+<p>Debería funcionar sin errores, y mostrar la versión de Firefox instalada. Si no es así, revisa los pasos anteriores.</p>
 </div>
 </div>
 <div class="sect2">
@@ -781,7 +773,7 @@ wget https://storage.googleapis.com/chrome-for-testing-public/148.0.7778.97/linu
         <span class="n">stage</span><span class="o">(</span><span class="s1">'Git clone'</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">steps</span><span class="o">{</span>
                 <span class="c1">// Update the URL to your repo</span>
-                <span class="n">git</span> <span class="s1">'https://github.com/tu-usuario/tu-repo-selenium.git'</span>
+                <span class="n">git</span> <span class="nl">branch:</span> <span class="s1">'main'</span><span class="o">,</span> <span class="nl">url:</span> <span class="s1">'https://github.com/tu-usuario/tu-repo-selenium.git'</span>
             <span class="o">}</span>
         <span class="o">}</span>
         <span class="n">stage</span><span class="o">(</span><span class="s1">'Firefox tests'</span><span class="o">)</span> <span class="o">{</span>
@@ -848,12 +840,92 @@ wget https://storage.googleapis.com/chrome-for-testing-public/148.0.7778.97/linu
 </div>
 <div class="title">Fig. 2. Pipeline con la fase Firefox Test</div>
 </div>
-<div class="sect4">
-<h5 id="_a_partir_de_aquí_es_optativo">A partir de aquí es optativo</h5>
+</div>
+<div class="sect2">
+<h3 id="_configuración_chrome">1.3. Configuración Chrome</h3>
+<div class="paragraph">
+<p>Para probar la ejecución con Chrome, debes instalar Chrome en la máquina Jenkins.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Descargar el paquete oficial de Google Chrome para Linux:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="bash">wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Instalar el paquete</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sudo apt install -y ./google-chrome-stable_current_amd64.deb</pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>Verificar instalación, también desde el usuario <code>jenkins</code>:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>google-chrome --version
+sudo -u jenkins google-chrome --version</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Comprueba la versión del Chrome instalado, porque a continuación tienes que descargar el <code>chromedriver</code> adecuado para esa versión de Chrome.</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic" start="4">
 <li>
-<p>Para probar la ejecución con Chrome, debes instalar Chrome en la máquina Jenkins. Para ello sigue los pasos: <a href="https://ubunlog.com/google-chrome-ubuntu-1804/#Instalar_Google_Chrome_en_Ubuntu_1804_LTS_desde_la_linea_de_comandos">Instalar Google Chrome en Ubuntu 18.04 LTS desde la línea de comandos</a> (No instales al versión beta, tampoco podrás ejecutarlo, simplemente instalarlo). Después, crea una nueva fase donde llames a los tests con el driver de Chrome. Tendrás que modificar el driver en el código, y llamar a maven con el siguiente parámetro para Chrome Driver:</p>
+<p>Descargar el chrome driver para linux, y configurar la ejecución de los tests con Chrome en modo <em>headless</em></p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="bash"><table class="linenotable"><tbody><tr><td class="linenos gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre>wget https://storage.googleapis.com/chrome-for-testing-public/147.0.7727.137/linux64/chromedriver-linux64.zip <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>unzip <span class="nt">-y</span>
+<span class="nb">sudo </span>unzip chromedriver-linux64.zip
+<span class="nb">sudo cp </span>chromedriver-linux64/chromedriver <span class="nv">$JENKINS_HOME</span>/selenium-drivers/ <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="nb">sudo chown </span>jenkins:jenkins <span class="nv">$JENKINS_HOME</span>/selenium-drivers/
+<span class="nb">sudo chown </span>jenkins:jenkins <span class="nv">$JENKINS_HOME</span>/selenium-drivers/<span class="k">*</span>
+</pre></td></tr></tbody></table></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Con <code>wget</code> descarga <code>chromedriver</code> para linux en la carpeta home. En este caso se ha descargado la versión 147.0.7727.137, porque es la version de Chrome instalada en el paso anterior. <strong>IMPORTANTE</strong>: revisa la <a href="https://www.ubuntuupdates.org/package/google_chrome/stable/main/base/google-chrome-stable">última versión estable</a> de Chrome para Ubuntu y usa la <a href="https://googlechromelabs.github.io/chrome-for-testing/">URL de descarga</a> de <code>chromedriver_linux64.zip</code> adecuada para la versión estable de Chrome</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Con <code>unzip</code> descomprime en la carpeta deseada. Además has tenido que instalar <code>unzip</code>.</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="5">
+<li>
+<p>Después, crea una nueva fase donde llames a los tests con el driver de Chrome. Tendrás que modificar el driver en el código, y llamar a maven con el siguiente parámetro para Chrome Driver:</p>
 <div class="literalblock">
 <div class="content">
 <pre>mvn test -Dwebdriver.chrome.driver=${DRIVERS_LOC}/chromedriver</pre>
@@ -876,6 +948,9 @@ Sin embargo, el diseño de clases JUnit y uso de los distintos drivers tiene var
 </li>
 </ol>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_pipeline_con_navegadores_en_paralelo">1.4. Pipeline con navegadores en paralelo</h3>
 <div class="paragraph">
 <p>Lo ideal es poder diseñar el pipeline para lanzar en paralelo la ejecución en estos dos, o cuantos  navegadores sean necesarios, tal y como se muestra en la siguiente imagen:</p>
 </div>
@@ -898,7 +973,7 @@ Sin embargo, el diseño de clases JUnit y uso de los distintos drivers tiene var
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Rediseña las clases JUnit con los test de Selenium para poder lanzar los tests bien con Firefox o bien con en Chrome, sin tener que modificar el código fuente, es decir, sin tener que cambiar el driver "a mano". Para ello revisa el ejemplo <a href="https://github.com/ualhmis/seleniumWebDriverJUnit/tree/junit5/seleniumHMIS21">seleniumHMIS21</a> en su rama master (JUnit 4), y en la rama junit5.</p>
+<p>Rediseña las clases JUnit con los test de Selenium para poder lanzar los tests bien con Firefox o bien con en Chrome, sin tener que modificar el código fuente, es decir, sin tener que cambiar el driver "a mano". Para ello revisa el ejemplo <a href="https://github.com/ualhmis/seleniumWebDriverJUnit/tree/junit5/seleniumHMIS21">seleniumHMIS21</a> en su rama <strong>master</strong> (JUnit 4), y en la rama <strong>junit5</strong>.</p>
 </li>
 <li>
 <p>Crea dos fases en el pipeline, una para Firefox y otra para Chrome, y configura el pipeline para que se ejecuten en paralelo, usando el bloque <a href="https://www.jenkins.io/blog/2017/09/25/declarative-1/"><code>parallel</code></a> (Más info: <a href="https://www.jenkins.io/doc/book/pipeline/syntax/#parallel">Jenkins Pipeline Syntax</a>)</p>
@@ -908,7 +983,6 @@ Sin embargo, el diseño de clases JUnit y uso de los distintos drivers tiene var
 </td>
 </tr>
 </table>
-</div>
 </div>
 </div>
 </div>
@@ -931,8 +1005,102 @@ Sin embargo, el diseño de clases JUnit y uso de los distintos drivers tiene var
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-30 14:19:05 +0200
+Last updated 2026-05-07 10:53:07 +0200
 </div>
 </div>
+<style>
+    .doc .listingblock > .content {
+      position: relative;
+    }
+
+    .doc .listingblock code[data-lang]::before {
+      content: none;
+    }
+
+    .doc .source-toolbox {
+      display: flex;
+      position: absolute;
+      visibility: hidden;
+      top: 0.25rem;
+      right: 0.5rem;
+      color: #808080;
+      white-space: nowrap;
+      font-size: 0.85em;
+    }
+
+    .doc .listingblock:hover .source-toolbox {
+      visibility: visible;
+    }
+
+    .doc .source-toolbox .source-lang {
+      font-family: "Droid Sans Mono", "DejaVu Sans Mono", monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.075em;
+    }
+
+    .doc .source-toolbox > :not(:last-child)::after {
+      content: "|";
+      letter-spacing: 0;
+      padding: 0 1ch;
+    }
+
+    .doc .source-toolbox .copy-button {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: none;
+      border: none;
+      color: inherit;
+      outline: none;
+      padding: 0;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      width: 1em;
+      height: 1em;
+    }
+
+    .doc .source-toolbox .copy-icon {
+      flex: none;
+      width: inherit;
+      height: inherit;
+      filter: invert(50.2%);
+      margin-top: 0.05em;
+    }
+
+    .doc .source-toolbox .copy-toast {
+      flex: none;
+      position: relative;
+      display: inline-flex;
+      justify-content: center;
+      margin-top: 1em;
+      border-radius: 0.25em;
+      padding: 0.5em;
+      cursor: auto;
+      opacity: 0;
+      transition: opacity 0.5s ease 0.75s;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+    }
+
+    .doc .source-toolbox .copy-toast::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 1em;
+      height: 1em;
+      border: 0.55em solid transparent;
+      border-left-color: rgba(0, 0, 0, 0.8);
+      transform: rotate(-90deg) translateX(50%) translateY(50%);
+      transform-origin: left;
+    }
+
+    .doc .source-toolbox .copy-button.clicked .copy-toast {
+      opacity: 1;
+      transition: none;
+    }
+    </style>
+    <script src="copy-to-clipboard.js"></script>
 </body>
 </html>
